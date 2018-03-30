@@ -1,2 +1,2 @@
 # Graduation-project
-storage system
+Thinking in storage system.
