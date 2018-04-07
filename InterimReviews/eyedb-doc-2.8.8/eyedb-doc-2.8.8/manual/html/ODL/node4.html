@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The eyedbodl tool</TITLE>
+<META NAME="description" CONTENT="The eyedbodl tool">
+<META NAME="keywords" CONTENT="ODL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ODL.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html154"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html150"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html144"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html152"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html155"
+  HREF="node5.html">Annexes</A>
+<B> Up:</B> <A NAME="tex2html151"
+  HREF="node2.html">The Object Definition Language</A>
+<B> Previous:</B> <A NAME="tex2html145"
+  HREF="node3.html">The Language Specifications</A>
+ &nbsp; <B>  <A NAME="tex2html153"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html156"
+  HREF="node4.html#SECTION00221000000000000000">Updating a schema</A>
+<LI><A NAME="tex2html157"
+  HREF="node4.html#SECTION00222000000000000000">Generates C++ code</A>
+<LI><A NAME="tex2html158"
+  HREF="node4.html#SECTION00223000000000000000">Generates Java code</A>
+<LI><A NAME="tex2html159"
+  HREF="node4.html#SECTION00224000000000000000">Generates ODL</A>
+<LI><A NAME="tex2html160"
+  HREF="node4.html#SECTION00225000000000000000">Display schema differences</A>
+<LI><A NAME="tex2html161"
+  HREF="node4.html#SECTION00226000000000000000">Checking the syntax of an ODL file</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00220000000000000000"></A> <A NAME="794"></A>
+<BR>
+The eyedbodl tool
+</H1>
+The eyedbodl tool can be used to:
+
+<UL>
+<LI>update a database from an ODL file:
+
+<UL>
+<LI>create a schema
+</LI>
+<LI>add methods, triggers, constraints, indexes to classes
+</LI>
+<LI>remove methods, triggers, constraints, indexes to classes
+</LI>
+<LI>add classes
+</LI>
+<LI>remove classes
+</LI>
+<LI>add attributes
+</LI>
+<LI>rename attributes
+</LI>
+<LI>remove attributes
+</LI>
+<LI>remove classes
+</LI>
+</UL>
+</LI>
+<LI>generate C++ stubs from an ODL file or a database containing
+a schema
+</LI>
+<LI>generate Java stubs from an ODL file or a database containing
+a schema
+</LI>
+<LI>generate ODL from a database containing a schema
+</LI>
+<LI>display the differences between an ODL file and a database
+schema
+</LI>
+<LI>check an ODL file syntax
+</LI>
+</UL>
+For instance, let <TT>schema.odl</TT> an ODL file and <TT>dbtest</TT>
+a database.
+
+<H2><A NAME="SECTION00221000000000000000"></A> <A NAME="800"></A>
+<BR>
+Updating a schema
+</H2>
+To update a database from an ODL file:
+<BR>
+<PRE>
+eyedbodl -u -d dbtest schema.odl
+</PRE>
+or:
+<BR>
+<PRE>
+eyedbodl --update --database=dbtest schema.odl
+</PRE>
+Important notes:
+
+<UL>
+<LI>All classes defined in the ODL file will be added to the
+existing schema in the database
+</LI>
+<LI>The classes in the database and not in the ODL file will not
+be removed from the database
+</LI>
+<LI>To remove a class from a database, one must use the
+<TT>-rmcls=</TT><SPAN  CLASS="textit">class</SPAN> option. Because of class dependancies,
+the removal of a class can fail because one needs to remove
+other classes, for instance collection classes of the class one want
+to remove.
+
+<BR>
+In this case, one must delete classes in the good order.
+</LI>
+<LI>To remove a entire schema from a database, on must use
+the <TT>-rmsch</TT> option
+</LI>
+<LI>The methods, triggers, constraint and indexes
+in the ODL file and not in the database will be added to the database
+</LI>
+<LI>The methods, triggers, constraint and indexes in the databae
+and not in the ODL file will <B>not</B> be removed from the database
+unless the <TT>-rmv-undex-attrcomp=yes</TT> option is given
+</LI>
+<LI>The common indexes (on same attributes) in the ODL file and in the
+database with a different implementation will not be updated unless
+the <TT>-update-index=yes</TT> is given
+</LI>
+<LI>A class <TT>C</TT> defined in the ODL and in the database with
+different attributes will have the following behavior:
+
+<UL>
+<LI>an attribute <TT>a</TT> in a class <TT>C</TT> of the ODL, not
+in the class <TT>C</TT> of the database will be automatically added to the
+class <TT>C</TT> in the database
+</LI>
+<LI>an attribute <TT>a</TT> in a class <TT>C</TT> in the database, not
+in the class <TT>C</TT> in ODL will be automatically <B>removed</B> from
+the class <TT>C</TT> in the database: <B>This operation is not undoable</B>
+</LI>
+<LI>an attribute <TT>a</TT> in a class <TT>C</TT> in the database and
+in the class <TT>C</TT> in ODL with different types will lead
+to an update failure
+</LI>
+</UL>
+</LI>
+</UL>
+<H2><A NAME="SECTION00222000000000000000"></A> <A NAME="806"></A>
+<BR>
+Generates C++ code
+</H2>
+To generate the C++ API from an ODL file:
+<BR>
+<PRE>
+eyedbodl --gencode=C++ schema.odl
+</PRE>
+To generate the C++ API from a database:
+<BR>
+<PRE>
+eyedbodl --gencode=C++ --package=schema -d dbtest
+</PRE>
+For a given <SPAN  CLASS="textit">package</SPAN>.odl ODL file, the generated files are as follows:
+
+<UL>
+<LI><SPAN  CLASS="textit">package</SPAN>.h, <SPAN  CLASS="textit">package</SPAN>.cc: the generated C++ API to be used in
+a client program
+</LI>
+<LI>template_<SPAN  CLASS="textit">package</SPAN>.cc: an example of a client program using the generated
+API
+</LI>
+<LI>Makefile.<SPAN  CLASS="textit">package</SPAN>: an example of Makefile to compile <SPAN  CLASS="textit">package</SPAN>.cc and
+template_<SPAN  CLASS="textit">package</SPAN>.cc: make -f Makefile.<SPAN  CLASS="textit">package</SPAN> will compile
+and link the generated API and template files
+</LI>
+<LI><SPAN  CLASS="textit">package</SPAN>stubsfe.cc, <SPAN  CLASS="textit">package</SPAN>stubsbe.cc: stubs for client and server methods
+</LI>
+<LI><SPAN  CLASS="textit">package</SPAN>mthfe-skel.cc, <SPAN  CLASS="textit">package</SPAN>mthbe-skel.cc: skeletons for
+client and server methods
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00223000000000000000"></A> <A NAME="810"></A>
+<BR>
+Generates Java code
+</H2>
+To generate the Java API from an ODL file:
+<BR>
+<PRE>
+eyedbodl --gencode=Java schema.odl
+</PRE>
+To generate the Java API from a database:
+<BR>
+<PRE>
+eyedbodl --gencode=Java --package=schema -d dbtest
+</PRE>
+For a given <SPAN  CLASS="textit">package</SPAN>.odl ODL file, 
+the <SPAN  CLASS="textit">package</SPAN> directory contains a Java file for each class
+defined in the ODL file plus a Java file for each collection template
+class used as an attribute in classes of the ODL file.
+
+<H2><A NAME="SECTION00224000000000000000"></A> <A NAME="812"></A>
+<BR>
+Generates ODL
+</H2>
+To generate the ODL from a database:
+<BR>
+<PRE>
+eyedbodl --gencode=ODL -d dbtest # generates on the standard ouput
+eyedbodl --gencode=ODL -d dbtest -o schema.odl
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00225000000000000000"></A> <A NAME="814"></A>
+<BR>
+Display schema differences
+</H2>
+To display the difference between a schema in an ODL file and a database
+schema:
+<BR>
+<PRE>
+eyedbodl --diff schema.odl -d dbtest
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00226000000000000000"></A> <A NAME="816"></A>
+<BR>
+Checking the syntax of an ODL file
+</H2>
+To check the syntax of an ODL file:
+<BR>
+<PRE>
+eyedbodl --checkfile schema.odl
+</PRE>
+
+<P>
+Beside these major options, eyedbodl has a lot of extra options as
+described when running eyedbodl with the -help option.
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html154"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html150"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html144"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html152"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html155"
+  HREF="node5.html">Annexes</A>
+<B> Up:</B> <A NAME="tex2html151"
+  HREF="node2.html">The Object Definition Language</A>
+<B> Previous:</B> <A NAME="tex2html145"
+  HREF="node3.html">The Language Specifications</A>
+ &nbsp; <B>  <A NAME="tex2html153"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

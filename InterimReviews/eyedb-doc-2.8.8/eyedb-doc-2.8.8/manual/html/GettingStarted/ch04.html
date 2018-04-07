@@ -1,0 +1,62 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 4. Using the C++ Binding</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="index.html" title="EyeDB Getting started"><link rel="prev" href="ch03s06.html" title="Updating the database schema"><link rel="next" href="ch04s02.html" title="A minimal client program"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 4. Using the C++ Binding</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s06.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch04s02.html">Next</a></td></tr></table><hr></div><div class="chapter" title="Chapter 4. Using the C++ Binding"><div class="titlepage"><div><div><h2 class="title"><a name="id299548"></a>Chapter 4. Using the C++ Binding</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="ch04.html#id301292">Generating the specific C++ binding</a></span></dt><dt><span class="section"><a href="ch04s02.html">A minimal client program</a></span></dt><dt><span class="section"><a href="ch04s03.html">Compiling and running the application</a></span></dt></dl></div><p>
+      We are now going to introduce the C++ binding through the same schema
+      and examples as previously.
+    </p><p>
+      There are two ways to use the C++ binding: 
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>using the generic C++ binding</p></li><li class="listitem"><p>using both the generic C++ binding and the specific <code class="classname">Person</code> C++ code generated from the ODL schema</p></li></ul></div><p>
+    </p><p>
+      We will only explain only the second way, as it is far more simple and pratical than the first one. For more information on the generic C++ binding, please refer to the C++ binding manual.
+    </p><p>
+      Writing a C++ program that can create, retrieve, modify and delete person instances that are stored in an EyeDB database involves the following steps:
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>generates the specific <code class="classname">Person</code> binding using the <span class="command"><strong>eyedbodl</strong></span> tool</p></li><li class="listitem"><p>write the C++ client program</p></li><li class="listitem"><p>compile the generated binding and the client program</p></li></ul></div><p>
+    </p><p>
+      This example is located in the <code class="filename">examples/GettingStarted</code> subdirectory.
+    </p><div class="section" title="Generating the specific C++ binding"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id301292"></a>Generating the specific C++ binding</h2></div></div></div><p>
+	To generate the specific C++ binding, run the <span class="command"><strong>eyedbodl</strong></span> tool as follow:
+	</p><div class="informalexample"><pre class="screen">
+	    % <strong class="userinput"><code>eyedbodl --gencode=C++ --package=person schema.odl</code></strong>
+	  </pre></div><p>
+      </p><p>
+	The <span class="command"><strong>--package</strong></span> option is mandatory: you may give any name you want, this name will be used as the prefix for generated files names. Without the <span class="command"><strong>--package</strong></span> option, the prefix used will be the name of the ODL file without its extension.
+      </p><p>
+	<span class="command"><strong>eyedbodl</strong></span> generates a few files, all prefixed by <span class="command"><strong>person</strong></span>, the most important being <code class="filename">person.h</code> and <code class="filename">person.cc</code>.
+      </p><p>
+	If you have a look to the file <code class="filename">person.h</code>, you will notice that the following classes have been generated:
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>the class <code class="classname">person</code></p></li><li class="listitem"><p>the class <code class="classname">personDatabase</code></p></li><li class="listitem"><p>the class <code class="classname">Root</code></p></li><li class="listitem"><p>the class <code class="classname">Address</code></p></li><li class="listitem"><p>the class <code class="classname">Person</code></p></li><li class="listitem"><p>the class <code class="classname">Employee</code></p></li></ul></div><p>
+      </p><p>
+	The first class, <code class="classname">person</code>, is the package class:
+	</p><div class="informalexample"><pre class="programlisting">  
+class person {
+ public:
+  static void init();
+  static void release();
+  static eyedb::Status updateSchema(eyedb::Database *db);
+  static eyedb::Status updateSchema(eyedb::Schema *m);
+};
+
+	  </pre></div><p>
+      </p><p>
+	It is used to perform package initialization and schema update. Before any use of the <code class="classname">person</code> package, you need to call <code class="function">person::init</code>.
+      </p><p>
+	The second class, <code class="classname">personDatabase</code> is used to open, close and
+	manipulate objects within a database containing the <code class="classname">person</code> schema.
+      </p><p>
+	The <code class="function">open</code> method has two purposes: the first one is to open the database, as the standard <code class="classname">eyedb::Database</code> will do; the second one is to check that the database schema is consistant with the generated runtime schema. Although it is possible to use the standard <code class="classname">Database</code> class to open a database containing the <code class="classname">person</code> schema, it is strongly recommended to use the <code class="classname">personDatabase</code> class.
+      </p><p>
+	The third class, <code class="classname">Root</code>, is the root class for all the generated classes. This class is useful to perform safe down-casting during object loading.
+      </p><p>
+	The three last classes, <code class="classname">Address</code>, <code class="classname">Person</code> and <code class="classname">Employee</code> are generated from the <code class="filename">person.odl</code> class specifications: for each attribute in the <code class="filename">person.odl</code>, a set of get and set methods is generated.
+      </p><p>
+	For instance, for the <code class="varname">firstname</code> attribute, the following methods are generated:
+	</p><div class="informalexample"><pre class="programlisting">
+eyedb::Status setFirstname(const std::string &amp;);
+std::string getFirstname(eyedb::Bool *isnull = 0, eyedb::Status * = 0) const;
+eyedb::Status setFirstname(unsigned int a0, char);
+char getFirstname(unsigned int a0, eyedb::Bool *isnull = 0, eyedb::Status * = 0)  const;
+
+	  </pre></div><p>
+      </p><p>
+	The two first methods manipulate the <code class="varname">firstname</code> attribute as a string while the two last ones manipulate each character within this string.
+      </p><p>
+	There are two <code class="function">set</code> methods and two <code class="function">get</code> methods.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s06.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch04s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Updating the database schema </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> A minimal client program</td></tr></table></div></body></html>

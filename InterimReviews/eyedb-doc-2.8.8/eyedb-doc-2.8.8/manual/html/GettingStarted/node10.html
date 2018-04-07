@@ -1,0 +1,463 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Using the C++ Binding</TITLE>
+<META NAME="description" CONTENT="Using the C++ Binding">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node9.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html175"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html171"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html165"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html173"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html176"
+  HREF="node11.html">Using the Java Binding</A>
+<B> Up:</B> <A NAME="tex2html172"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html166"
+  HREF="node9.html">Updating the database schema</A>
+ &nbsp; <B>  <A NAME="tex2html174"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html177"
+  HREF="node10.html#SECTION00281000000000000000">Generating the specific C++ binding</A>
+<LI><A NAME="tex2html178"
+  HREF="node10.html#SECTION00282000000000000000">A minimal client program</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00280000000000000000"></A> <A NAME="778"></A>
+<BR>
+Using the C++ Binding
+</H1>
+
+<P>
+We are going to introduce now the C++ binding through the same schema
+and examples as previously.
+<BR>
+<BR>
+There are two ways to use the C++ binding: 
+
+<OL>
+<LI>using the generic C++ binding
+</LI>
+<LI>using both the generic C++ binding and the specific <TT>Person</TT> C++ code generated from the ODL schema
+</LI>
+</OL>
+We will explain here only the second way, as it is far more simple and pratical than the first one. For more information on the generic C++ binding, please refer to the C++ binding manual.
+<BR>
+<BR>
+Writing a C++ program that can create, retrieve, modify and delete person instances that are stored in an E<SMALL>YE</SMALL>DB database involves the following steps:
+
+<OL>
+<LI>generates the specific <TT>Person</TT> binding using the <TT>eyedbodl</TT> tool
+</LI>
+<LI>write the C++ client program
+</LI>
+<LI>compile the generated binding and the client program
+</LI>
+</OL>
+This example is located in the <TT>examples/GettingStarted</TT> subdirectory.
+
+<P>
+
+<H2><A NAME="SECTION00281000000000000000"></A> <A NAME="781"></A>
+<BR>
+Generating the specific C++ binding
+</H2>
+
+<P>
+To generate the specific C++ binding, run the <TT>eyedbodl</TT> tool as follow:
+<PRE>
+% eyedbodl --gencode=C++ --package=person schema.odl
+</PRE>
+The <TT>-package</TT> option is mandatory: you may give any name you want, this name will 
+be used as the prefix for generated files names. Without the <TT>-package</TT>
+option, the prefix used will be the name of the ODL file without its
+extension.
+<BR>
+<BR><TT>eyedbodl</TT> generates a few files, all prefixed by <TT>person</TT>, the most important 
+being <TT>person.h</TT> and <TT>person.cc</TT>.
+<BR>
+<BR>
+If you have a look to the file <TT>person.h</TT>,
+you will notice that the following classes have been generated:
+
+<OL>
+<LI>the class <TT>person</TT>
+</LI>
+<LI>the class <TT>personDatabase</TT>
+</LI>
+<LI>the class <TT>Root</TT>
+</LI>
+<LI>the class <TT>Address</TT>
+</LI>
+<LI>the class <TT>Person</TT>
+</LI>
+<LI>the class <TT>Employee</TT>
+</LI>
+</OL>
+The first class, <TT>person</TT>, is the package class:
+<PRE>
+class person {
+ public:
+  static void init();
+  static void release();
+  static eyedb::Status updateSchema(eyedb::Database *db);
+  static eyedb::Status updateSchema(eyedb::Schema *m);
+};
+</PRE>
+it is used to perform package initialization and schema update.
+Before any use of the <TT>person</TT> package, you need to call
+<TT>person::init</TT>.
+<BR>
+<BR>
+The second class, <TT>personDatabase</TT> is used to open, close and
+manipulate objects within a database containing the <TT>person</TT> schema.
+<BR>
+<BR>
+The <TT>open</TT> method has two
+purposes: the first one is to open the database, as the standard
+<TT>eyedb::Database</TT> will do; the second one is to check that the database
+schema is consistant with the generated runtime schema.
+Although it is possible to use the standard <TT>Database</TT> class to open
+a database containing the <TT>person</TT> schema, it is strongly recommended
+to use the <TT>personDatabase</TT> class.
+<BR>
+<BR>
+The third class, <TT>Root</TT>, is the root class for all the generated classes.
+This class is useful to perform safe down-casting during object loading.
+<BR>
+<BR>
+The three last classes, <TT>Address</TT>, <TT>Person</TT> and <TT>Employee</TT>
+are generated from the <TT>person.odl</TT> class specifications: for each
+attribute in the <TT>person.odl</TT>, a set of get and set methods is generated.
+<BR>
+<BR>
+For instance, for the <TT>firstname</TT> attribute, the following methods
+are generated:
+<PRE>
+  eyedb::Status setFirstname(const std::string &amp;);
+  std::string getFirstname(eyedb::Bool *isnull = 0, eyedb::Status * = 0) const;
+  eyedb::Status setFirstname(unsigned int a0, char);
+  char getFirstname(unsigned int a0, eyedb::Bool *isnull = 0, eyedb::Status * = 0)  const;
+</PRE>
+The two first methods manipulate the <TT>firstname</TT> attribute as a string
+while the two last ones manipulate each character within this string.
+<BR>
+<BR>
+There are two <TT>set</TT> methods and two <TT>get</TT> methods.
+
+<P>
+
+<H2><A NAME="SECTION00282000000000000000"></A> <A NAME="783"></A>
+<BR>
+A minimal client program
+</H2>
+We are now going to write a minimal client program which will perform
+the following operations:
+
+<OL>
+<LI>initialize the E<SMALL>YE</SMALL>DB package and the <TT>person</TT> package
+</LI>
+<LI>open a connection with the E<SMALL>YE</SMALL>DB server
+</LI>
+<LI>open a database
+</LI>
+<LI>perform error management
+</LI>
+<LI>release the E<SMALL>YE</SMALL>DB package and the <TT>person</TT> package
+</LI>
+</OL>
+Here is the code for this minimal client:
+<PRE>
+#include "person.h"
+
+int
+main(int argc, char *argv[])
+{
+  eyedb::init(argc, argv);      // initializes EyeDB package
+  person::init();               // initializes person package
+
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode); // use exception mode
+
+  try {
+    eyedb::Connection conn;
+
+    conn.open();                // opens the connection
+
+    personDatabase db(argv[1]); // creates a database handle
+    db.open(&amp;conn, eyedb::Database::DBRW); // opens the database in read/write mode
+  }
+
+  catch(Exception &amp;e) {      // catch any exception and print it
+    e.print();
+  }
+
+  person::release();            // releases person package
+  eyedb::release();             // releases EyeDB package
+
+  return 0;
+}
+</PRE>
+Note that statement <TT>Exception::setMode(...)</TT> is mandatory
+if you want to use the exception error policy.
+<BR>
+<BR>
+To use this client, you must first compile it:
+<TT>eyedbodl</TT> has generated a makefile called Makefile.<SPAN  CLASS="textit">package</SPAN>
+which can be used as is or can help
+you to design your own makefile.
+<BR>
+<BR>
+A template C++ file (<TT>template_</TT><SPAN  CLASS="textit">package</SPAN><TT>.cc</TT>)
+has also been generated, closed to the
+previous minimal client program, which can be compiled with
+the generated makefile.
+<BR>
+<BR>
+Here is the generated <TT>Makefile.person</TT> ((<TT>&#171;datadir&#187;</TT> is the data directory, usually /usr/share):
+<PRE>
+#
+# Makefile.person
+# 
+# person package
+#
+# Example of template Makefile that can help you to compile
+# the generated C++ file and the template program
+# Generated by eyedbodl at Sat Jan 28 17:53:48 2006
+#
+
+include &lt;&lt;datadir&gt;&gt;/eyedb/Makefile.eyedb
+
+CXXFLAGS += $(EYEDB_CXXFLAGS) $(EYEDB_CPPFLAGS)
+LDFLAGS  += ${EYEDB_LDFLAGS}
+LDLIBS   += ${EYEDB_LDLIBS}
+
+# if you use gcc
+GCC_FLAGS = -Wl,-R$(EYEDB_LIBDIR)
+
+# Example for compiling a client program:
+
+client_program = template_person
+
+$(client_program): person.o $(client_program).o
+        $(CXX) $(LDFLAGS) $(GCC_FLAGS) -o $@ $^ $(LDLIBS)
+</PRE>
+Important note: you need a recent version of GNU make to use this makefile.
+This makefile does not work with the standard SUN make.
+<BR>
+<BR>
+Once compiled, you can execute the program as follows:
+<PRE>
+% ./persontest foo
+</PRE>
+We are going now to add a function to manipulate <TT>Person</TT> instances:
+
+<OL>
+<LI>create a person named ``john wayne''
+</LI>
+<LI>create a person named ``mary poppins''
+</LI>
+<LI>mary them
+</LI>
+<LI>create 3 ``john wayne'' children named ``baby1'', ``baby2'' and ``baby3''
+</LI>
+</OL>
+These operations are performed in the following function:
+<PRE>
+static void
+create(eyedb::Database *db)
+{
+  db-&gt;transactionBegin(); // starts a new transaction
+
+  Person *john = new Person(db);
+  john-&gt;setFirstname("john");
+  john-&gt;setLastname("wayne");
+  john-&gt;setAge(32);
+  john-&gt;getAddr()-&gt;setStreet("courcelles");
+  john-&gt;getAddr()-&gt;setTown("Paris");
+
+  Person *mary = new Person(db);
+  mary-&gt;setFirstname("mary");
+  mary-&gt;setLastname("poppins");
+  mary-&gt;setAge(30);
+  mary-&gt;getAddr()-&gt;setStreet("courcelles");
+  mary-&gt;getAddr()-&gt;setTown("Paris");
+
+  // mary them
+  john-&gt;setSpouse(mary);
+
+  // creates children
+  for (int i = 0; i &lt; 5; i++) {
+    std::string name = std::string("baby") + str_convert(i+1);
+    Person *child = new Person(db);
+    child-&gt;setFirstname(name.c_str());
+    child-&gt;setLastname(name.c_str());
+    child-&gt;setAge(1+i);
+    john-&gt;addToChildrenColl(child);
+    child-&gt;release(); // release the allocated pointer
+  }
+
+  // store john and all its related instances within the database
+  john-&gt;store(eyedb::FullRecurs);
+
+  // release the allocated pointers
+  mary-&gt;release();
+  john-&gt;release();
+
+  db-&gt;transactionCommit(); // commits the current transaction
+}
+</PRE>
+A few remarks about this code:
+
+<UL>
+<LI>all operations - setting, getting attributes, storing, querying instances
+in a database - must be performed within a transaction.
+A transaction is initiated using the <TT>Database::transactionBegin</TT>
+method and is committed (resp. aborted) using the
+<TT>Database::transactionCommit</TT>
+(resp. <TT>Database::transactionAbort</TT>) method.
+</LI>
+<LI>to store any instance in the database, you need to call the 
+emphstore (or <TT>realize</TT>) method on this instance.
+In our case, we use the argument <TT>FullRecurs</TT> indicating that
+we want all related instances (through relationship or indirect
+attribute) to be stored in the database.
+</LI>
+<LI>all runtime pointers allocated with the <TT>new</TT> operator must
+be deleted using the <TT>release</TT> method. The <TT>delete</TT> operator
+is forbidden: if you try to use it, an exception will be thrown at
+runtime.
+</LI>
+</UL>
+We are now going to query and display all the person instances.
+<BR>
+<BR>
+Here is the corresponding code:
+<PRE>
+static void
+read(eyedb::Database *db, const char *s)
+{
+  db-&gt;transactionBegin();
+
+  eyedb::OQL q(db, "select Person.lastname ~ \"%s\"", s);
+
+  eyedb::ObjectArray obj_arr;
+  q.execute(obj_arr);
+
+  for (int i = 0; i &lt; obj_arr.getCount(); i++) {
+    Person *p = Person_c(obj_arr[i]);
+    if (p)
+      printf("person = %s %s, age = %d\n", p-&gt;getFirstname(),
+             p-&gt;getLastname(), p-&gt;getAge());
+  }
+
+  db-&gt;transactionCommit();
+}
+</PRE>
+An OQL construct can be used within the C++ code using the
+<TT>OQL(Database *, const char *fmt, ...)</TT> constructor.
+For instance, in the above example, assuming <TT>s</TT> is equal to <TT>baby</TT>, the code:
+<PRE>
+  eyedb::OQL q(db, "select Person.lastname ~ \"%s\"", s);
+</PRE>
+will send the query <TT>select Person.lastname&nbsp; "baby"</TT> to the OQL interpreter.
+<BR>
+<BR>
+This interpreter will perform the query and returned all the found objects.
+The returned objects can be found using the <TT>OQL::execute</TT> method
+as follows:
+<PRE>
+  eyedb::ObjectArray obj_arr;
+  q.execute(obj_arr);
+</PRE>
+The returned objects are of type <TT>eyedb::Object</TT>, so you cannot use the
+<TT>Person</TT> methods such as <TT>getFirstname()</TT>, <TT>getAge()</TT>...
+To use them, you need to perform a down-cast using the <TT>Person_c</TT> static
+function as follows:
+<PRE>
+  for (int i = 0; i &lt; obj_arr.getCount(); i++) {
+    Person *p = Person_c(obj_arr[i]);
+    if (p) ...
+</PRE>
+If the object <TT>obj_arr[i]</TT> is not of type <TT>Person</TT>, the returned
+pointer will be null. It is why we make a test on the value of <TT>p</TT>.
+If <TT>p</TT> is not null, we can use all the <TT>Person</TT> methods as follows:
+<PRE>
+    printf("person = %s %s, age = %d\n", p-&gt;getFirstname(),
+           p-&gt;getLastname(), p-&gt;getAge());
+</PRE>
+
+<P>
+To have more information about the C++ binding, please refer to the
+E<SMALL>YE</SMALL>DB C++ binding manual.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html175"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html171"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html165"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html173"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html176"
+  HREF="node11.html">Using the Java Binding</A>
+<B> Up:</B> <A NAME="tex2html172"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html166"
+  HREF="node9.html">Updating the database schema</A>
+ &nbsp; <B>  <A NAME="tex2html174"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Server network access file</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch02.html" title="Chapter 2. Server administration"><link rel="prev" href="ch02s04.html" title="Server configuration"><link rel="next" href="ch03.html" title="Chapter 3. Database administration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Server network access file</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Server administration</th><td width="20%" align="right"> <a accesskey="n" href="ch03.html">Next</a></td></tr></table><hr></div><div class="section" title="Server network access file"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="server-network-access-file"></a>Server network access file</h2></div></div></div><p>
+	When a EyeDB client command or application attempts to connect to the EyeDB server using a TCP connection, an <span class="emphasis"><em>access file</em></span> is used to determine wheter the connection is authorized.
+      </p><p>
+	The location of the network access file is given by the <code class="varname">access_file</code> configuration switch, that can be specified either as a configuration variable in a configuration file or as an environment variable.
+      </p><p>
+	The syntax of this access file is the following:
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>comments: all characters following a # are skipped</p></li><li class="listitem"><p>
+	      access rule, composed of an IP address or subnet mask <code class="varname">address</code>, followed by a list of user authorizations, where a user authorization can be:
+	      </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>a EyeDB user name: the designated user is authorized to connect to the EyeDB server from the machine identified by <code class="varname">address</code></p></li><li class="listitem"><p>a EyeDB user name prefixed by the ! character: the designated user is <span class="emphasis"><em>not</em></span> authorized to connect to the EyeDB server from the machine identified by <code class="varname">address</code></p></li><li class="listitem"><p>a EyeDB user name prefixed by the = character: the designated user will be used for any connection opened from the machine identified by <code class="varname">address</code> if no authentication is provided</p></li><li class="listitem"><p>a + character: any EyeDB user is authorized to connect from the machine identified by <code class="varname">address</code></p></li></ul></div><p>
+	    </p></li></ul></div><p>
+      </p><p>
+	<a class="xref" href="ch02s05.html#server-network-access-file-example" title="Example 2.10. EyeDB server network access file">Example 2.10, “EyeDB server network access file”</a> gives an example of a EyeDB server network access file.
+      </p><div class="example"><a name="server-network-access-file-example"></a><p class="title"><b>Example 2.10. EyeDB server network access file</b></p><div class="example-contents"><pre class="programlisting">
+# All users are authorized from domain localdomain:
+.localdomain       +
+
+# Any user, except user 'eyedbroot', are authorized from machine r2.somewhere.org:
+r2.somewhere.org   + !eyedbroot
+
+# User 'joe' is authorized from domain ircam.fr:
+.ircam.fr          joe
+
+# Users 'tom' and 'guest' are authorized from subnet mask 192.168.1.0; if no authenticatino is provided, user 'guest' is used:
+192.168.1.0        tom =guest
+	  </pre></div></div><br class="example-break"></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Server configuration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 3. Database administration</td></tr></table></div></body></html>

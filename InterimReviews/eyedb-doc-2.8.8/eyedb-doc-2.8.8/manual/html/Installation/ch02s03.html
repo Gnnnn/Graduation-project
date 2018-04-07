@@ -1,0 +1,69 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>The shared installation</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Installation Guide"><link rel="up" href="ch02.html" title="Chapter 2. Installing EyeDB"><link rel="prev" href="ch02s02.html" title="The single user installation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The shared installation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s02.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Installing EyeDB</th><td width="20%" align="right"> </td></tr></table><hr></div><div class="section" title="The shared installation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="shared-installation"></a>The shared installation</h2></div></div></div><p>
+	This type of installation requires more steps than the single user installation, requires superuser access to the installation host. However, it support multiple users accessing EyeDB databases and can start automaticaly EyeDB on machine boot.
+      </p><div class="section" title="Preliminary steps"><div class="titlepage"><div><div><h3 class="title"><a name="shared-installation-preliminary"></a>Preliminary steps</h3></div></div></div><p>
+	  The first step of the shared installation is to select, when configuring EyeDB, a <span class="emphasis"><em>prefix</em></span> directory, usually empty, whose ownership will be given to a special user. It is a good practice to select a filename ending with <code class="filename">eyedb</code>. For instance:
+	  </p><div class="informalexample"><pre class="screen">
+	      <strong class="userinput"><code>./configure --prefix=/opt/eyedb</code></strong>
+	    </pre></div><p>
+	</p><p>
+	  The default prefix (<code class="filename">/usr/local/eyedb</code>) can perfectly be used.
+	</p><p>
+	  The second step is to create a special Unix user that will own the installation directory and who will be used to run the EyeDB server. It is recommended that this user is a <span class="emphasis"><em>system</em></span> user and has a disabled account that does not authorize to login. It is convenient to use 'eyedb' as user name.
+	</p><p>
+	  On Debian distributions, this can be done using the <span class="command"><strong>adduser</strong></span> command, as in:
+	  </p><div class="informalexample"><pre class="screen">
+	      <strong class="userinput"><code>adduser --system --group --no-create-home eyedb</code></strong>
+Adding system user `eyedb' (UID 115) ...
+Adding new group `eyedb' (GID 129) ...
+Adding new user `eyedb' (UID 115) with group `eyedb' ...
+Not creating home directory `/home/eyedb'.
+	    </pre></div><p>
+	</p><p>
+	  After creating this Unix user, the third step is to create the installation directory and give it the right permissions:
+	  </p><div class="informalexample"><pre class="screen">
+	      <strong class="userinput"><code>mkdir /usr/local/eyedb</code></strong>
+	      <strong class="userinput"><code>chown eyedb.eyedb /usr/local/eyedb</code></strong>
+	    </pre></div><p>
+	</p></div><div class="section" title="Installing EyeDB"><div class="titlepage"><div><div><h3 class="title"><a name="shared-installation-install"></a>Installing EyeDB</h3></div></div></div><p>
+	  After building, install EyeDB by running <span class="command"><strong>make install</strong></span>. This will install the files in the directories specified when <a class="link" href="ch01s03.html" title="Configuring EyeDB">configuring</a> EyeDB (here <code class="filename">/usr/local/eyedb</code>, the default prefix).
+	</p><p>
+	  Running <span class="command"><strong>make install</strong></span> <span class="emphasis"><em>must</em></span> be done under the created Unix user. This can be done using for instance the <span class="command"><strong>su</strong></span> or <span class="command"><strong>sudo</strong></span> commands:
+	  </p><div class="informalexample"><pre class="screen">
+	      <strong class="userinput"><code>sudo -u eyedb make install</code></strong>
+	    </pre></div><p>
+	</p></div><div class="section" title="Post-installation setup"><div class="titlepage"><div><div><h3 class="title"><a name="shared-installation-post-install"></a>Post-installation setup</h3></div></div></div><p>
+	  After installing EyeDB, a post-installation setup script must be run, as in the single user installation. This script is located in subdirectory <code class="filename">share/eyedb/tools</code> under the <code class="filename">prefix</code> directory and is named <code class="filename">eyedb-postinstall.sh</code>.
+	</p><p>
+	  Running this script <span class="emphasis"><em>must</em></span> be done under the created Unix user, using for instance the <span class="command"><strong>su</strong></span> or <span class="command"><strong>sudo</strong></span> commands:
+	  </p><div class="informalexample"><pre class="screen">
+	      <strong class="userinput"><code>sudo -u eyedb /usr/local/eyedb/share/eyedb/tools/eyedb-postinstall.sh</code></strong>
+==== Starting EyeDB server
+Starting EyeDB Server
+ Version      V2.8.8
+ Compiled     Aug 17 2009 16:40:17
+ Architecture x86_64-unknown-linux-gnu
+ Program Pid  31589
+==== Creating EYEDBDBM database
+==== Stopping EyeDB server
+Killing EyeDB Server Pid 31589
+	    </pre></div><p>
+	</p><p>
+	  The last step is to create EyeDB users to perform standard EyeDB tasks (creating databases, inserting and querying data...). Creating a EyeDB user and assigning this user permissions must be done under the created Unix user, using for instance the <span class="command"><strong>su</strong></span> or <span class="command"><strong>sudo</strong></span> commands:
+	</p><div class="informalexample"><pre class="screen">
+	    <strong class="userinput"><code>sudo -u eyedb /usr/local/eyedb/sbin/eyedbctl start</code></strong>
+Starting EyeDB Server
+ Version      V2.8.8
+ Compiled     Aug 17 2009 16:40:17
+ Architecture x86_64-unknown-linux-gnu
+ Program Pid  31727
+            <strong class="userinput"><code>sudo -u eyedb /usr/local/eyedb/bin/eyedbadmin user add --strict-unix francois</code></strong>
+	    <strong class="userinput"><code>sudo -u eyedb /usr/local/eyedb/bin/eyedbadmin user sysaccess francois dbcreate</code></strong>
+	    <strong class="userinput"><code>/usr/local/eyedb/bin/eyedbadmin database create foo</code></strong>
+	    <strong class="userinput"><code>/usr/local/eyedb/bin/eyedbadmin database list foo</code></strong>
+	  </pre></div><p>
+	</p><p>
+	  Note that the last two commands are not run using <span class="command"><strong>sudo</strong></span>, as the created EyeDB user (here 'francois') has permission to create EyeDB databases.
+	</p><p>
+	  The final step is to allow, on Linux systems, EyeDB to start automatically at boot time. A System-V init script is provided to start and stop EyeDB; this script is located after installation in <code class="filename">/usr/local/eyedb/share/eyedb/eyedb.rc</code> (if prefix was <code class="filename">/usr/local/eyedb</code>). This script uses only LSB logging function and can therefore be used on any Linux distribution. The following steps are needed:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>copy the given script to the init scripts directory (for instance <code class="filename">/etc/init.d</code>, but this may vary depending on your distribution)</p></li><li class="listitem"><p>update the system init scripts configuration by making the appropriate links between the runlevel directories and the init script (this is usually done by a distribution specific command such as <span class="command"><strong>update-rc.d</strong></span> or <span class="command"><strong>chkconfig</strong></span></p></li></ul></div><p>
+	</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">The single user installation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

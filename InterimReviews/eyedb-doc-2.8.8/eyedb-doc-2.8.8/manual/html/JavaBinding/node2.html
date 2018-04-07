@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Java Binding</TITLE>
+<META NAME="description" CONTENT="The Java Binding">
+<META NAME="keywords" CONTENT="JavaBinding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="JavaBinding.css">
+
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="JavaBinding.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html47"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html43"
+  HREF="JavaBinding.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html39"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html45"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html48"
+  HREF="node3.html">Getting Started</A>
+<B> Up:</B> <A NAME="tex2html44"
+  HREF="JavaBinding.html">JavaBinding</A>
+<B> Previous:</B> <A NAME="tex2html40"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html46"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00200000000000000000">
+The Java Binding</A>
+</H1>
+
+<P>
+The Java binding maps the E<SMALL>YE</SMALL>DB object model into Java by introducing
+a generic API
+and a tool to generate a speficic Java API from a given schema,
+built upon the generic API.
+
+<BR>
+<BR>
+The generic Java API is made up of about one hundred and fifty classes such
+as some abstract classes as the <TT>object</TT> and <TT>class</TT> classes
+and some more concrete classes such as the <TT>database</TT> and <TT>image</TT>
+classes.
+
+<BR>
+<BR>
+Each type in the E<SMALL>YE</SMALL>DB object model is implemented as a Java class whithin
+the Java API: there is a one for one mapping between the object model and
+the Java API.
+
+<BR>
+This mapping follows a very simple naming schema: each Java class mapped from
+a type has the name of this type prefixed by <TT>org.eyedb.</TT>.
+
+<BR>
+For instance, the <TT>object</TT> type in the E<SMALL>YE</SMALL>DB object model is
+mapped on the <TT>org.eyedb.Object</TT> Java class, while the
+<TT>agregat</TT> is mapped to the <TT>org.eyedb.Agregat</TT> Java class.
+
+<BR>
+<BR>
+The use of the Java language for an E<SMALL>YE</SMALL>DB binding has been motivated by
+several reasons:
+
+<UL>
+<LI>Java is architecture independent.
+</LI>
+<LI>Java is indeed valuable for distributed network environment.
+</LI>
+<LI>Java has a very rich builtin library.
+</LI>
+<LI>Java is secure.
+</LI>
+<LI>Java is easier to program than C++.
+</LI>
+</UL>
+The Java binding is very close from the C++ binding: the
+class interfaces are identical, the functionalities
+are the same; only the language is slightly different.
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html49"
+  HREF="node3.html">Getting Started</A>
+<UL>
+<LI><A NAME="tex2html50"
+  HREF="node3.html#SECTION00211000000000000000">Programming Steps</A>
+<LI><A NAME="tex2html51"
+  HREF="node3.html#SECTION00212000000000000000">The ODL Schema</A>
+<LI><A NAME="tex2html52"
+  HREF="node3.html#SECTION00213000000000000000">Compiling the ODL Schema</A>
+<LI><A NAME="tex2html53"
+  HREF="node3.html#SECTION00214000000000000000">The Java produced</A>
+<LI><A NAME="tex2html54"
+  HREF="node3.html#SECTION00215000000000000000">Compiling the Java stubs</A>
+<LI><A NAME="tex2html55"
+  HREF="node3.html#SECTION00216000000000000000">Writing a Client</A>
+<LI><A NAME="tex2html56"
+  HREF="node3.html#SECTION00217000000000000000">Compiling the client</A>
+<LI><A NAME="tex2html57"
+  HREF="node3.html#SECTION00218000000000000000">Updating the schema</A>
+<LI><A NAME="tex2html58"
+  HREF="node3.html#SECTION00219000000000000000">Running the client</A>
+<LI><A NAME="tex2html59"
+  HREF="node3.html#SECTION002110000000000000000">An advanced example</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html47"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html43"
+  HREF="JavaBinding.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html39"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html45"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html48"
+  HREF="node3.html">Getting Started</A>
+<B> Up:</B> <A NAME="tex2html44"
+  HREF="JavaBinding.html">JavaBinding</A>
+<B> Previous:</B> <A NAME="tex2html40"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html46"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

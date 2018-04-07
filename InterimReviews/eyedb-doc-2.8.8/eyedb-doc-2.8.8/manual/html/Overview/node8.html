@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Object Query Language</TITLE>
+<META NAME="description" CONTENT="The Object Query Language">
+<META NAME="keywords" CONTENT="Overview">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="Overview.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html174"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html170"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html164"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html172"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html175"
+  HREF="node9.html">The C++ Binding</A>
+<B> Up:</B> <A NAME="tex2html171"
+  HREF="node2.html">Overview</A>
+<B> Previous:</B> <A NAME="tex2html165"
+  HREF="node7.html">The Object Definition Language</A>
+ &nbsp; <B>  <A NAME="tex2html173"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00260000000000000000">
+The Object Query Language</A>
+</H1>
+E<SMALL>YE</SMALL>DB provides a query language based on the ODMG OQL.
+
+<BR>
+Although E<SMALL>YE</SMALL>DB OQL is not an OML (i.e. an Object Manipulation Language),
+most of the common language operations can be performed (arithmetic
+and logical operations, string manipulation, flow control,
+function definition) as well as query constructs.
+
+<BR>
+<BR>
+E<SMALL>YE</SMALL>DB OQL adds a few features from the ODMG OQL such as flow control
+(<TT>if else</TT>, <TT>for</TT>, <TT>while</TT>), function definition,
+an assignement operator, and regular expression operators.
+
+<BR>
+<BR>
+For instance the following examples are E<SMALL>YE</SMALL>DB OQL legal constructs:
+
+<PRE>
+function max(x, y) {return (x &gt; y ? x : y);};
+
+function fib(n) {
+  if (n &lt; 2)
+    return n;
+  return fib(n-1) + fib(n-2);
+};
+
+for (x in list(1, 2, 3, 4))
+  fib(x);
+
+for (x := 0; x &lt; 10; x++)
+  fib(x);
+</PRE>
+Note that the previous code does not perform any query.
+
+<BR>
+<BR>
+The following code perform queries:
+
+<PRE>
+select Person;          // returns the OIDs of all Person instances
+
+select x from Person;   // idem
+
+select Person.name =  "john"; // returns the Person whose name is "john"
+
+select Person.name ~ "^a.*b"; // returns the instances whose name matches
+                              // the regular expression
+
+select Person.name !~~ "ja" // returns the Person whose name does
+                            // not matches the regular expression in a case
+                            // insensitive way.
+
+select x from Person x where x.age &gt; 2 &amp;&amp; // returns Person  whose age is between
+                       x.age &lt; 10;        // 2 and 10.
+
+select Person.name;     // returns all Person names
+
+select x.name from Person x;  // idem
+
+for (x in (select Person)) // for each Person
+ if (x.name ~ "^j")        // whose name matches
+   x.name := \"_\" +       // the regular expression
+       x.name;;            // "j", adds a "_" before
+                           // the name.
+
+// set the age of the Person whose name
+// is "john" to 20:
+(select Person.name = "john").age := 20;
+</PRE>
+<BR><HR>
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

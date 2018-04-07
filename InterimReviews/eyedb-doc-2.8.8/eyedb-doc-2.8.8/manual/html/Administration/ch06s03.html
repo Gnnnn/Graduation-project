@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Managing collections</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch06.html" title="Chapter 6. Database tuning"><link rel="prev" href="ch06s02.html" title="Managing indexes"><link rel="next" href="ch06s04.html" title="Managing locations"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Managing collections</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s02.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Database tuning</th><td width="20%" align="right"> <a accesskey="n" href="ch06s04.html">Next</a></td></tr></table><hr></div><div class="section" title="Managing collections"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id577543"></a>Managing collections</h2></div></div></div><div class="section" title="EyeDB collection implementations"><div class="titlepage"><div><div><h3 class="title"><a name="id577549"></a>EyeDB collection implementations</h3></div></div></div><p>
+	  EyeDB supports several types of collections:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><code class="classname">set</code>: unordered collection without element duplication</p></li><li class="listitem"><p><code class="classname">bag</code>: unordered collection with element duplication</p></li><li class="listitem"><p><code class="classname">array</code>: ordered collection</p></li></ul></div><p>
+	</p><p>
+	  Independentely from its type, a collection has an <span class="emphasis"><em>implementation</em></span>, i.e. the data structure that supports the collection. EyeDB supports several types of implementation, either indexed or non-indexed:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>hash index</p></li><li class="listitem"><p>btree index</p></li></ul></div><p>
+	</p><p>
+	  The choice of the collection implementation will have of course an impact on the collection performance for inserting, deleting retrieving objects. For example, having a <code class="classname">bag</code> collection containing a large number of elements and <span class="emphasis"><em>not</em></span> using an indexed implementation will have poor performance for element insertion: when inserting an element in a <code class="classname">bag</code> collection, EyeDB must lookup the element in the collection to check for duplication and this will have poor performance if the lookup is not accelerated using an index.
+	</p><div class="example"><a name="eyedbadmin-collection-odl-example"></a><p class="title"><b>Example 6.10. The ODL database schema for collections</b></p><div class="example-contents"><pre class="programlisting">
+class Person {
+  attribute string firstName;
+  attribute string lastName;
+};
+
+class Diary {
+  attribute string name;
+  attribute set&lt;Person *&gt; persons;
+};
+</pre></div></div><br class="example-break"><div class="example"><a name="eyedbadmin-collection-odl"></a><p class="title"><b>Example 6.11. Collections: updating the schema</b></p><div class="example-contents"><pre class="screen">
+## create database
+<strong class="userinput"><code>eyedbadmin database create test_collection</code></strong>
+<strong class="userinput"><code>eyedbodl -u -d test_collection test_collection.odl</code></strong>
+Updating 'test_collection' schema in database test_collection...
+Adding class Person
+Adding class Diary
+
+Done
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Getting and setting collection default implementation"><div class="titlepage"><div><div><h3 class="title"><a name="id577673"></a>Getting and setting collection default implementation</h3></div></div></div><p>
+	</p><div class="example"><a name="eyedbadmin-collection-getdefimpl-setdefimpl"></a><p class="title"><b>Example 6.12. <span class="command">eyedbadmin</span> </b></p><div class="example-contents"><pre class="screen">
+## getting and setting default implementation
+<strong class="userinput"><code>eyedbadmin collection getdefimpl test_collection Diary.persons</code></strong>
+Default implementation on Diary.persons:
+  System default
+<strong class="userinput"><code>eyedbadmin collection setdefimpl --type=hashindex test_collection Diary.persons</code></strong>
+<strong class="userinput"><code>eyedbadmin collection getdefimpl test_collection Diary.persons</code></strong>
+Default implementation on Diary.persons:
+  Type: Hash
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Getting and updating a particular collection implementation"><div class="titlepage"><div><div><h3 class="title"><a name="id577723"></a>Getting and updating a particular collection implementation</h3></div></div></div><p>
+	</p></div><div class="section" title="Getting statistics on a collection implementation"><div class="titlepage"><div><div><h3 class="title"><a name="id577735"></a>Getting statistics on a collection implementation</h3></div></div></div><p>
+	</p></div><div class="section" title="Getting and setting collection default dataspace"><div class="titlepage"><div><div><h3 class="title"><a name="id577746"></a>Getting and setting collection default dataspace</h3></div></div></div><p>
+	</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Managing indexes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Managing locations</td></tr></table></div></body></html>

@@ -1,0 +1,152 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>The eyedbadmin command</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch01.html" title="Chapter 1. Introduction"><link rel="prev" href="ch01.html" title="Chapter 1. Introduction"><link rel="next" href="ch02.html" title="Chapter 2. Server administration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The <span class="command"><strong>eyedbadmin</strong></span> command</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Introduction</th><td width="20%" align="right"> <a accesskey="n" href="ch02.html">Next</a></td></tr></table><hr></div><div class="section" title="The eyedbadmin command"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id544201"></a>The <span class="command"><strong>eyedbadmin</strong></span> command</h2></div></div></div><p>
+	The <span class="command"><strong>eyedbadmin</strong></span> command is used for most of the EyeDB administration operations. It is installed in <code class="filename">/usr/bin</code> for standard EyeDB installations.
+      </p><div class="section" title="eyedbadmin command syntax"><div class="titlepage"><div><div><h3 class="title"><a name="eyedbadmin-command-syntax"></a><span class="command"><strong>eyedbadmin</strong></span> command syntax</h3></div></div></div><p>
+	  The <span class="command"><strong>eyedbadmin</strong></span> command has the following syntax:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code>   <em class="replaceable"><code>topic</code></em>   <em class="replaceable"><code>command</code></em>   options... </p></div><p>
+	  where </p><div class="cmdsynopsis"><p> <em class="replaceable"><code>topic</code></em> </p></div><p> is one of the subsystem adressed by the command (database, user, index...) 
+	  and </p><div class="cmdsynopsis"><p> <em class="replaceable"><code>command</code></em> </p></div><p> is the command relative to this subsystem.
+	</p><p>
+	  Help on the <span class="command"><strong>eyedbadmin</strong></span> command can be obtained with the <span class="command"><strong>help</strong></span> command for general help (<a class="xref" href="ch01s02.html#eyedbadmin-help" title="Example 1.1. eyedbadmin help">Example 1.1, “<span class="command">eyedbadmin</span> help”</a>) or <span class="command"><strong><em class="replaceable"><code>topic</code></em> help</strong></span> (<a class="xref" href="ch01s02.html#eyedbadmin-help-topic" title="Example 1.2. eyedbadmin help on topic">Example 1.2, “<span class="command">eyedbadmin</span> help on topic”</a>):
+	</p><div class="example"><a name="eyedbadmin-help"></a><p class="title"><b>Example 1.1. <span class="command">eyedbadmin</span> help</b></p><div class="example-contents"><pre class="screen"><strong class="userinput"><code>eyedbadmin help</code></strong>
+eyedbadmin usage:
+  eyedbadmin --help
+  eyedbadmin --help-eyedb-options
+  eyedbadmin TOPIC --help
+  eyedbadmin TOPIC COMMAND --help
+  eyedbadmin TOPIC COMMAND OPTIONS
+
+where TOPIC is one of the following:
+  database | db
+  datafile | dtf
+  dataspace | dsp
+  user | usr
+  index | idx	
+	  </pre></div></div><br class="example-break"><div class="example"><a name="eyedbadmin-help-topic"></a><p class="title"><b>Example 1.2. <span class="command">eyedbadmin</span> help on topic</b></p><div class="example-contents"><pre class="screen"><strong class="userinput"><code>eyedbadmin database help</code></strong>
+eyedbadmin database usage:
+
+  eyedbadmin database --help
+  eyedbadmin database COMMAND OPTIONS
+
+where COMMAND is one of the following:
+  create
+  delete
+  list
+  move
+  copy
+  rename
+  defaccess
+  export
+  import
+  setobjcount
+  getobjcount
+  setlogsize
+  getlogsize
+</pre></div></div><br class="example-break"></div><div class="section" title="eyedbadmin standard options"><div class="titlepage"><div><div><h3 class="title"><a name="id567289"></a><span class="command"><strong>eyedbadmin</strong></span> standard options</h3></div></div></div><p>
+	  <span class="command"><strong>eyedbadmin</strong></span> accepts a list of options shared by all the topics, described in <a class="xref" href="ch01s02.html#eyedbadmin-help-options" title="Example 1.3. eyedbadmin help on topic">Example 1.3, “<span class="command">eyedbadmin</span> help on topic”</a>.
+	</p><div class="example"><a name="eyedbadmin-help-options"></a><p class="title"><b>Example 1.3. <span class="command">eyedbadmin</span> help on topic</b></p><div class="example-contents"><pre class="screen"><strong class="userinput"><code>eyedbadmin --help-eyedb-options</code></strong>
+Common Options:
+  -U USER|@, --user=USER|@          User name
+  -P [PASSWD], --passwd[=PASSWD]    Password
+  --host=HOST                       eyedbd host
+  --port=PORT                       eyedbd port
+  --inet                            Use the tcp_port variable if port is not set
+  --dbm=DBMFILE                     EYEDBDBM database file
+  --conf=CONFFILE                   Client Configuration file
+  --server-conf=CONFFILE            Server Configuration file (used for local opening)
+  --default-file-mask=MASK          Default file mask
+  --default-file-group=GROUP        Default file group
+  --maximum-server-memory-size=SIZE Maximum server memory size (in Mb)
+  --logdev=LOGFILE                  Output log file
+  --logmask=MASK                    Output log mask
+  --logdate=on|off                  Control date display in output log
+  --logtimer=on|off                 Control timer display in output log
+  --logpid=on|off                   Control pid display in output log
+  --logprog=on|off                  Control progname display in output log
+  --error-policy=VALUE              Control error policy: status|exception|abort|stop|echo
+  --trans-def-mag=MAGORDER          Default transaction magnitude order
+  --arch                            Display the client architecture
+  -v, --version                     Display the version
+  --help-logmask                    Display logmask usage
+  --help-eyedb-options              Display this message
+	  </pre></div></div><br class="example-break"><p>
+	  The following options are the most usefull:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><div class="cmdsynopsis"><p> --user=<em class="replaceable"><code>user</code></em> </p></div><p>: specifies the user name for EyeDB authentication; if user is "@", then the Unix user name is used</p></li><li class="listitem"><div class="cmdsynopsis"><p> --passwd=<em class="replaceable"><code>passwd</code></em> </p></div><p>: specifies the user password for EyeDB authentication</p></li><li class="listitem"><div class="cmdsynopsis"><p> --host=<em class="replaceable"><code>host</code></em> </p></div><p>: specifies the host name of the machine running the EyeDB server</p></li><li class="listitem"><div class="cmdsynopsis"><p> --port=<em class="replaceable"><code>port</code></em> </p></div><p>: specifies the TCP port number for a TCP connection to the EyeDB server</p></li></ul></div><p>
+	</p></div><div class="section" title="eyedbadmin shortcuts"><div class="titlepage"><div><div><h3 class="title"><a name="id567416"></a><span class="command"><strong>eyedbadmin</strong></span> shortcuts</h3></div></div></div><p>
+	  A set of shortcuts have been defined for <span class="command"><strong>eyedbadmin</strong></span> most used topics and subcommands. These shortcuts are symbolic links, created at installation time and located in binaries installation directories. Shorcuts can be used as any shell command and accept the same arguments and options as their <span class="command"><strong>eyedbadmin</strong></span> equivalents.
+	</p><p>
+	  The list of <span class="command"><strong>eyedbadmin</strong></span> shortcuts is the following:
+
+	</p><div class="table"><a name="eyedbadmin-shortcuts"></a><p class="title"><b>Table 1.1. 
+	    List of <span class="command">eyedbadmin</span> shortcuts
+	  </b></p><div class="table-contents"><table summary="
+	    List of eyedbadmin shortcuts
+	  " border="1"><colgroup><col><col></colgroup><thead><tr><th>
+		  Shortcut
+		</th><th>
+		  <span class="command"><strong>eyedbadmin</strong></span> equivalent
+		</th></tr></thead><tbody><tr><td>
+		  eyedb_dbcreate
+		</td><td>
+		  eyedbadmin database create
+		</td></tr><tr><td>
+		  eyedb_dbdelete
+		</td><td>
+		  eyedbadmin database delete
+		</td></tr><tr><td>
+		  eyedb_dblist
+		</td><td>
+		  eyedbadmin database list
+		</td></tr><tr><td>
+		  eyedb_dbrename
+		</td><td>
+		  eyedbadmin database rename
+		</td></tr><tr><td>
+		  eyedb_dbexport
+		</td><td>
+		  eyedbadmin database export
+		</td></tr><tr><td>
+		  eyedb_dbimport
+		</td><td>
+		  eyedbadmin database import
+		</td></tr><tr><td>
+		  eyedb_dtfcreate
+		</td><td>
+		  eyedbadmin datafile create
+		</td></tr><tr><td>
+		  eyedb_dtfdelete
+		</td><td>
+		  eyedbadmin datafile delete
+		</td></tr><tr><td>
+		  eyedb_dtflist
+		</td><td>
+		  eyedbadmin datafile list
+		</td></tr><tr><td>
+		  eyedb_dspcreate
+		</td><td>
+		  eyedbadmin dataspace create
+		</td></tr><tr><td>
+		  eyedb_dspdelete
+		</td><td>
+		  eyedbadmin dataspace delete
+		</td></tr><tr><td>
+		  eyedb_dsplist
+		</td><td>
+		  eyedbadmin dataspace list
+		</td></tr><tr><td>
+		  eyedb_useradd
+		</td><td>
+		  eyedbadmin user add
+		</td></tr><tr><td>
+		  eyedb_userdelete
+		</td><td>
+		  eyedbadmin user delete
+		</td></tr><tr><td>
+		  eyedb_userlist
+		</td><td>
+		  eyedbadminuser list
+		</td></tr><tr><td>
+		  eyedb_userpasswd 
+		</td><td>
+		  eyedbadmin user passwd 
+		</td></tr></tbody></table></div></div><p><br class="table-break">
+	</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 1. Introduction </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 2. Server administration</td></tr></table></div></body></html>

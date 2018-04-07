@@ -1,0 +1,193 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Renaming, copying and moving a database</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch03.html" title="Chapter 3. Database administration"><link rel="prev" href="ch03.html" title="Chapter 3. Database administration"><link rel="next" href="ch03s03.html" title="Exporting and importing a database"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Renaming, copying and moving a database</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Database administration</th><td width="20%" align="right"> <a accesskey="n" href="ch03s03.html">Next</a></td></tr></table><hr></div><div class="section" title="Renaming, copying and moving a database"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id570412"></a>Renaming, copying and moving a database</h2></div></div></div><p>
+	Renaming, copying and moving a database cannot be simply done by renaming the files that are associated with the database, because EyeDB maintains databases informations in a database itself. Specific commands are therefore required to rename, copy and move a database.
+      </p><div class="section" title="Renaming a database"><div class="titlepage"><div><div><h3 class="title"><a name="id570424"></a>Renaming a database</h3></div></div></div><p>
+	  Renaming a database is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code>   database rename   <em class="replaceable"><code>database</code></em>   <em class="replaceable"><code>new_database</code></em> </p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> <em class="replaceable"><code>database</code></em> </p></div><p>
+		name of database to rename
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> <em class="replaceable"><code>new_database</code></em> </p></div><p>
+		new database name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-database-rename"></a><p class="title"><b>Example 3.5. <span class="command">eyedbadmin</span> database rename</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database list test</code></strong> 
+Database Name
+  test
+Database Identifier
+  2
+Database File
+  /home/francois/projects/eyedb/install/var/lib/eyedb/db/test.dbs
+Max Object Count
+  10000000
+Datafiles
+  Datafile #0
+    Name      DEFAULT
+    Dataspace #0
+    File      test.dat
+    Maxsize   ~2048Mb
+    Slotsize  16b
+    Server Access read/write
+Default Access
+  READ_WRITE_DBACCESS_MODE
+Database Access
+  User Name  francois
+  Access Mode ADMIN_DBACCESS_MODE
+<strong class="userinput"><code>eyedbadmin database rename test newtest</code></strong>
+<strong class="userinput"><code>eyedbadmin database list newtest</code></strong>
+Database Name
+  newtest
+Database Identifier
+  2
+Database File
+  /home/francois/projects/eyedb/install/var/lib/eyedb/db/test.dbs
+Max Object Count
+  10000000
+Datafiles
+  Datafile #0
+    Name      DEFAULT
+    Dataspace #0
+    File      test.dat
+    Maxsize   ~2048Mb
+    Slotsize  16b
+    Server Access read/write
+Default Access
+  READ_WRITE_DBACCESS_MODE
+Database Access
+  User Name  francois
+  Access Mode ADMIN_DBACCESS_MODE
+	  </pre></div></div><br class="example-break"><div class="tip" title="Database renaming and database file names" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Database renaming and database file names</h3><p>
+	    <a class="xref" href="ch03s02.html#eyedbadmin-database-rename" title="Example 3.5. eyedbadmin database rename">Example 3.5, “<span class="command">eyedbadmin</span> database rename”</a> shows that renaming a database does <span class="emphasis"><em>not</em></span> rename the database files. Rename the database data files is done using the <span class="command"><strong>eyedbadmin datafile rename</strong></span> command described in <a class="xref" href="ch05s02.html#eyedbadmin-datafile-rename" title="Example 5.4. eyedbadmin datafile rename">Example 5.4, “<span class="command">eyedbadmin</span> datafile rename”</a>.
+	  </p></div></div><div class="section" title="Copying a database"><div class="titlepage"><div><div><h3 class="title"><a name="id570610"></a>Copying a database</h3></div></div></div><p>
+	  Copying a database is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">database copy</code>  [options...]  <em class="replaceable"><code>database</code></em>
+	       <em class="replaceable"><code>new_database</code></em> </p></div><p>
+	</p><p>
+	  Options are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --dbfile=<em class="replaceable"><code>file</code></em> </p></div><p> 
+		specifies the database file (a file, usually with <code class="filename">.dbs</code> extension, that stores the database structure.
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --filedir=<em class="replaceable"><code>directory</code></em> </p></div><p> 
+		specifies the directory that will contains the database data files
+	      </p></li></ul></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> <em class="replaceable"><code>database</code></em> </p></div><p>
+		name of database to copy
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> <em class="replaceable"><code>new_database</code></em> </p></div><p>
+		new database name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-database-copy"></a><p class="title"><b>Example 3.6. <span class="command">eyedbadmin</span> database copy</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database list test3</code></strong>
+Database Name
+  test3
+Database Identifier
+  4
+Database File
+  /var/tmp/test3/test3.dbs
+Max Object Count
+  10000000
+Datafiles
+  Datafile #0
+    Name      DEFAULT
+    Dataspace #0
+    File      test3.dat
+    Maxsize   ~2048Mb
+    Slotsize  16b
+    Server Access read/write
+Default Access
+  NO_DBACCESS_MODE
+Database Access
+  User Name  francois
+  Access Mode ADMIN_DBACCESS_MODE
+<strong class="userinput"><code>mkdir /var/tmp/test3copy</code></strong>
+<strong class="userinput"><code>eyedbadmin database copy --filedir=/var/tmp/test3copy test3 test3copy</code></strong>
+<strong class="userinput"><code>eyedbadmin database list test3copy</code></strong>
+Database Name
+  test3copy
+Database Identifier
+  4
+Database File
+  /var/tmp/test3copy/test3copy.dbs
+Max Object Count
+  10000000
+Datafiles
+  Datafile #0
+    Name      DEFAULT
+    Dataspace #0
+    File      /var/tmp/test3copy/test3copy.dat
+    Maxsize   ~2048Mb
+    Slotsize  16b
+    Server Access read/write
+Default Access
+  NO_DBACCESS_MODE
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Moving a database"><div class="titlepage"><div><div><h3 class="title"><a name="id570838"></a>Moving a database</h3></div></div></div><p>
+	  Moving a database is a different operation than renaming a database: moving a database means moving the database files to a new directory, without changing the database name.
+	</p><p>
+	  Moving a database is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">database move</code>  [options...]  <em class="replaceable"><code>database</code></em> </p></div><p>
+	</p><p>
+	  Options are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --dbfile=<em class="replaceable"><code>file</code></em> </p></div><p>
+		specifies the database file (a file, usually with <code class="filename">.dbs</code> extension, that stores the database structure
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --filedir=<em class="replaceable"><code>directory</code></em> </p></div><p>
+		specifies the directory that will contains the database data files. This option is <span class="emphasis"><em>mandatory</em></span>.
+	      </p></li></ul></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> <em class="replaceable"><code>database</code></em> </p></div><p>
+		name of database to move
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-database-move"></a><p class="title"><b>Example 3.7. <span class="command">eyedbadmin</span> database move</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database list test2</code></strong>
+Database Name
+  test2
+Database Identifier
+  3
+Database File
+  /var/tmp/test2.dbs
+Max Object Count
+  10000000
+Datafiles
+  Datafile #0
+    Name      DEFAULT
+    Dataspace #0
+    File      test2.dat
+    Maxsize   ~2048Mb
+    Slotsize  16b
+    Server Access read/write
+Default Access
+  NO_DBACCESS_MODE
+Database Access
+  User Name  francois
+  Access Mode ADMIN_DBACCESS_MODE
+<strong class="userinput"><code>mkdir /var/tmp/test2</code></strong>
+<strong class="userinput"><code>eyedbadmin database move --filedir=/var/tmp/test2 test2</code></strong>
+<strong class="userinput"><code>eyedbadmin database list test2</code></strong>
+Database Name
+  test2
+Database Identifier
+  3
+Database File
+  /var/tmp/test2/test2.dbs
+Max Object Count
+  10000000
+Datafiles
+  Datafile #0
+    Name      DEFAULT
+    Dataspace #0
+    File      test2.dat
+    Maxsize   ~2048Mb
+    Slotsize  16b
+    Server Access read/write
+Default Access
+  NO_DBACCESS_MODE
+	  </pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Database administration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Exporting and importing a database</td></tr></table></div></body></html>

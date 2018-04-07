@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Defining a simple schema with ODL</TITLE>
+<META NAME="description" CONTENT="Defining a simple schema with ODL">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html112"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html108"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html102"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html110"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html113"
+  HREF="node6.html">Creating and updating objects</A>
+<B> Up:</B> <A NAME="tex2html109"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html103"
+  HREF="node4.html">Creating a database</A>
+ &nbsp; <B>  <A NAME="tex2html111"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00230000000000000000"></A> <A NAME="756"></A>
+<BR>
+Defining a simple schema with ODL
+</H1>
+
+<P>
+Now that a database has been created, we are going to populate it with objects.
+<BR>
+<BR>
+The first step is to define the database schema.
+<BR>
+<BR>
+A standard example in databases is the well known
+<TT>Person</TT> class (or table in relational system) which contains
+a few attributes such as a firstname, a lastname, an age, an address, a spouse
+and a set of children.
+<BR>
+<BR>
+We will show the inheritance feature through the simple class <TT>Employee</TT>
+which inherits from the <TT>Person</TT> class and will contains a simple
+attribute: salary.
+<BR>
+<BR>
+Here is simple ODL schema for the classes <TT>Address</TT>, <TT>Person</TT> 
+and <TT>Employee</TT>:
+<PRE>
+//
+// person.odl
+//
+
+class Address {
+  int num;
+  string street;
+  string town;
+  string country;
+};
+
+class Person {
+  string firstname;
+  string lastname;
+  int age;
+  Address addr;
+  Person * spouse inverse Person::spouse;
+  set&lt;Person *&gt; children;
+};
+
+class Employee extends Person {
+  long salary;
+};
+</PRE>
+A few comments about this schema:
+
+<UL>
+<LI>the <TT>Address</TT> class contains four attributes, one integer
+and three strings.
+
+<UL>
+<LI><B>integer</B>: there are three types of ODL integers: 
+
+<OL>
+<LI>16-bits integer, named <TT>int16</TT> or <TT>short</TT> 
+</LI>
+<LI>32-bits integer, named <TT>int32</TT> or <TT>int</TT> 
+</LI>
+<LI>64-bits integer, named <TT>int64</TT> or <TT>long</TT> 
+</LI>
+</OL>
+so the <TT>num</TT> attribute is a 32-bits integer.
+</LI>
+<LI><B>string</B>: an ODL string is under the form: <TT>string</TT> or
+<TT>string&lt;N&gt;</TT>. The
+first form means that the string is not bounded, the second form means
+that the string contains at most <TT>N</TT> characters.
+</LI>
+</UL>
+</LI>
+<LI>the <TT>Person</TT> class contains six attributes: two strings, one
+32-bits integer, one <TT>Person</TT> object and one set of <TT>Person</TT>
+objects.
+
+<UL>
+<LI>the third attribute <TT>addr</TT> is of <TT>Address</TT> type and is
+a litteral because there is no <TT>*</TT> before the attribute name.
+A litteral is an object without identifier: the <TT>addr</TT> attribute
+is tied to a <TT>Person</TT> instance, it has no proper existence.
+</LI>
+<LI>the <TT>spouse</TT> attribute is an object, not a litteral, because
+it is preceded by a <TT>*</TT>. An object has an identifier and has its
+proper existence. The <TT>*</TT> means a reference or pointer to an
+object.
+The directive after the attribute name <TT>inverse Person::spouse</TT>
+is a relationship directive.
+</LI>
+<LI>the <TT>children</TT> attribute is a collection set of
+<TT>Person</TT> objects.
+</LI>
+</UL>
+</LI>
+<LI>the <TT>Employee</TT> contains seven attributes: the six <TT>Person</TT>
+attributes because <TT>Employee</TT> inherits from <TT>Person</TT> and 
+64-bits integer attribute: <TT>salary</TT>.
+</LI>
+</UL>
+To add the previous schema in the <TT>foo</TT> database, you need to
+use the <TT>eyedbodl</TT> tool as follows:
+<PRE>
+% eyedbodl -d foo -u person.odl
+Updating 'person' schema in database foo...
+Adding class Address
+Adding class Person
+Adding class Employee
+
+Done
+</PRE>
+Note that you must pass the following command line options to the <TT>eyedbodl</TT> command: <TT>-d foo</TT> to specify to which database you are applying the schema and <TT>-u</TT> to update the database schema.
+<BR>
+<BR>
+To verify that the update has correctly worked, you can generate
+the ODL schema from the database, as follows:
+<PRE>
+% eyedbodl -d foo --gencode=ODL²
+
+//
+// EyeDB Version 2.8.4 Copyright (c) 1995-2007 SYSRA
+//
+// UNTITLED Schema
+//
+// Generated by eyedbodl at Mon Dec 10 13:44:03 CET 2007
+//
+
+class Address (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute int32 num;
+        attribute string street;
+        attribute string town;
+        attribute string country;
+};
+
+class Person (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute string firstname;
+        attribute string lastname;
+        attribute int32 age;
+        attribute Address addr;
+        relationship Person* spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; children;
+};
+
+class Employee (implementation &lt;hash, hints = "key_count = 2048;"&gt;) extends Person {
+        attribute int64 salary;
+};
+</PRE>
+Note that the exact output may differ a bit from what is displayed above, depending on the E<SMALL>YE</SMALL>DB version.
+<BR>
+<BR>
+By default, <TT>eyedbodl</TT> generates the ODL on the standard output.
+You see here that the displayed ODL is very similar to the original ODL except
+that the keywords <TT>attribute</TT> and <TT>relationship</TT> have been added
+before each attribute declaration.
+The <TT>relationship</TT> keyword means that the attribute has an <TT>inverse</TT>
+directive.
+<BR>
+<BR>
+Note that these two keywords are optional: it is why we have not use
+them in our example.
+<BR>
+<BR>
+Another way to check that the schema has been created within the database,
+is to use the <TT>eyedboql</TT> tool, as follows:
+<PRE>
+% eyedboql -d foo -c "select schema" --print
+= bag(2546.2.120579:oid, 2553.2.112046:oid, 2568.2.515951:oid)
+struct Address {2546.2.120579:oid} : struct : agregat : instance : object { 
+        attribute int32 num;
+        attribute string street;
+        attribute string town;
+        attribute string country;
+};
+struct Person {2553.2.112046:oid} : struct : agregat : instance : object { 
+        attribute string firstname;
+        attribute string lastname;
+        attribute int32 age;
+        attribute Address addr;
+        relationship Person* spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; children;
+};
+struct Employee {2568.2.515951:oid} : Person : struct : agregat : instance : object { 
+        attribute string Person::firstname;
+        attribute string Person::lastname;
+        attribute int32 Person::age;
+        attribute Address Person::addr;
+        relationship Person* Person::spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; Person::children;
+        attribute int64 salary;
+};
+</PRE>
+Again, note that the exact output may differ a bit from what is displayed above, depending on the E<SMALL>YE</SMALL>DB version.
+<BR>
+<BR>
+Note that the object identifiers (<TT>oid</TT>) of the classes are displayed.
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html112"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html108"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html102"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html110"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html113"
+  HREF="node6.html">Creating and updating objects</A>
+<B> Up:</B> <A NAME="tex2html109"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html103"
+  HREF="node4.html">Creating a database</A>
+ &nbsp; <B>  <A NAME="tex2html111"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,171 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Server configuration</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch02.html" title="Chapter 2. Server administration"><link rel="prev" href="ch02s03.html" title="Getting server information"><link rel="next" href="ch02s05.html" title="Server network access file"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Server configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Server administration</th><td width="20%" align="right"> <a accesskey="n" href="ch02s05.html">Next</a></td></tr></table><hr></div><div class="section" title="Server configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id568408"></a>Server configuration</h2></div></div></div><p>
+	The EyeDB server has a number of <span class="emphasis"><em>configuration switches</em></span> that allow to specify server parameters such as listening ports, directory for temporary files, databases directory...
+      </p><p>
+	Each EyeDB server configuration switch value is determined using, in this order: 
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="command"><strong>eyedbctl</strong></span> options</p></li><li class="listitem"><p>server configuration file</p></li><li class="listitem"><p>environment variables</p></li><li class="listitem"><p>compile-time defaults</p></li></ul></div><p>
+      </p><div class="section" title="Server configuration file"><div class="titlepage"><div><div><h3 class="title"><a name="server-configuration-file"></a>Server configuration file</h3></div></div></div><p>
+	  The server configuration file is a file that contains a list of configuration switches definition. The syntax of the configuration file is given informaly in <a class="xref" href="ch02s04.html#configuration-file-syntax" title="Figure 2.1. EyeDB server configuration file syntax">Figure 2.1, “EyeDB server configuration file syntax”</a>.
+	</p><div class="figure"><a name="configuration-file-syntax"></a><p class="title"><b>Figure 2.1. EyeDB server configuration file syntax</b></p><div class="figure-contents"><div class="literallayout"><p><br>
+file : line ...<br>
+line : comment | definition<br>
+comment : # LINE<br>
+definition: VARIABLE = VALUE ;<br>
+</p></div></div></div><br class="figure-break"><p>
+	  A variable value can contain variable expansions; a variable expansion is a variable name surrounded by the character <code class="literal">%</code> as in: <code class="varname">%variable%</code>.
+	</p><p>
+	  <a class="xref" href="ch02s04.html#server-configuration-file-example" title="Example 2.9. EyeDB server configuration file">Example 2.9, “EyeDB server configuration file”</a> gives an example of a EyeDB server configuration file.
+	</p><div class="example"><a name="server-configuration-file-example"></a><p class="title"><b>Example 2.9. EyeDB server configuration file</b></p><div class="example-contents"><pre class="programlisting">
+# EyeDB server configuration file
+# 
+
+# Bases directory
+databasedir = /home/francois/projects/eyedb/install/var/lib/eyedb/db;
+
+# Temporary files directory
+tmpdir = /home/francois/projects/eyedb/install/var/lib/eyedb/tmp;
+
+# Path to .so files
+sopath = /home/francois/projects/eyedb/install/lib/eyedb;
+
+# Default EYEDBDBM database
+default_dbm = /home/francois/projects/eyedb/install/var/lib/eyedb/db/dbmdb.dbs;
+
+# Granted EYEDBDBM database
+granted_dbm = %default_dbm%;
+
+# Default file mask
+default_file_mask = "0";
+
+# Default file group
+default_file_group = "";
+
+# Maximum server memory size in Mb
+maximum_memory_size = 0;
+
+# Server access file
+access_file = /home/francois/projects/eyedb/install/etc/eyedb/Access;
+
+# Smd connection port
+smdport = /home/francois/projects/eyedb/install/var/lib/eyedb/pipes/smd;
+
+# Server listen ports and sockets list
+listen = localhost:6240,/home/francois/projects/eyedb/install/var/lib/eyedb/pipes/eyedbd;
+
+# OQL files path
+oqlpath = /home/francois/projects/eyedb/install/lib/eyedb/oql
+	  </pre></div></div><br class="example-break"><p>
+	  The EyeDB server will try to load one of the following configuration files, in this order:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>the file specified by <span class="command"><strong>eyedbctl</strong></span> --server-conf option</p></li><li class="listitem"><p>the file specified by <code class="envar">EYEDBDCONF</code> environment variable</p></li><li class="listitem"><p>user configuration file: the file <code class="filename">~/.eyedb/eyedbd.conf</code> where <code class="filename">~</code> represents the home directory of the user running the <span class="command"><strong>eyedbctl</strong></span> command</p></li><li class="listitem"><p>the file <code class="filename">eyedbd.conf</code> located in the directory specified by <code class="envar">EYEDBCONFDIR</code> environment variable</p></li><li class="listitem"><p>system-wide configuration file: the file <code class="filename">eyedbd.conf</code> located in directory <code class="filename"><code class="varname">sysconfdir</code>/eyedb</code>, where <code class="varname">sysconfdir</code> is the system configuration directory specified at compilation time using the <span class="command"><strong>configure</strong></span> script. By default, the system-wide configuration file is <code class="filename">/etc/eyedb/eyedbd.conf</code></p></li></ul></div><p>
+	</p></div><div class="section" title="Server configuration switches list"><div class="titlepage"><div><div><h3 class="title"><a name="id568644"></a>Server configuration switches list</h3></div></div></div><p>
+	  The list of configuration switches that are use by the EyeDB server is given in <a class="xref" href="ch02s04.html#server-configuration-switches" title="Table 2.1.  List of EyeDB server configuration switches">Table 2.1, “
+	    List of EyeDB server configuration switches
+	  ”</a>. This table gives the variable name that can appear in a configuration file, the corresponding <span class="command"><strong>eyedbctl</strong></span> option if applicable, the name of the environment variable and a description of the configuration switch meaning.
+	</p><div class="table"><a name="server-configuration-switches"></a><p class="title"><b>Table 2.1. 
+	    List of EyeDB server configuration switches
+	  </b></p><div class="table-contents"><table summary="
+	    List of EyeDB server configuration switches
+	  " border="1"><colgroup><col><col><col></colgroup><thead><tr><th>
+		  Configuration variable name
+		</th><th>
+		  <span class="command"><strong>eyedbctl</strong></span> option
+		</th><th>
+		  environment variable
+		</th><th>
+		  Description
+		</th></tr></thead><tbody><tr><td>
+		  databasedir
+		</td><td>
+		  --databasedir
+		</td><td>
+		  EYEDBDATABASEDIR
+		</td><td>
+		  databases directory
+		</td></tr><tr><td>
+		  tmpdir
+		</td><td>
+		  NA
+		</td><td>
+		  EYEDBTMPDIR
+		</td><td>
+		  temporary files directory
+		</td></tr><tr><td>
+		  sopath
+		</td><td>
+		  NA
+		</td><td>
+		  EYEDBSOPATH
+		</td><td>
+		  path to .so files
+		</td></tr><tr><td>
+		  default_dbm
+		</td><td>
+		  --default-dbm
+		</td><td>
+		  EYEDBDEFAULT_DBM
+		</td><td>
+		  default EYEDBDBM database
+		</td></tr><tr><td>
+		  granted_dbm
+		</td><td>
+		  --granted-dbm
+		</td><td>
+		  EYEDBGRANTED_DBM
+		</td><td>
+		  granted EYEDBDBM database
+		</td></tr><tr><td>
+		  default_file_mask
+		</td><td>
+		  --default-file-mask
+		</td><td>
+		  EYEDBDEFAULT_FILE_MASK
+		</td><td>
+		  default file mask
+		</td></tr><tr><td>
+		  default_file_group
+		</td><td>
+		  --default-file-group
+		</td><td>
+		  EYEDBDEFAULT_FILE_GROUP
+		</td><td>
+		  default file group
+		</td></tr><tr><td>
+		  maximum_memory_size
+		</td><td>
+		  --maximum-server-memory-size
+		</td><td>
+		  EYEDBMAXIMUM_MEMORY_SIZE
+		</td><td>
+		  maximum server memory size in Mb
+		</td></tr><tr><td>
+		  access_file
+		</td><td>
+		  NA
+		</td><td>
+		  EYEDBACCESS_FILE
+		</td><td>
+		  server access file
+		</td></tr><tr><td>
+		  smdport
+		</td><td>
+		  NA
+		</td><td>
+		  EYEDBSMDPORT
+		</td><td>
+		  smd connection port
+		</td></tr><tr><td>
+		  listen
+		</td><td>
+		  --listen
+		</td><td>
+		  EYEDBLISTEN
+		</td><td>
+		  server listen ports and sockets list
+		</td></tr><tr><td>
+		  oqlpath
+		</td><td>
+		  NA
+		</td><td>
+		  EYEDBOQLPATH
+		</td><td>
+		  OQL files path
+		</td></tr></tbody></table></div></div><br class="table-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Getting server information </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Server network access file</td></tr></table></div></body></html>

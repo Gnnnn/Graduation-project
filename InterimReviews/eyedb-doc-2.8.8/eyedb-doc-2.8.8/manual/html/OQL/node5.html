@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>OQL vs. ODMG 3 OQL</TITLE>
+<META NAME="description" CONTENT="OQL vs. ODMG 3 OQL">
+<META NAME="keywords" CONTENT="OQL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="OQL.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html493"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html489"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html483"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html491"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html494"
+  HREF="node6.html">Language Concepts</A>
+<B> Up:</B> <A NAME="tex2html490"
+  HREF="node2.html">The Object Query Language</A>
+<B> Previous:</B> <A NAME="tex2html484"
+  HREF="node4.html">Principles</A>
+ &nbsp; <B>  <A NAME="tex2html492"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00230000000000000000"></A> <A NAME="5439"></A>
+<A NAME="diffoql"></A>
+<BR>
+OQL vs. ODMG 3 OQL
+</H1>
+OQL implements all the ODMG OQL functionalities with a few exceptions
+concerning the <TT>select</TT> clause.
+In order to accept the whole DML (Data Manipulation Language) query part of
+SQL as a valid syntax for ODMG OQL, ad-hoc constructions have been
+added to ODMG OQL each time SQL introduces a syntax that cannot be
+considered in the category of true operators.
+
+<BR>
+<BR>
+For instance, the following construct is a valid ODMG OQL construct:
+
+<PRE>
+select p.name, salary from Professors p
+</PRE>
+This construct is not currently a valid OQL construct. The alternate valid
+OQL form is:
+
+<PRE>
+select struct(name: p.name, salary: p.salary) from Professors p
+</PRE>
+In the same way, ODMG OQL accepts SQL forms of the agregate operators
+<TT>min, max, count, sum</TT> and <TT>avg</TT>, for instance:
+
+<PRE>
+select count(*) from Persons
+select max(e.salary) from Employees e
+</PRE>
+These constructs are not currently valid OQL constructs. The alternate valid
+OQL forms are:
+<PRE>
+count(select p from Persons p)
+max(select e.salary from Employees e)
+</PRE>
+In the same way, the <TT>select *</TT> clause is not currently implemented
+in OQL, neither the implicit <TT>select</TT> clause (i.e. without explicit
+identifier). For instance, the following constructs are not OQL valid
+constructs, although there are valid ODMG OQL constructs:
+<PRE>
+select * from Person
+select name from Person
+</PRE>
+There is no alternate OQL valid form for the first construct.
+The alternate OQL valid forms for the second construct is:
+<PRE>
+select Person.name
+select p.name from Person p
+select p.name from Person as p
+select p.name from p in Person
+</PRE>
+On the other hand, OQL provides a few extensions to ODMG OQL:
+
+<BR>
+<BR> - assignment operators,
+<BR> - four regular expression operators,
+<BR> - selection statements, <TT>if/else</TT>,
+<BR> - iteration statements, <TT>while</TT>, <TT>do/while</TT>, two forms
+of <TT>for</TT>, 
+<BR> - function definition statements, <TT>function</TT>,
+<BR> - the <TT>eval</TT> and <TT>unval</TT> operators,
+<BR> - identifier operators, <TT>isset</TT>, <TT>unset</TT>,
+<TT>refof</TT>, <TT>valof</TT>, <TT>&amp;</TT>, <TT>*</TT>, <TT>push</TT>,
+<TT>pop</TT>, 
+<BR> - exception management operators, <TT>throw</TT>,
+<BR> - type information operators, <TT>classof</TT>, <TT>typeof</TT>
+<BR> - miscellaneous operators, <TT>structof</TT>, <TT>bodyof</TT>
+<BR> - builtin and library functions.
+<BR>
+<BR>
+For instance, the following constructs are valid OQL constructs:
+<PRE>
+for (x in l)
+{
+  if (classof x != "Person")
+    throw "Person type expected";
+  if (x-&gt;name ~ "^john")
+  {
+     ok := true;
+     break;
+  }
+}
+
+function fib(n) {
+  if (n &lt; 2)
+     return n;
+  return fib(n-1) + fib(n-2);
+}
+
+for (n := 0, v := 0; n &lt; 15; n++)
+  v += fib(n);
+
+function swap(x, y) {
+   v := *x;
+   *x := *y;
+   *y := v;
+}
+
+i := "ii"; j := "jj";
+swap(&amp;i, &amp;j);
+
+function get_from(classname, attrname) {
+   return eval "select x." + attrname + " from " + classname + " x";
+}
+
+names := get_from("Person", "name");
+</PRE>
+These extensions make OQL computationally complete. 
+
+<BR>
+<BR>
+Some of the ODMG OQL functionnalities or specificities are not yet implemented:
+
+<OL>
+<LI>the <TT>group by/having</TT> operator,
+</LI>
+<LI>the <TT>order by</TT> operator is more restrictive than in the
+ODMG specifications,
+</LI>
+<LI>contrary to ODMG OQL, it is necessary to put parenthesis to call
+a function or method with takes no arguments,
+</LI>
+<LI>contrary to ODMG OQL, the <TT>||</TT> operator does means string
+concatenation. It is the logical or operator. This will be changed
+in a future version.
+</LI>
+</OL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html493"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html489"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html483"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html491"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html494"
+  HREF="node6.html">Language Concepts</A>
+<B> Up:</B> <A NAME="tex2html490"
+  HREF="node2.html">The Object Query Language</A>
+<B> Previous:</B> <A NAME="tex2html484"
+  HREF="node4.html">Principles</A>
+ &nbsp; <B>  <A NAME="tex2html492"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

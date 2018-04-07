@@ -1,0 +1,35 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Compiling and running the application</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="ch05.html" title="Chapter 5. Using the Java Binding"><link rel="prev" href="ch05s02.html" title="A minimal client program"><link rel="next" href="ch06.html" title="Chapter 6. Learning more about EyeDB"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Compiling and running the application</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Using the Java Binding</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="section" title="Compiling and running the application"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id302164"></a>Compiling and running the application</h2></div></div></div><p>
+	To use this client, you must first compile it using a standard Makefile, as follows (replace <code class="filename">&lt;&lt;datadir&gt;&gt;</code> with the data directory, usually <code class="filename">/usr/share</code>):
+	</p><div class="informalexample"><pre class="programlisting">
+include &lt;&lt;datadir&gt;&gt;/eyedb/Makefile.eyedb
+
+all: PersonTest.class
+
+person/Database.java: schema.odl
+        $(EYEDB_ODL) --gencode=Java --package=person --output-dir=person $&lt;
+
+PersonTest.class: PersonTest.java person/Database.java
+        CLASSPATH=$(EYEDB_CLASSPATH):. javac *.java person/*.java
+
+	  </pre></div><p>
+      </p><p>
+	Once compiled, you can execute the program as follows:
+	</p><div class="informalexample"><pre class="screen">
+	    % <strong class="userinput"><code>CLASSPATH=. eyedbjrun PersonTest person_g</code></strong>
+	  </pre></div><p>
+      </p><p>
+	The <span class="command"><strong>eyedbjrun</strong></span> script is a helper script that wraps the call to the Java 
+	virtual machine with an appropriate CLASSPATH environment variable containing the path to <code class="filename">eyedb.jar</code> and passes the necessary options to the <code class="classname">PersonTest</code> class.
+      </p><p>
+	A few remarks about the Java code:
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+	      all operations - setting, getting attributes, storing, querying instances in a database - must be performed within a transaction. A transaction is initiated using the <code class="function">Database::transactionBegin</code> method and is committed (resp. aborted) using the <code class="function">Database::transactionCommit</code> (resp. <code class="function">Database::transactionAbort</code>) method.
+	    </p></li><li class="listitem"><p>
+	      to store any instance in the database, you need to call the <code class="function">store</code> (or <code class="function">realize</code>) method on this instance. In our case, we use the argument <code class="varname">FullRecurs</code> indicating that we want all related instances (through relationship or indirect attribute) to be stored in the database.
+	    </p></li></ul></div><p>
+      </p><p>
+	The Java binding support both the standalone applications and the applets.
+      </p><p>
+	To have more information about the Java binding, please refer to the
+	EyeDB Java binding manual.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A minimal client program </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 6. Learning more about EyeDB</td></tr></table></div></body></html>

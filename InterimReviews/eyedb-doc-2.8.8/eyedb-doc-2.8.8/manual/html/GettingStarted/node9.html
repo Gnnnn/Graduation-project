@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Updating the database schema</TITLE>
+<META NAME="description" CONTENT="Updating the database schema">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node10.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html160"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html156"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html150"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html158"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html161"
+  HREF="node10.html">Using the C++ Binding</A>
+<B> Up:</B> <A NAME="tex2html157"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html151"
+  HREF="node8.html">Manipulating objects using OQL</A>
+ &nbsp; <B>  <A NAME="tex2html159"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html162"
+  HREF="node9.html#SECTION00271000000000000000">Adding indexes</A>
+<LI><A NAME="tex2html163"
+  HREF="node9.html#SECTION00272000000000000000">Adding constraints</A>
+<LI><A NAME="tex2html164"
+  HREF="node9.html#SECTION00273000000000000000">Removing classes and schema</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00270000000000000000"></A> <A NAME="770"></A>
+<BR>
+Updating the database schema
+</H1>
+
+<P>
+Once created, a database schema can be updated, to add or remove attributes, add or remove classes or schema, add indexes or contraints.
+
+<H2><A NAME="SECTION00271000000000000000"></A> <A NAME="772"></A>
+<BR>
+Adding indexes
+</H2>
+To introduce the necessity of indexes, we propose to perform the following
+operations:
+<PRE>
+? for (x in 1 &lt;= 50000) new Person(firstname : "xx" + string(x));
+? select Person.firstname = "xx20";
+= bag(23336.2.420154:oid)
+? select Person.firstname = "xx10";
+= bag(23316.2.824639:oid)
+</PRE>
+The first operation creates 50000 person instances: as you can notice,
+this operation takes a few seconds. The two last operations query 
+person instance according to their firstname attribute. These operations
+also take a few seconds to perform and take a significant amount of CPU.
+<BR>
+<BR>
+A good idea is to affect an index on the attributes - for instance
+<TT>firstname</TT>, <TT>lastname</TT> and <TT>age</TT> - for which one wants
+to perform efficient query.
+<BR>
+<BR>
+This is very simple:
+
+<UL>
+<LI>add index specification to the class <TT>Person</TT> in 
+the <TT>person.odl</TT> file as follows:
+<PRE>
+class Person {
+  string firstname;
+  char lastname;
+  int age;
+  Address addr;
+  ...
+  set&lt;Person *&gt; children;
+
+  index on firstname;
+  index on lastname;
+  index on age;
+};
+</PRE>
+</LI>
+<LI>then, use the <TT>eyedbodl</TT> tool to update the database schema:
+<PRE>
+% eyedbodl -d foo -u person.odl
+Updating 'person' schema in database foo...
+Creating [NULL] hashindex 'index&lt;type = hash, propagate = on&gt; on Person.firstname' on class 'Person'...
+Creating [NULL] hashindex 'index&lt;type = hash, propagate = on&gt; on Person.lastname' on class 'Person'...
+Creating [NULL] btreeindex 'index&lt;type = btree, propagate = on&gt; on Person.age' on class 'Person'...
+
+Done
+</PRE>
+</LI>
+</UL>
+Now, you can try again to query Person instances according to its
+firstname, lastname or age:
+<PRE>
+% eyedboql -d foo -w
+? select Person.firstname = "xx20";
+= bag(23336.2.420154:oid)
+? select Person.firstname = "xx10";
+= bag(23316.2.824639:oid)
+</PRE>
+and you will notice that these operations are immediate.
+
+<P>
+
+<H2><A NAME="SECTION00272000000000000000"></A> <A NAME="774"></A>
+<BR>
+Adding constraints
+</H2>
+
+<P>
+In the same way, you can add a <TT>notnull</TT> and an <TT>unique</TT> constraint
+on the <TT>lastname</TT> attribute within the class <TT>Person</TT>:
+
+<UL>
+<LI>add the constraint specification to the class <TT>Person</TT> within
+the <TT>person.odl</TT> file as follows:
+<PRE>
+class Person {
+  string firstname;
+  string lastname;
+  int age;
+  Address addr;
+  ...
+
+  index on firstname;
+  index on lastname;
+  index on age;
+  constraint&lt;notnull&gt; on lastname;
+  constraint&lt;unique&gt; on lastname;
+};
+</PRE>
+</LI>
+<LI>then, use the <TT>eyedbodl</TT> tool to update the database schema:
+<PRE>
+% eyedbodl -d foo -u person.odl
+Updating 'person' schema in database foo...
+Creating [NULL] notnull_constraint 'constraint&lt;notnull, propagate = on&gt; on Person.lastname' on class 'Person'...
+Creating [NULL] unique_constraint 'constraint&lt;unique, propagate = on&gt; on Person.lastname' on class 'Person'...
+
+Done
+</PRE>
+</LI>
+</UL>
+Now try to create two person instances with the same <TT>lastname</TT> attribute:
+<PRE>
+% eyedboql -d foo -w
+? new Person(lastname : "curtis");
+= 79902.2.884935:oid
+? new Person(lastname : "curtis");
+near line 2: 'new Person(lastname : "curtis")' =&gt; oql error: new operator 'new&lt;oql$db&gt; Person(lastname:"curtis"); ' : unique[] constraint error: attribute path 'Person.lastname'.
+</PRE> or with no <TT>lastname</TT> attribute:
+<PRE>
+? new Person();
+near line 3: 'new Person()' =&gt; oql error: new operator 'new&lt;oql$db&gt; Person(); ' : notnull[] constraint error: attribute path 'Person.lastname'.
+</PRE> 
+<P>
+
+<H2><A NAME="SECTION00273000000000000000"></A> <A NAME="776"></A>
+<BR>
+Removing classes and schema
+</H2>
+
+<P>
+It is possible to remove a class in a schema using <TT>eyedbodl</TT>. For instance, to remove the class <TT>Employee</TT> in the already introduced schema:
+<PRE>
+% eyedbodl -d foo -u --rmcls=Employee
+Updating 'UNTITLED' schema in database foo...
+Removing class Employee
+
+Done
+</PRE>
+You can then check the class removal by:
+<PRE>
+% eyedbodl -d foo --gencode=ODL
+
+//
+// EyeDB Version 2.8.4 Copyright (c) 1995-2007 SYSRA
+//
+// UNTITLED Schema
+//
+// Generated by eyedbodl at Mon Dec 10 13:44:03 CET 2007
+//
+
+class Address (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute int32 num;
+        attribute string street;
+        attribute string town;
+        attribute string country;
+};
+
+class Person (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute string firstname;
+        attribute string lastname;
+        attribute int32 age;
+        attribute Address addr;
+        relationship Person* spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; children;
+
+        index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.firstname;
+        index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.lastname;
+        constraint&lt;unique, propagate = on&gt; on Person.lastname;
+        constraint&lt;notnull, propagate = on&gt; on Person.lastname;
+        index&lt;type = btree, hints = "degree = 128;", propagate = on&gt; on Person.age;
+};
+</PRE>
+It is as well possible to remove entirely the database schema:
+<PRE>
+% eyedbodl -d foo -u --rmsch
+Updating 'UNTITLED' schema in database foo...
+Removing [2570.2.500986:oid] hashindex 'index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.firstname' from class 'Person'...
+Removing [2585.2.286352:oid] hashindex 'index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.lastname' from class 'Person'...
+Removing [2599.2.7912:oid] btreeindex 'index&lt;type = btree, hints = "degree = 128;", propagate = on&gt; on Person.age' from class 'Person'...
+Removing [2625.2.396262:oid] unique_constraint 'constraint&lt;unique, propagate = on&gt; on Person.lastname' from class 'Person'...
+Removing [2620.2.240536:oid] notnull_constraint 'constraint&lt;notnull, propagate = on&gt; on Person.lastname' from class 'Person'...
+Removing class Address
+Removing class Person
+Removing class set&lt;Person*&gt;
+
+Done
+</PRE>
+The result can be checked with:
+<PRE>
+% eyedbodl -d foo --gencode=ODL
+
+//
+// EyeDB Version 2.8.4 Copyright (c) 1995-2007 SYSRA
+//
+// UNTITLED Schema
+//
+// Generated by eyedbodl at Mon Dec 10 13:44:03 CET 2007
+//
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html160"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html156"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html150"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html158"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html161"
+  HREF="node10.html">Using the C++ Binding</A>
+<B> Up:</B> <A NAME="tex2html157"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html151"
+  HREF="node8.html">Manipulating objects using OQL</A>
+ &nbsp; <B>  <A NAME="tex2html159"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

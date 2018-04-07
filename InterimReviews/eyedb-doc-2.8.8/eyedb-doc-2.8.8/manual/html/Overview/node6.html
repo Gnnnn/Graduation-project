@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Object Model</TITLE>
+<META NAME="description" CONTENT="The Object Model">
+<META NAME="keywords" CONTENT="Overview">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="Overview.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html145"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html141"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html135"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html143"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html146"
+  HREF="node7.html">The Object Definition Language</A>
+<B> Up:</B> <A NAME="tex2html142"
+  HREF="node2.html">Overview</A>
+<B> Previous:</B> <A NAME="tex2html136"
+  HREF="node5.html">The Storage Manager Subsystem</A>
+ &nbsp; <B>  <A NAME="tex2html144"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html147"
+  HREF="node6.html#SECTION00241000000000000000">Class Structure</A>
+<LI><A NAME="tex2html148"
+  HREF="node6.html#SECTION00242000000000000000">Type Polymorphism</A>
+<LI><A NAME="tex2html149"
+  HREF="node6.html#SECTION00243000000000000000">The Collection Type</A>
+<LI><A NAME="tex2html150"
+  HREF="node6.html#SECTION00244000000000000000">Relationships</A>
+<LI><A NAME="tex2html151"
+  HREF="node6.html#SECTION00245000000000000000">Constraints</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00240000000000000000">
+The Object Model</A>
+</H1>
+The E<SMALL>YE</SMALL>DB object model is inspired by the SmallTalk, LOOPS, ObjVlisp, Java
+and ODMG models.
+
+<BR>
+<BR>
+The main three class abstractions are the class <TT>object</TT> which is
+the root class, the class <TT>class</TT> and the class <TT>instance</TT> as shown in
+Figure <A HREF="#objmod">2</A>.
+
+<BR>
+<BR>
+Generally speaking, the instantiation of a class <TT>X</TT> gives an instance of the class <TT>X</TT>.
+
+<DIV ALIGN="CENTER"><A NAME="objmod"></A><A NAME="440"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Partial Native Object Model</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<BR>
+An instance cannot be instantiated except the instances of the class <TT>class</TT> or its
+subclasses: the instantiation of an instance of the class <TT>class</TT> is an instance of the class <TT>instance</TT>
+(i.e. an instance of the class <TT>instance</TT>).
+
+<BR>
+<BR>
+If <SPAN  CLASS="textit">new()</SPAN> denotes the instantiation method:
+
+<BR>
+<BR> <TT>struct_class</TT> <SPAN  CLASS="textsf">Person</SPAN> =
+<BR> <TT>struct_class-&gt;</TT><SPAN  CLASS="textit">new</SPAN>(name = "Person", ...)
+
+<BR>
+<BR><SPAN  CLASS="textsf">Person</SPAN> is an instance of the class <TT>struct_class</TT> that can be instantiated:
+
+<BR>
+<BR> <TT>struct</TT> <SPAN  CLASS="textsf">john</SPAN> =
+<BR> <SPAN  CLASS="textsf">Person</SPAN><TT>-&gt;</TT><SPAN  CLASS="textit">new</SPAN>(name = "john", age = 32)
+
+<BR>
+<BR><SPAN  CLASS="textsf">john</SPAN> is an instance of the class <TT>struct</TT> that cannot be instantiated
+
+<BR>
+<BR> <TT>struct_class</TT> <SPAN  CLASS="textsf">Employee</SPAN> =
+<BR> <TT>struct_class-&gt;</TT><SPAN  CLASS="textit">new</SPAN>(name = "Employee",
+<BR>
+parent = <SPAN  CLASS="textsf">Person</SPAN>, ...)
+
+<BR>
+<BR> <TT>struct</TT> <SPAN  CLASS="textsf">henry</SPAN> =
+<BR> <SPAN  CLASS="textsf">Employee</SPAN><TT>-&gt;</TT><SPAN  CLASS="textit">new</SPAN>(name = "henry",
+<BR>
+salary = 10000)
+
+<BR>
+<BR>
+Figure <A HREF="#objmod2">3</A> shows this instantiation mechanisms.
+
+<BR>
+<BR>
+Note that as the class <TT>class</TT> derives from the class <TT>object</TT>,
+an instance of the class <TT>class</TT> can be manipulated like any instance of the class <TT>object</TT>.
+
+<BR>
+<BR>
+The native E<SMALL>YE</SMALL>DB object model is composed of 76 classes
+such as the class <TT>collection</TT>, the class <TT>method</TT>,
+the class <TT>constraint</TT>, the class <TT>index</TT>, the class <TT>image</TT>
+and so on.
+
+<BR>
+E<SMALL>YE</SMALL>DB object model supports all standard built-in types:
+<TT>16-bit, 32-bit</TT> and <TT>64-bit integer, character, string, 64-bit float</TT>.
+
+<BR>
+<BR>
+An instance can be <SPAN  CLASS="textit"><TT>transient</TT></SPAN> or <SPAN  CLASS="textit"><TT>persistent</TT></SPAN>:
+
+<UL>
+<LI>an instance is <SPAN  CLASS="textit"><TT>transient</TT></SPAN> if its lifetime does not exceed the
+lifetime of the unit of execution in which it is manipulated.
+</LI>
+<LI>otherwise the instance is <SPAN  CLASS="textit"><TT>persistent</TT></SPAN>.
+</LI>
+</UL>
+A <SPAN  CLASS="textit"><TT>persistent</TT></SPAN> instance can be <SPAN  CLASS="textit"><TT>object</TT></SPAN> or <SPAN  CLASS="textit"><TT>literal</TT></SPAN>:
+
+<UL>
+<LI>an <SPAN  CLASS="textit"><TT>object</TT></SPAN> <SPAN  CLASS="textit"><TT>persistent</TT></SPAN> instance has an unique identifier
+(i.e. an <SPAN  CLASS="textit">oid</SPAN>)
+</LI>
+<LI>a <SPAN  CLASS="textit"><TT>literal</TT></SPAN> <SPAN  CLASS="textit"><TT>persistent</TT></SPAN> instance has
+no identifier.
+</LI>
+</UL>
+
+<DIV ALIGN="CENTER"><A NAME="objmod2"></A><A NAME="498"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Applicative Object Model Example</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<H2><A NAME="SECTION00241000000000000000">
+Class Structure</A>
+</H2>
+A class is composed of a name, a parent class (except for the
+class <TT>object</TT> which is the root class), a set
+of attributes, a set of methods and a set of triggers:
+
+<UL>
+<LI>an attribute is composed of a type, an optionnal array modifier and
+is <SPAN  CLASS="textit"><TT>literal</TT></SPAN> or <SPAN  CLASS="textit"><TT>object</TT></SPAN>. For instance, using the E<SMALL>YE</SMALL>DB ODL
+language:
+
+<PRE>
+   attribute int32 age
+</PRE>
+is a <SPAN  CLASS="textit"><TT>literal</TT></SPAN> attribute of type <TT>int32</TT> with no array modifier,
+while the following attribute:
+
+<PRE>
+   attribute Person *children[10]
+</PRE>
+is a fixed-size array of <SPAN  CLASS="textit"><TT>object</TT></SPAN> of type <TT>Person</TT>.
+
+<P>
+</LI>
+<LI>a method is a unit of execution tied to a class.
+
+<BR>
+A method can be either a class method or an instance method.
+</LI>
+<LI>a trigger is a unit of execution tied to a class.
+Triggers are applied to instances of this class on a given event.
+
+<BR>
+For example, a trigger <TT>update_before</TT> tied to the class <TT>X</TT>
+means that before the update of any instance of the class <TT>X</TT>, the trigger will
+be called.
+
+<BR>
+A method or a trigger can be overloaded by the sub-classes.
+
+<BR>
+<BR>
+E<SMALL>YE</SMALL>DB supports the following trigger events: <TT>create_before</TT>,
+<TT>create_after</TT>,
+<TT>update_before</TT>,
+<TT>update_after</TT>,
+<TT>load_before</TT>,
+<TT>load_after</TT>,
+<TT>remove_before</TT>,
+<TT>remove_after</TT>.
+</LI>
+</UL>
+<H2><A NAME="SECTION00242000000000000000">
+Type Polymorphism</A>
+</H2>
+The two language bindings, C++ and Java, and E<SMALL>YE</SMALL>DB OQL supports
+type polymorphism: variables may be bound by instances of different types.
+
+<BR>
+This is a direct consequence owing to the fact that any E<SMALL>YE</SMALL>DB class
+inherits from the class <TT>object</TT>,
+
+<BR>
+<BR>
+The possibility of manipulating polymorphic objects is a
+major contribution of object orientation.
+
+<H2><A NAME="SECTION00243000000000000000">
+The Collection Type</A>
+</H2>
+A collection is composed of elements of the same type.
+
+<BR>
+The elements can be either <SPAN  CLASS="textit"><TT>literal</TT></SPAN> or <SPAN  CLASS="textit"><TT>object</TT></SPAN>.
+
+<BR>
+<BR>
+If the collection element type is the class <TT>object</TT>, then
+the collection can contain instances of any class, as all
+classes inherit from the class <TT>object</TT>.
+
+<BR>
+<BR>
+The collection types supported by E<SMALL>YE</SMALL>DB are the <TT>set</TT>, the
+<TT>bag</TT> and the <TT>array</TT>:
+
+<UL>
+<LI>an instance of the class <TT>set</TT> is an unordered collection with no duplicates allowed,
+</LI>
+<LI>an instance of the class <TT>bag</TT> is an unordered collection that may contain duplicates,
+</LI>
+<LI>an instance of the class <TT>array</TT> instance is dynamically sized ordered collection.
+</LI>
+</UL>
+The collection type is a major concept of the E<SMALL>YE</SMALL>DB object model.
+
+<P>
+
+<H2><A NAME="SECTION00244000000000000000">
+Relationships</A>
+</H2>
+The E<SMALL>YE</SMALL>DB object model supports only binary relationships, i.e. relationships
+between two types.
+
+<BR>
+A binary relationship may be one-to-one, one-to-many or many-to-many
+depending on the cardinality of the related types.
+Relationships are not named.
+
+<BR>
+<BR>
+E<SMALL>YE</SMALL>DB maintains the referential integrity of
+relationships. This means that if an object that participates
+in a relationship is removed, then any traversal path to that object
+is also removed.
+
+<BR>
+E<SMALL>YE</SMALL>DB supports object-valued attribute: this kind of attribute enables one
+object to reference another without expectation of referencial integrity.
+An object-valued attribute implements a unidirectionnal relationship:
+in this case, E<SMALL>YE</SMALL>DB does not guarantee the referential integrity.
+Note that such a unidirectionnal relationship is not called a relationship.
+
+<BR>
+<BR>
+The example introduced in the section <SPAN  CLASS="textit">The Object Definition Language</SPAN>
+illustrates the use of relationships and object-valued attributes.
+
+<H2><A NAME="SECTION00245000000000000000">
+Constraints</A>
+</H2>
+E<SMALL>YE</SMALL>DB supports all standard constraints:
+
+<UL>
+<LI>the <TT>not null</TT> constraint on a attribute within
+a class <TT>X</TT> means that no instances of the class <TT>X</TT> can have
+this attribute value not assigned.
+</LI>
+<LI>the <TT>unique</TT> constraint on a attribute within a class <TT>X</TT>
+means that one cannot create an instance of the class <TT>X</TT> which has the same 
+
+<P>
+attribute value than an existing instance in the database.
+</LI>
+<LI>the <TT>cardinality</TT> constraint on an instance of the class <TT>collection</TT> means
+that the count of this collection must follow this cardinality constraint.
+</LI>
+</UL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html145"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html141"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html135"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html143"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html146"
+  HREF="node7.html">The Object Definition Language</A>
+<B> Up:</B> <A NAME="tex2html142"
+  HREF="node2.html">Overview</A>
+<B> Previous:</B> <A NAME="tex2html136"
+  HREF="node5.html">The Storage Manager Subsystem</A>
+ &nbsp; <B>  <A NAME="tex2html144"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

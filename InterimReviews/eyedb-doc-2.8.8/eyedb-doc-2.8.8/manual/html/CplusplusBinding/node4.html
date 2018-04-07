@@ -1,0 +1,1338 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Schema-Oriented Generated C++ API</TITLE>
+<META NAME="description" CONTENT="The Schema-Oriented Generated C++ API">
+<META NAME="keywords" CONTENT="CplusplusBinding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CplusplusBinding.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html192"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html188"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html182"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html190"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html193"
+  HREF="node5.html">Examples</A>
+<B> Up:</B> <A NAME="tex2html189"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+<B> Previous:</B> <A NAME="tex2html183"
+  HREF="node3.html">The Generic C++ API</A>
+ &nbsp; <B>  <A NAME="tex2html191"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html194"
+  HREF="node4.html#SECTION00221000000000000000">Generating a Schema-Oriented C++ API</A>
+<LI><A NAME="tex2html195"
+  HREF="node4.html#SECTION00222000000000000000">The Generated Code</A>
+<LI><A NAME="tex2html196"
+  HREF="node4.html#SECTION00223000000000000000">Constructors and Copy Operator</A>
+<LI><A NAME="tex2html197"
+  HREF="node4.html#SECTION00224000000000000000">Down Casting Methods and Functions</A>
+<LI><A NAME="tex2html198"
+  HREF="node4.html#SECTION00225000000000000000">Selector Methods</A>
+<UL>
+<LI><A NAME="tex2html199"
+  HREF="node4.html#SECTION00225100000000000000">Literal Basic or User Enum Type</A>
+<LI><A NAME="tex2html200"
+  HREF="node4.html#SECTION00225200000000000000">Literal String</A>
+<LI><A NAME="tex2html201"
+  HREF="node4.html#SECTION00225300000000000000">Literal User Type</A>
+<LI><A NAME="tex2html202"
+  HREF="node4.html#SECTION00225400000000000000">Object Basic, User or System Type</A>
+<LI><A NAME="tex2html203"
+  HREF="node4.html#SECTION00225500000000000000">Object Collection Type</A>
+<LI><A NAME="tex2html204"
+  HREF="node4.html#SECTION00225600000000000000">Array Modifier</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html205"
+  HREF="node4.html#SECTION00226000000000000000">Modidier Methods</A>
+<UL>
+<LI><A NAME="tex2html206"
+  HREF="node4.html#SECTION00226100000000000000">Literal Basic or User Enum Type</A>
+<LI><A NAME="tex2html207"
+  HREF="node4.html#SECTION00226200000000000000">Literal String</A>
+<LI><A NAME="tex2html208"
+  HREF="node4.html#SECTION00226300000000000000">Literal User Type</A>
+<LI><A NAME="tex2html209"
+  HREF="node4.html#SECTION00226400000000000000">Object Basic, User or System Type</A>
+<LI><A NAME="tex2html210"
+  HREF="node4.html#SECTION00226500000000000000">Object Collection Type</A>
+<LI><A NAME="tex2html211"
+  HREF="node4.html#SECTION00226600000000000000">Array Modifier</A>
+<LI><A NAME="tex2html212"
+  HREF="node4.html#SECTION00226700000000000000">Methods mapped from ODL methods</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html213"
+  HREF="node4.html#SECTION00227000000000000000">Initialization</A>
+<LI><A NAME="tex2html214"
+  HREF="node4.html#SECTION00228000000000000000">Database Opening</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00220000000000000000"></A> <A NAME="1173"></A>
+<BR>
+The Schema-Oriented Generated C++ API
+</H1>
+The generic C++ API allows you to manipulate any object within any
+database: this is its force. But, as shown in the previous section,
+object manipulation is sometimes very heavy as the provided methods
+are too much generic.
+
+<BR>
+<BR>
+To enrich the generic API, one introduces a tool to generate specific
+C++ code from a specific ODL schema: the generated API
+is call a schema-oriented API.
+
+<BR>
+<BR>
+The schema-oriented API contains mainly:
+
+<OL>
+<LI>a C++ class for each class defined in the ODL schema.
+</LI>
+<LI>selector and modifier methods in the C++ class
+for each attribute defined in the ODL class.
+</LI>
+<LI>user friendly selector and modifier methods for array and
+collection attributes.
+</LI>
+<LI>a C++ method mapped on each method defined in the ODL class.
+</LI>
+<LI>a specific C++ database class used to open a database and
+check its schema.
+</LI>
+<LI>some utilities such as down-casting funtions.
+</LI>
+</OL>
+The schema-oriented API is designed so that the object manipulation
+for this schema is the most comfortable as possible.
+
+<P>
+
+<H2><A NAME="SECTION00221000000000000000"></A> <A NAME="1177"></A>
+<BR>
+Generating a Schema-Oriented C++ API
+</H2>
+To generate a schema-oriented C++ API, one needs a well formed ODL
+file describing a schema or a reachable database containing this schema
+and the <TT>eyedbodl</TT> tool.
+
+<BR>
+To generate a schema-oriented C++ API, the minimal <TT>eyedbodl</TT> invocation
+is as follows:
+<PRE>
+eyedbodl --gencode=C++ &lt;odlfile&gt;
+</PRE>
+or
+<PRE>
+eyedbodl --gencode=C++ --package=&lt;package&gt; -d &lt;database&gt;
+</PRE>
+For instance, to generate the schema-oriented C++ API for the <TT>person.odl</TT>
+schema:
+<PRE>
+eyedbodl --gencode=C++ person.odl
+</PRE>
+For a given <SPAN  CLASS="textit">package</SPAN>.odl ODL file, the generated files are as follows:
+
+<UL>
+<LI><SPAN  CLASS="textit">package</SPAN>.h, <SPAN  CLASS="textit">package</SPAN>.cc: the generated C++ API to be used in
+a client program
+</LI>
+<LI>template_<SPAN  CLASS="textit">package</SPAN>.cc: an example of a client program using the generated
+API
+</LI>
+<LI>Makefile.<SPAN  CLASS="textit">package</SPAN>: an example of Makefile to compile <SPAN  CLASS="textit">package</SPAN>.cc and
+template_<SPAN  CLASS="textit">package</SPAN>.cc: make -f Makefile.<SPAN  CLASS="textit">package</SPAN> will compile
+and link the generated API and template files
+</LI>
+<LI><SPAN  CLASS="textit">package</SPAN>stubsfe.cc, <SPAN  CLASS="textit">package</SPAN>stubsbe.cc: stubs for client and server methods
+</LI>
+<LI><SPAN  CLASS="textit">package</SPAN>mthfe-skel.cc, <SPAN  CLASS="textit">package</SPAN>mthbe-skel.cc: skeletons for
+client and server methods
+</LI>
+</UL>
+The <TT>eyedbodl</TT> tool contains a lot of command line options to
+control the generated code.
+
+<BR>
+<BR>
+There is one mandatory option:
+<BR><SPAN  CLASS="textit">odlfile</SPAN><TT>|</TT>-<TT>|-d</TT> <SPAN  CLASS="textit">dbname</SPAN><TT>|-database=</TT><SPAN  CLASS="textit">dbname</SPAN> : Input ODL file (or - for standard input) or the database name
+<BR>
+and some optionnal options:
+<PRE><TT>
+<TT>-package=</TT><SPAN  CLASS="textit">package</SPAN> 		 : 		 Package name
+<BR><TT>-output-dir=</TT><SPAN  CLASS="textit">dirname</SPAN> 		 : 		 Output directory for generated files
+<BR><TT>-output-file-prefix=</TT><SPAN  CLASS="textit">prefix</SPAN>		 : 		 Ouput file prefix (default is the package name)
+<BR><TT>-class-prefix=</TT><SPAN  CLASS="textit">prefix</SPAN> 		 : 		  Prefix to be put at the begining of each runtime class
+<BR><TT>-db-class-prefix=</TT><SPAN  CLASS="textit">prefix</SPAN> 		 : 		  Prefix to be put at the begining of each database class
+<BR><TT>-attr-style=</TT>implicit 		 : 		  Attribute methods have the attribute name
+<BR><TT>-attr-style=</TT>explicit 		 : 		  Attribute methods have the attribute name prefixed by get/set (default)
+<BR><TT>-schema-name=</TT><SPAN  CLASS="textit">schname</SPAN> 		 : 		  Schema name (default is <SPAN  CLASS="textit">package</SPAN>)
+<BR><TT>-export</TT> 		 : 		  Export class instances in the .h file
+<BR><TT>-dynamic-attr</TT> 		 : 		  Uses a dynamic fetch for attributes in the get and set methods
+<BR><TT>-down-casting=yes</TT> 		 : 		  Generates the down casting methods (the default)
+<BR><TT>-down-casting=no</TT> 		 : 		  Does not generate the down casting methods
+<BR><TT>-attr-cache=yes</TT> 		 : 		  Use a second level cache for attribute value
+<BR><TT>-attr-cache=no</TT> 		 : 		  Does not use a second level cache for attribute value (the default)
+<BR><TT>-namespace=</TT><SPAN  CLASS="textit">namespace</SPAN> 		 : 		  Define classes with the namespace <SPAN  CLASS="textit">namespace</SPAN>
+<BR><TT>-c-suffix=</TT><SPAN  CLASS="textit">suffix</SPAN> 		 : 		  Use <SPAN  CLASS="textit">suffix</SPAN> as the C file suffix
+<BR><TT>-h-suffix=</TT><SPAN  CLASS="textit">suffix</SPAN> 		 : 		  Use <SPAN  CLASS="textit">suffix</SPAN> as the H file suffix
+<BR><TT>-gen-class-stubs</TT> 		 : 		  Generates a file class_stubs.h for each class
+<BR><TT>-class-enums=yes</TT> 		 : 		  Generates enums within a class
+<BR><TT>-class-enums=no</TT> 		 : 		  Do not generate enums within a class (default)
+<BR><TT>-gencode-error-policy=status</TT>		 : 		 Status oriented error policy (the default)
+<BR><TT>-gencode-error-policy=exception</TT> 		 : 		 Exception oriented error policy
+<BR><TT>-rootclass=</TT><SPAN  CLASS="textit">rootclass</SPAN> 		 : 		  Use <SPAN  CLASS="textit">rootclass</SPAN> name for the root class instead of the package name
+<BR><TT>-no-rootclass</TT> 		 : 		     Does not use any root class
+<BR>
+</TT></PRE>
+For instance to generate a schema-oriented C++ API in the directory
+<TT>tmp</TT>, prefixing the runtime classes with <TT>pp</TT>,
+suffixing C++ files with <TT>.cpp</TT>, we invoke <TT>eyedbodl</TT> as follows:
+<PRE>
+eyedbodl --gencode C++ --output-dir=tmp --class-prefix=pp \
+         --c-suffix=.cpp person.odl
+</PRE>
+<H2><A NAME="SECTION00222000000000000000"></A> <A NAME="1181"></A>
+<BR>
+The Generated Code
+</H2>
+Seven files are generated:
+
+<OL>
+<LI>the header C++ file: <SPAN  CLASS="textit">package</SPAN><TT>.h</TT>
+ (for instance <TT>person.h</TT>)
+</LI>
+<LI>the core C++ file: <SPAN  CLASS="textit">package</SPAN><TT>.cc</TT>
+(for instance <TT>person.cc</TT>)
+</LI>
+<LI>files for frontend and backend user method support:
+
+<OL>
+<LI>stubs: <SPAN  CLASS="textit">package</SPAN><TT>stubsfe.h</TT>
+and  <SPAN  CLASS="textit">package</SPAN><TT>stubsbe.h</TT>
+</LI>
+<LI>skeleton: <SPAN  CLASS="textit">package</SPAN><TT>mthfe-skel.h</TT>
+and  <SPAN  CLASS="textit">package</SPAN><TT>mthbe-skel.h</TT>
+</LI>
+<LI>a template Makefile:
+<TT>Makefile.</TT><SPAN  CLASS="textit">package</SPAN>
+</LI>
+</OL>
+(for instance <TT>Makefile.person</TT>)
+</LI>
+</OL>
+The use of the generated files for the user methods are introduced in the
+chapter <TT>Methods and Triggers</TT>.
+
+<BR>
+<BR>
+The header file contains C++ class declarations and function prototypes.
+
+<BR>
+The following classes are generated:
+
+<OL>
+<LI>the package class whose name is the package name and which contains
+a static init method, a static release method and two methods for
+schema update within a database, for instance:
+
+<PRE>
+class person {
+ public:
+  static void init();
+  static void release();
+  static eyedb::Status updateSchema(eyedb::Database *db);
+  static eyedb::Status updateSchema(eyedb::Schema *m);
+};
+</PRE>
+
+<OL>
+<LI>the <TT>person::init()</TT> method must be called before any use of
+the schema-oriented API.
+</LI>
+<LI>the <TT>person::release()</TT> should be called after any use
+of this API, but this call is not mandatory as this method only
+release allocated runtime memory.
+</LI>
+<LI>the <TT>person::updateSchema()</TT> methods are not generally called
+directly by client code.
+</LI>
+</OL>
+</LI>
+<LI>the database class whose name is <SPAN  CLASS="textit">package</SPAN>Database inherited
+from the generic <TT>eyedb::Database</TT> class.
+
+<BR>
+This class overloads two inherited methods: the <TT>open</TT> and the
+<TT>loadObject_realize</TT> methods.
+
+<BR>
+The overloaded <TT>open</TT> method has two purposes:
+
+<UL>
+<LI>database opening.
+</LI>
+<LI>schema checking: it checks that the opened database schema is strictly
+identical to the runtime schema.
+</LI>
+</UL>
+The <TT>loadObject_realize</TT> method has one purpose:
+
+<UL>
+<LI>runtime object construction: for any object loaded from the database
+whose class is one of the generated classes
+(for instance <TT>Person</TT>, <TT>Car</TT>), it call the generated
+class constructor. For instance if an object loaded is of class <TT>Person</TT>
+it will perform a <TT>new Person(db)</TT> to construct correctly
+the loaded object.
+</LI>
+</UL>
+Note that to use the generated schema-oriented API it is not mandatory
+to use the generated database class: you can use the genetic <TT>eyedb::Database</TT>
+class; there is a lot of cases where you will get no trouble.
+But to avoid any potential trouble, it is strongly recommended to use the
+generated database class.
+</LI>
+<LI>a root class which is the superclass of
+all generated classes, except the package and the database classes.
+
+<BR>
+This class is used to facilitate the down casting process.
+
+<BR>
+If the command line option <TT>-no-rootclass</TT> is specified, the root
+class is not generated.
+
+<BR>
+Unless its name is given using the command line option <TT>-rootclass name</TT>,
+its name is <TT>Root</TT>.
+</LI>
+<LI>for each ODL class, a C++ class is generated with the same name
+possibly prefixed by a string if specified by the command line option
+<TT>-class-prefix</TT>.
+This class is inherited from the root class.
+
+<BR>
+<BR>
+The generated class contains the following method families:
+
+<OL>
+<LI>constructors.
+</LI>
+<LI>down casting methods.
+</LI>
+<LI>selector attribute methods.
+</LI>
+<LI>modifier attribute methods.
+</LI>
+<LI>methods mapped from ODL backend or frontend methods.
+</LI>
+<LI>client stubs.
+</LI>
+<LI>the destructor.
+</LI>
+</OL>
+</LI>
+</OL>
+<H2><A NAME="SECTION00223000000000000000"></A> <A NAME="1197"></A>
+<BR>
+Constructors and Copy Operator
+</H2>
+For each C++ class, two constructors and the assignment operator are
+generated:
+
+<PRE>
+  Person(eyedb::Database * = 0);
+  Person(const Person&amp; x);
+
+  Person&amp; operator=(const Person&amp; x);
+</PRE>
+
+<UL>
+<LI>The first constructor is used to instantiate transient or persistent objects.
+
+<BR>
+The following code:
+
+<PRE>
+  Person *p = new Person(&amp;db);
+</PRE>
+does nearly the same things as:
+
+<PRE>
+  eyedb::Class *cls = db.getSchema()-&gt;getClass("Person");
+  eyedb::Object *o = cls-&gt;newObj(&amp;db);
+</PRE>
+The major difference is that in the second case, an <TT>eyedb::Object</TT> instance
+(in fact an <TT>eyedb::Struct</TT> instance) is created while in the first case
+an <TT>Person</TT> (which inherits from <TT>eyedb::Struct</TT>) instance is created.
+
+<BR>
+But in both cases, you can use the instantiated object to set and get
+<TT>Person</TT> attribute values and to synchronize the runtime object with
+the database.
+
+<BR>
+To set or get attribute values in the second case, you need to use
+the <TT>eyedb::Attribute::setValue</TT> or <TT>eyedb::Attribute::getValue</TT> methods
+while in the first case, you may use the generated selector and modifier
+methods such as <TT>Person::setName</TT> or <TT>Person::getAge</TT>.
+</LI>
+<LI>The second constructor is the copy constructor. For instance:
+
+<PRE>
+  Person *p1 = new Person(&amp;db);
+
+  Person p2 = *p1;
+</PRE>
+</LI>
+<LI>At last, the assignment operator can be used as follows:
+
+<PRE>
+  Person *p1 = new Person(&amp;db);
+  Person *p2 = new Person(&amp;db);
+
+  *p2 = *p1;
+</PRE>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00224000000000000000"></A> <A NAME="1201"></A>
+<BR>
+Down Casting Methods and Functions
+</H2>
+Unless the command line option <TT>-down-casting no</TT> has been used,
+down casting methods and functions have been generated.
+
+<BR>
+For instance, the following methods have been generated for the <TT>Person</TT> class:
+
+<PRE>
+class Person : public Root {
+  // ...
+  virtual Person *asPerson() {return this;}
+  virtual const Person *asPerson() const {return this;}
+  virtual Employee *asEmployee() {return (Employee *)0;}
+  virtual const Employee *asEmployee() const {return (const Employee *)0;}
+  // ...
+};
+</PRE>
+These methods are very useful to process safe down casting.
+The down casting may be used in several cases.
+For instance, if you instantiate an <TT>Employee</TT> object as follows:
+
+<PRE>
+  extern void display(Person *);
+
+  Employee *empl = new Employee(&amp;db);
+  display(empl);
+</PRE>
+the display function expects a <TT>Person</TT> instance: when calling
+it with an <TT>Employee</TT> instance, we do not make any mistake as
+the <TT>Employee</TT> class inherits from the <TT>Person</TT> class.
+
+<BR>
+Assume now, that the display function displays the name and the age
+of the <TT>Person</TT> instance and its salary if the instance is an
+employee. Using the down casting method <TT>Person::asEmployee()</TT>,
+one can do as follows:
+
+<PRE>
+void display(Person *p)
+{
+  cout &lt;&lt; "name : " &lt;&lt; p-&gt;getName() &lt;&lt; endl;
+  cout &lt;&lt; "age : " &lt;&lt; p-&gt;getAge() &lt;&lt; endl;
+  if (p-&gt;asEmployee())
+    cout &lt;&lt; "salary : " &lt;&lt; p-&gt;asEmployee()-&gt;getSalary() &lt;&lt; endl;
+</PRE>
+Note that the call to this down casting method cost nearly nothing.
+Without the help of the down casting method, the previous code becomes:
+
+<PRE>
+void display(Person *p)
+{
+  cout &lt;&lt; "name : " &lt;&lt; p-&gt;getName() &lt;&lt; endl;
+  cout &lt;&lt; "age : " &lt;&lt; p-&gt;getAge() &lt;&lt; endl;
+  if (!strcmp(p-&gt;getClass()-&gt;getName(), "Employee"))
+    cout &lt;&lt; "salary : " &lt;&lt; ((Employee *)p)-&gt;getSalary() &lt;&lt; endl;
+</PRE>
+which is rather less efficient and less elegant.
+
+<BR>
+<BR>
+There is another case to use down casting methods and functions is when
+loading a database object.
+
+<BR>
+When loading a database object (for instance a <TT>Person</TT> database object)
+using the <TT>eyedb::Database::loadObject</TT>, we get a generic <TT>eyedb::Object</TT>
+instance, not a <TT>Person</TT> instance nor a <TT>Employee</TT> instance.
+
+<BR>
+Nevertheless, in the case of a <TT>Person</TT> database object has been
+loaded, a <TT>Person</TT> persistent runtime object has been correctly
+constructed by the generated API.
+
+<BR>
+So, it is legitimate to down cast the loaded <TT>eyedb::Object</TT> instance
+to a <TT>Person</TT> instance as follows:
+
+<PRE>
+  eyedb::OQL q(&amp;db, "select Person.age &lt; %d", given_age);
+
+  eyedb::ObjectArray obj_arr(eyedb::True);
+  q.execute(obj_arr);
+  for (int i = 0; i &lt; obj_arr.getCount(); i++)
+   {
+     Person *p = (Person *)obj_arr[i];
+     cout &lt;&lt; "name: " &lt;&lt; p-&gt;getName() &lt;&lt; endl;
+   }
+</PRE>
+The cast:
+
+<PRE>
+     Person *p = (Person *)obj_arr[i];
+</PRE>
+is legal according to the context but is not safe because neither static
+(i.e. compiler level) check nor runtime check is performed.
+
+<BR>
+Safe down casting functions are generated by <TT>eyedbodl</TT> as follows:
+
+<PRE>
+inline Person *Person_c(eyedb::Object *o)
+{
+  Root *x = personDatabase::asRoot(o);
+  if (!x) return (Person *)0;
+  return x-&gt;asPerson();
+}
+</PRE>
+This function allows you to perform compiler and runtime check as follows:
+
+<PRE>
+  for (int i = 0; i &lt; obj_arr.getCount(); i++)
+   {
+     Person *p = Person_c(obj_arr[i]);
+     if (p) 
+       cout &lt;&lt; "name: " &lt;&lt; p-&gt;getName() &lt;&lt; endl;
+   }
+</PRE>
+in the case of the loaded object is not a real <TT>Person</TT> instance,
+the <TT>Person_c</TT> function returns a null pointer.
+
+<BR>
+<BR>
+It is strongly recommended to make use of these safe down casting methods
+and functions instead of performing manual down casting.
+
+<H2><A NAME="SECTION00225000000000000000"></A> <A NAME="1203"></A>
+<BR>
+Selector Methods
+</H2>
+For each attribute in the ODL class, <TT>eyedbodl</TT> generates one or more
+selector methods.
+
+<BR>
+The number and the form of the selector methods depends on the type
+of the attribute.
+
+<BR>
+An attribute type is a combination of:
+
+<OL>
+<LI>a primitive type which can take the form of a:
+
+<OL>
+<LI>basic type: for instance <TT>int32</TT>, <TT>char</TT> or <TT>double</TT>.
+</LI>
+<LI>system type: for instance <TT>class</TT>, <TT>object</TT>, <TT>image</TT>.
+</LI>
+<LI>user type: for instance <TT>Person</TT>, <TT>Employee</TT>,
+<TT>set&lt;Car *&gt;</TT>.
+</LI>
+<LI>user enum: for instance <TT>CivilState</TT>.
+</LI>
+</OL>
+</LI>
+<LI>the literal or object property:
+
+<OL>
+<LI>the literal property means that the attribute value has no identifier
+(i.e. <TT>OID</TT>).
+</LI>
+<LI>the object property means that the attribute value has an identifier.
+</LI>
+</OL>
+</LI>
+<LI>an optional array modifier:
+
+<OL Type="a">
+<LI>multi-dimensionnal and variable size array are supported.
+</LI>
+</OL>
+</LI>
+</OL>
+For instance, the attribute:
+
+<PRE>
+  attribute Address addr;
+</PRE>
+can be described as
+{primitive type = <TT>Address</TT>, property = <TT>literal</TT>, array = <TT>nil</TT>}
+
+<BR>
+<BR>
+The form of the selector methods are designed according to the
+following attribute type family:
+<PRE><TT>
+		1. <B>literal basic or user enum type</B> 		: <TT>int32 age</TT>, <TT>CivilState cstate</TT>.
+<BR>
+2. <B>literal string</B> 		: <TT>string&lt;32&gt; town</TT>, <TT>string name</TT>,<TT>string country</TT>.
+<BR>
+3. <B>literal user type</B> 		: <TT>Address addr</TT>
+<BR>
+4. <B>object basic, user or system type</B> 		: <TT>Person *spouse</TT>
+<BR>
+5. <B>object collection type</B>		: <TT>array&lt;Person *&gt; children</TT>, <TT>set&lt;Car *&#187; cars</TT>.
+<BR>
+</TT></PRE>
+All those type families support in an orthogonal way an multi-dimenstion
+array modifier.
+
+<H3><A NAME="SECTION00225100000000000000"></A> <A NAME="1213"></A>
+<BR>
+Literal Basic or User Enum Type
+</H3>
+The selector method is under the form:
+
+<PRE>
+&lt;attribute primitive type&gt; get&lt;attribute name&gt;(eyedb::Bool *isnull = 0,
+                                               eyedb::Status *status = 0) const
+</PRE>
+for instance for the <TT>age</TT> attribute:
+
+<PRE>
+  eyedb::_int32 getAge(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+</PRE>
+Every selector method has the two following optional arguments:
+
+<OL>
+<LI><TT>isnull</TT> : a pointer to a <TT>eyedb::Bool</TT> value.
+<BR>
+If this pointer is not null, the selector method assigns it to <TT>eyedb::False</TT>
+if the attribute value is not null, otherwise it assigns it to <TT>eyedb::True</TT>.
+</LI>
+<LI><TT>status</TT> : a pointer to a <TT>eyedb::Status</TT> value.
+<BR>
+If this pointer is not null, the selector method assigns to <TT>eyedb::Success</TT>
+is the operation is successul, otherwise is assigns to the error status.
+Note that if you are using the exception error policy (the recommended
+one), this argument is not useful. If you have generated the schema-oriented
+C++ API using the <TT>-error-policy exception</TT> option, the
+<TT>status</TT> argument will not be generated.
+</LI>
+</OL>
+<H3><A NAME="SECTION00225200000000000000"></A> <A NAME="1217"></A>
+<BR>
+Literal String
+</H3>
+The selector methods are under the form:
+
+<PRE>
+const char *get&lt;attribute name&gt;(eyedb::Bool *isnull = 0,
+                                eyedb::Status *status = 0) const
+char get&lt;attribute name&gt;(unsigned int a0,
+                         eyedb::Bool *isnull = 0,
+                         eyedb::Status *status = 0) const
+</PRE>
+for instance for the <TT>name</TT> attribute:
+
+<PRE>
+  const char *getName(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+  char getName(unsigned int a0, eyedb::Bool *isnull = 0, eyedb::Status *status = 0)  const;
+</PRE>
+The first selector method is to get the full string value of the attribute
+while the second one is to get a specific character within this string value.
+The argument <TT>a0</TT> is the number of the character.
+
+<H3><A NAME="SECTION00225300000000000000"></A> <A NAME="1219"></A>
+<BR>
+Literal User Type
+</H3>
+The selector methods are under the form:
+
+<PRE>
+  &lt;attribute primitive type&gt;* get&lt;attribute name&gt;(eyedb::Bool *isnull = 0,
+                                                  eyedb::Status *status = 0)
+  const &lt;attribute primitive type&gt;* get&lt;attribute name&gt;(eyedb::Bool *isnull = 0,
+                                                        eyedb::Status *status = 0) const
+</PRE>
+for instance for the <TT>addr</TT> attribute:
+
+<PRE>
+  Address *getAddr(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) ;
+  const Address *getAddr(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+</PRE>
+Note than the returned value cannot be a null pointer as this is literal
+attribute fully included in the instance.
+
+<H3><A NAME="SECTION00225400000000000000"></A> <A NAME="1221"></A>
+<BR>
+Object Basic, User or System Type
+</H3>
+The selector methods are under the form:
+
+<PRE>
+  &lt;attribute primitive type&gt;* get&lt;attribute name&gt;(eyedb::Bool *isnull = 0,
+                                                  eyedb::Status *status = 0)
+  const &lt;attribute primitive type&gt;* get&lt;attribute name&gt;(eyedb::Bool *isnull = 0,
+                                                        eyedb::Status *status = 0) const
+</PRE>
+for instance for the <TT>spouse</TT> attribute:
+
+<PRE>
+  Person *getSpouse(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) ;
+  const Person *getSpouse(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+  eyedb::Oid getSpouseOid(eyedb::Status *status = 0);
+</PRE>
+Note that:
+
+<OL>
+<LI>the returned value can be a null pointer as this a is
+an object attribute with its own life.
+</LI>
+<LI>for this same reason, there is a method to get the identifier of this
+object without loading it.
+</LI>
+<LI>this selector method automatically loads the related object attribute
+when called.
+</LI>
+</OL>
+<H3><A NAME="SECTION00225500000000000000"></A> <A NAME="1225"></A>
+<BR>
+Object Collection Type
+</H3>
+As introduced in previous chapter, there are two main types of collections:
+ordered (or indexed) collections - <TT>array</TT> and <TT>list</TT> - and not
+ordered collections - <TT>set</TT> and <TT>bag</TT>.
+The generated methods for these two main types are similar but a
+little bit different.
+
+<BR>
+For the not ordered collections, the selector method are as follows:
+
+<PRE>
+  &lt;collection type&gt;* get&lt;attribute name&gt;Coll(eyedb::Bool *isnull = 0,
+                                             eyedb::Status *status = 0) ;
+  unsigned int get&lt;attribute name&gt;Count(eyedb::Bool *isnull = 0,
+                                        eyedb::Status *status = 0) const;
+  const &lt;collection type&gt;* get&lt;attribute name&gt;Coll(eyedb::Bool *isnull = 0,
+                                                   eyedb::Status *status = 0) const;
+  eyedb::Oid get&lt;attribute name&gt;Oid(eyedb::Status *status = 0);
+  const &lt;collection object type&gt;* get&lt;attribute name&gt;At(unsigned int ind,
+                                                        eyedb::Bool *isnull = 0,
+                                                        eyedb::Status *status = 0) const;
+  &lt;collection object type&gt;* get&lt;attribute name&gt;At(unsigned int ind,
+                                                  eyedb::Bool *isnull = 0,
+                                                  eyedb::Status *status = 0);
+  eyedb::Oid get&lt;attribute name&gt;OidAt(unsigned int ind,
+                                      eyedb::Status *status = 0) const;
+</PRE>
+where <TT>&lt;collection type&gt;</TT> can be:
+
+<OL>
+<LI><TT>eyedb::CollSet</TT> for a collection set
+</LI>
+<LI><TT>eyedb::CollBag</TT> for a collection bag
+</LI>
+</OL>
+and where <TT>&lt;collection object type&gt;</TT> is the type which is composing
+the collection.
+
+<BR>
+<BR>
+Note that if the collection is not a literal but an object, the following
+extra method returning the collection oid is generated:
+
+<PRE>
+  eyedb::Oid get&lt;attribute name&gt;Oid(eyedb::Status *status = 0);
+</PRE>
+For the <TT>cars</TT> attribute the following code is generated:
+
+<PRE>
+  eyedb::CollSet *getCarsColl(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) ;
+  unsigned int getCarsCount(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+  const eyedb::CollSet *getCarsColl(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+  const Car *getCarsAt(unsigned int ind, eyedb::Bool *isnull = 0,
+                       eyedb::Status *status = 0) const;
+  Car *getCarsAt(unsigned int ind, eyedb::Bool *isnull = 0, eyedb::Status *status = 0);
+  eyedb::Oid getCarsOidAt(unsigned int ind, eyedb::Status *status = 0) const;
+</PRE>
+Let have a look to each method:
+
+<OL>
+<LI><PRE>
+eyedb::CollSet *getCarsColl(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) ;
+const eyedb::CollSet *getCarsColl(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+</PRE>
+returns the collection object (const and not const methods).
+</LI>
+<LI><PRE>
+unsigned int getCarsCount(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+</PRE>
+returns the collection item count.
+
+</LI>
+<LI><PRE>
+const Car *getCarsAt(unsigned int ind, eyedb::Bool *isnull = 0,
+                     eyedb::Status *status = 0) const;
+Car *getCarsAt(unsigned int ind, eyedb::Bool *isnull = 0, eyedb::Status *status = 0);
+</PRE>
+returns the #<TT>ind</TT> element in the collection. As the collection
+is not ordered, the index of the element to get depends on the
+load ordering and is not specified. These array-oriented methods
+are generated for user convenience because it is somewhat easier to
+scan an array that to scan an unordered set.
+</LI>
+<LI><PRE>
+eyedb::Oid getCarsOidAt(unsigned int ind, eyedb::Status *status = 0) const;
+</PRE>
+returns the #<TT>ind</TT> oid in the collection.
+The remark about the index of the element is the same as above.
+</LI>
+</OL>
+For the ordered collections, the selector method are as follows:
+
+<PRE>
+  &lt;collection type&gt;* get&lt;attribute name&gt;Coll(eyedb::Bool *isnull = 0,
+                                             eyedb::Status *status = 0) ;
+  unsigned int get&lt;attribute name&gt;Count(eyedb::Bool *isnull = 0,
+                                        eyedb::Status *status = 0) const;
+  const &lt;collection type&gt;* get&lt;attribute name&gt;Coll(eyedb::Bool *isnull = 0,
+                                                   eyedb::Status *status = 0) const;
+  eyedb::Oid get&lt;attribute name&gt;Oid(eyedb::Status *status = 0);
+  const &lt;collection object type&gt;* retrieve&lt;attribute name&gt;At(unsigned int ind,
+                                                             eyedb::Bool *isnull = 0,
+                                                             eyedb::Status *status = 0) const;
+  &lt;collection object type&gt;* retrieve&lt;attribute name&gt;At(unsigned int ind,
+                                                       eyedb::Bool *isnull = 0,
+                                                       eyedb::Status *status = 0);
+  eyedb::Oid retrieve&lt;attribute name&gt;OidAt(unsigned int ind,
+                                           eyedb::Status *status = 0) const;
+</PRE>
+where <TT>&lt;collection type&gt;</TT> can be:
+
+<OL>
+<LI><TT>eyedb::CollArray</TT> for a collection array
+</LI>
+<LI><TT>eyedb::CollList</TT> for a collection list
+<BR><SPAN  CLASS="textit">Note that the collection list are currently not implemented in
+E<SMALL>YE</SMALL>DB </SPAN>.
+</LI>
+</OL>
+and where <TT>&lt;collection object type&gt;</TT> is the type which is composing
+the collection.
+
+<BR>
+<BR>
+Note that if the collection is not a literal but an object, the following
+extra method returning the collection oid is generated:
+
+<PRE>
+  eyedb::Oid get&lt;attribute name&gt;Oid(eyedb::Status *status = 0);
+</PRE>
+For the <TT>children</TT> attribute the following code is generated:
+
+<PRE>
+  eyedb::CollArray *getChildrenColl(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) ;
+  unsigned int getChildrenCount(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+  const eyedb::CollArray *getChildrenColl(eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+  const Person *retrieveChildrenAt(unsigned int ind, eyedb::Bool *isnull = 0,
+                                   eyedb::Status *status = 0) const;
+  Person *retrieveChildrenAt(unsigned int ind, eyedb::Bool *isnull = 0,
+                             eyedb::Status *status = 0);
+  eyedb::Oid retrievedChildrenOidAt(unsigned int ind, eyedb::Status *status = 0) const;
+</PRE>
+Only the last three method templates differ from the corresponding
+<TT>Car</TT> method templates:
+
+<OL>
+<LI><PRE>
+const Person *retrievedChildrenAt(unsigned int ind, eyedb::Bool *isnull = 0,
+                                  eyedb::Status *status = 0) const;
+Person *retrievedChildrenAt(unsigned int ind, eyedb::Bool *isnull = 0,
+                            eyedb::Status *status = 0);
+</PRE>
+returns the #<TT>ind</TT> element in the collection.
+As this collection is ordered, the index of the element to get is fully
+pertinent.
+</LI>
+<LI><PRE>
+eyedb::Oid retrievedChildrenOidAt(unsigned int ind, eyedb::Status *status = 0) const;
+</PRE>
+returns the #<TT>ind</TT> oid in the collection.
+As this collection is ordered, the index of the element to get is fully
+pertinent.
+</LI>
+</OL>
+<H3><A NAME="SECTION00225600000000000000"></A> <A NAME="1236"></A>
+<BR>
+Array Modifier
+</H3>
+When an array modifier is present for an attribute, all the previous
+selector methods change in the same way: for each dimension in the
+array, an index argument is added at the begining of the selector method.
+
+<BR>
+For instance, for an attribute <TT>int x[23][12]</TT>, the selector methods
+becomes:
+
+<PRE>
+  eyedb::_int32 getX(unsigned int a0, unsigned int a1,
+                     eyedb::Bool *isnull = 0, eyedb::Status *status = 0) const;
+</PRE>
+A call to <TT>getX(1, 3)</TT> returns the attribute value <TT>x[1][3]</TT>.
+
+<BR>
+If the left dimension is variable, for instance <TT>int x[][12]</TT>,
+the following extra method is generated:
+
+<PRE>
+  unsigned int getXCount(eyedb::Status * = 0) const;
+</PRE>
+For instance,
+for the <TT>other_addrs</TT> literal user type attribute, the following
+code is generated:
+
+<PRE>
+  Address *getOtherAddrs(unsigned int a0, eyedb::Bool *isnull = 0, eyedb::Status * = 0) ;
+  const Address *getOtherAddrs(unsigned int a0, eyedb::Bool *isnull = 0,
+                               eyedb::Status * = 0) const;
+  unsigned int getOtherAddrsCount(eyedb::Status * = 0) const;
+</PRE>
+
+<H2><A NAME="SECTION00226000000000000000"></A> <A NAME="1238"></A>
+<BR>
+Modidier Methods
+</H2>
+The modifier methods are very similar to the selector methods.
+Their forms and their number depends on the same attribute type characteristics
+as the modifier methods.
+
+<P>
+
+<H3><A NAME="SECTION00226100000000000000"></A> <A NAME="1240"></A>
+<BR>
+Literal Basic or User Enum Type
+</H3>
+The modifier method is under the form:
+
+<PRE>
+eyedb::Status set&lt;attribute name&gt;(&lt;attribute primitive type&gt;);
+</PRE>
+for instance for the <TT>age</TT> attribute:
+
+<PRE>
+  eyedb::Status setAge(eyedb::_int32);
+</PRE>
+
+<H3><A NAME="SECTION00226200000000000000"></A> <A NAME="1242"></A>
+<BR>
+Literal String
+</H3>
+The modifier methods are under the form:
+
+<PRE>
+  eyedb::Status set&lt;attribute name&gt;(const char *);
+  eyedb::Status set&lt;attribute name&gt;(unsigned int a0, char);
+</PRE>
+for instance for the <TT>name</TT> attribute:
+
+<PRE>
+  eyedb::Status setName(const char *);
+  eyedb::Status setName(unsigned int a0, char);
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION00226300000000000000"></A> <A NAME="1244"></A>
+<BR>
+Literal User Type
+</H3>
+The modifier methods are under the form:
+
+<PRE>
+eyedb::Status set&lt;attribute name&gt;(&lt;attribute primitive type&gt;*);
+</PRE>
+for instance for the <TT>addr</TT> attribute:
+
+<PRE>
+  eyedb::Status setAddr(Address*);
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION00226400000000000000"></A> <A NAME="1246"></A>
+<BR>
+Object Basic, User or System Type
+</H3>
+The modifier methods are under the form:
+
+<PRE>
+eyedb::Status set&lt;attribute name&gt;(&lt;attribute primitive type&gt;*);
+eyedb::Status set&lt;attribute name&gt;Oid(const eyedb::Oid &amp;);
+</PRE>
+for instance for the <TT>spouse</TT> attribute:
+
+<PRE>
+  eyedb::Status setSpouse(Person*);
+  eyedb::Status setSpouseOid(const eyedb::Oid &amp;);
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION00226500000000000000"></A> <A NAME="1248"></A>
+<BR>
+Object Collection Type
+</H3>
+For unordered collection types, the modifier methods are under the form:
+
+<PRE>
+  eyedb::Status set&lt;attribute name&gt;Coll(&lt;collection type&gt;*);
+  eyedb::Status set&lt;attribute name&gt;Oid(const eyedb::Oid &amp;);
+  eyedb::Status addTo&lt;attribute name&gt;Coll(&lt;collection object type&gt;*,
+                                          unsigned int magorder = 0);
+  eyedb::Status rmvFrom&lt;attribute name&gt;Coll(&lt;collection object type&gt;*);
+  eyedb::Status addTo&lt;attribute name&gt;Coll(const eyedb::Oid &amp;,
+                                          unsigned int magorder = 0);
+  eyedb::Status rmvFrom&lt;attribute name&gt;Coll(const eyedb::Oid &amp;);
+</PRE>
+where <TT>&lt;collection type&gt;</TT> can be:
+
+<OL>
+<LI><TT>eyedb::CollSet</TT> for a collection set
+</LI>
+<LI><TT>eyedb::CollBag</TT> for a collection bag
+</LI>
+</OL>
+and where <TT>&lt;collection object type&gt;</TT> is the type which composing
+the collection.
+
+<BR>
+<BR>
+Note that if the collection is not a literal but an object, the following
+extra method setting the collection oid is generated:
+
+<PRE>
+  eyedb::Status set&lt;attribute name&gt;Oid(const eyedb::Oid &amp;);
+</PRE>
+For the <TT>cars</TT> attribute, the following code is generated:
+
+<PRE>
+  eyedb::Status setCarsColl(eyedb::CollSet*);
+  eyedb::Status addToCarsColl(Car*, unsigned int magorder = 0);
+  eyedb::Status addToCarsColl(const eyedb::Oid &amp;, unsigned int magorder = 0);
+  eyedb::Status rmvFromCarsColl(Car*);
+  eyedb::Status rmvFromCarsColl(const eyedb::Oid &amp;);
+</PRE>
+Let have a look to each method:
+
+<OL>
+<LI><PRE>
+eyedb::Status setCarsColl(eyedb::CollSet *coll);
+</PRE>
+sets the <TT>cars</TT> attribute collection to the input argument
+<TT>coll</TT>.
+</LI>
+<LI><PRE>
+eyedb::Status addToCarsColl(Car *car, unsigned int magorder = 0);
+</PRE>
+adds the <TT>car</TT> instance to the collection attribute <TT>cars</TT>.
+If the collection is not yet created, this method call will create one
+using the <TT>magorder</TT> argument for its magnitude order value.
+</LI>
+<LI><PRE>
+eyedb::Status addToCarsColl(const eyedb::Oid &amp;car_oid, unsigned int magorder = 0);
+</PRE>
+adds the instance of <TT>Car</TT> whose oid is <TT>car_oid</TT>
+to the collection attribute <TT>cars</TT>.
+If the collection is not yet created, this method call will create one
+using the <TT>magorder</TT> argument for its magnitude order value.
+</LI>
+<LI><PRE>
+eyedb::Status rmvFromCarsColl(Car *car);
+</PRE>
+removes the <TT>car</TT> instance from the collection attribute <TT>cars</TT>.
+If the instance is not found, an error is raised.
+</LI>
+<LI><PRE>
+eyedb::Status rmvFromCarsColl(const eyedb::Oid &amp;car_oid);
+</PRE>
+removes the instance of <TT>Car</TT> whose oid is <TT>car_oid</TT>
+from the collection attribute <TT>cars</TT>.
+If the instance is not found, an error is raised.
+</LI>
+</OL>
+For ordered collection types, the modifier methods are under the form:
+
+<PRE>
+  eyedb::Status set&lt;attribute name&gt;Coll(&lt;collection type&gt;*);
+  eyedb::Status set&lt;attribute name&gt;Oid(const eyedb::Oid &amp;);
+  eyedb::Status setIn&lt;attribute name&gt;CollAt(int where, &lt;collection object type&gt;*,
+                                            unsigned int magorder = 0);
+  eyedb::Status setIn&lt;attribute name&gt;CollAt(int where, const eyedb::Oid &amp;,
+                                            unsigned int magorder = 0);
+  eyedb::Status unsetIn&lt;attribute name&gt;CollAt(int where);
+</PRE>
+where <TT>&lt;collection type&gt;</TT> can be:
+
+<OL>
+<LI><TT>eyedb::CollArray</TT> for a collection array
+</LI>
+<LI><TT>eyedb::CollList</TT> for a collection list
+<BR><SPAN  CLASS="textit">Note that the collection list are currently not implemented in
+E<SMALL>YE</SMALL>DB </SPAN>.
+</LI>
+</OL>
+and where <TT>&lt;collection object type&gt;</TT> is the type which composing
+the collection.
+
+<BR>
+<BR>
+Note that if the collection is not a literal but an object, the following
+extra method setting the collection oid is generated:
+
+<PRE>
+  eyedb::Status set&lt;attribute name&gt;Oid(const eyedb::Oid &amp;);
+</PRE>
+For the <TT>children</TT> attribute, the following code is generated:
+
+<PRE>
+  eyedb::Status setChildrenColl(eyedb::CollArray*);
+  eyedb::Status setChildrenOid(const eyedb::Oid &amp;);
+  eyedb::Status setInChildrenCollAt(int where, Person*, unsigned int magorder = 0);
+  eyedb::Status unsetInChildrenCollAt(int where);
+  eyedb::Status setInChildrenCollAt(int where, const eyedb::Oid &amp;,
+                                    unsigned int magorder = 0);
+</PRE>
+Let have a look to each method:
+
+<OL>
+<LI><PRE>
+eyedb::Status setChildrenColl(eyedb::CollSet *coll);
+</PRE>
+sets the <TT>children</TT> attribute collection to the input argument
+<TT>coll</TT>.
+</LI>
+<LI><PRE>
+eyedb::Status setInChildrenCollAt(int where, Person *person,
+                                  unsigned int magorder = 0);
+</PRE>
+adds the <TT>person</TT> instance to the collection attribute <TT>children</TT> at position <TT>where</TT>.
+If the collection is not yet created, this method call will create one
+using the <TT>magorder</TT> argument for its magnitude order value.
+</LI>
+<LI><PRE>
+eyedb::Status setInChildrenCollAt(int where, const eyedb::Oid &amp;person_oid,
+                                  unsigned int magorder = 0);
+</PRE>
+adds the instance of <TT>Person</TT> whose oid is <TT>person_oid</TT>
+to the collection attribute <TT>children</TT> at position <TT>where</TT>..
+If the collection is not yet created, this method call will create one
+using the <TT>magorder</TT> argument for its magnitude order value.
+</LI>
+<LI><PRE>
+eyedb::Status unsetInChildrenCollAt(int where);
+</PRE>
+removes the instance found at position <TT>where</TT>
+from the collection attribute <TT>children</TT>.
+</LI>
+</OL>
+<H3><A NAME="SECTION00226600000000000000"></A> <A NAME="1259"></A>
+<BR>
+Array Modifier
+</H3>
+When an array modifier is present for an attribute, all the previous
+modifier methods change in the same way: for each dimension in the
+array, an index argument is added at the begining of the selector method.
+
+<BR>
+For instance, for an attribute <TT>int x[32][64]</TT>, the modifier methods
+becomes:
+
+<PRE>
+  eyedb::Status setX(unsigned int a0, unsigned int a1, eyedb::_int32);
+</PRE>
+A call to <TT>setX(2, 24)</TT> sets the attribute value <TT>x[2][24]</TT>.
+
+<BR>
+<BR>
+For instance,
+for the <TT>other_addrs</TT> literal user type attribute, the following
+code is generated:
+
+<PRE>
+  eyedb::Status setOtherAddrs(unsigned int a0, Address *);
+  eyedb::Status setOtherAddrsCount(unsigned int count);
+</PRE>
+
+<H3><A NAME="SECTION00226700000000000000"></A> <A NAME="1261"></A>
+<BR>
+Methods mapped from ODL methods
+</H3>
+For each ODL class method, there is a generated C++ method with
+the same name and the corresponding type.
+
+<BR>
+The generated methods in our example is as follows:
+
+<PRE>
+  virtual eyedb::Status change_address(const char * street, const char * town,
+                                       char * &amp;oldstreet, char * &amp;oldtown,
+                                       eyedb::_int32 &amp;retarg);
+
+  static eyedb::Status getPersonCount(eyedb::Database *db, eyedb::_int32 &amp;retarg);
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00227000000000000000"></A> <A NAME="1263"></A>
+<BR>
+Initialization
+</H2>
+The minimal E<SMALL>YE</SMALL>DB C++ program using a generated schema-oriented API
+is as follows (using our example):
+
+<PRE>
+#include "person.h"
+
+int
+main(int argc, char *argv[])
+{
+  eyedb::init(argc, argv);
+  person::init();
+  // ...
+  person::release();
+  eyedb::release();
+  return 0;
+}
+</PRE>
+A few remarks about this code:
+
+<OL>
+<LI>the file <TT>person.h</TT> contains the whole generated C++ API and
+includes the generic E<SMALL>YE</SMALL>DB API.
+</LI>
+<LI>the E<SMALL>YE</SMALL>DB C++ layer must be initialized using one of the static method
+<TT>init</TT> method of the class <TT>EyeDB</TT>.
+</LI>
+<LI>the generated C++ layer must be initialized using the static method
+<TT>init</TT> of the class <SPAN  CLASS="textit">package</SPAN>.
+</LI>
+<LI>the last statements <TT>person::release()</TT> and <TT>eyedb::release()</TT>
+allow you to release all the allocated resources and to close opened databases
+and connections.
+
+<BR>
+Note that this statement is optionnal as all allocated resources,
+opened databases and connections will be automatically released or closed
+in the <TT>exit()</TT> function.
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION00228000000000000000"></A> <A NAME="1270"></A>
+<BR>
+Database Opening
+</H2>
+As shown in a previous section, it is recommended to use the generated
+C++ database class to open a database with the template schema.
+
+<BR>
+For instance:
+
+<PRE>
+  eyedb::Connection conn;
+  conn.open();
+
+  const char *dbname = argv[1];
+
+  person::Database db(dbname);
+  db.open(&amp;conn, eyedb::Database::DBRW);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html192"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html188"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html182"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html190"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html193"
+  HREF="node5.html">Examples</A>
+<B> Up:</B> <A NAME="tex2html189"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+<B> Previous:</B> <A NAME="tex2html183"
+  HREF="node3.html">The Generic C++ API</A>
+ &nbsp; <B>  <A NAME="tex2html191"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

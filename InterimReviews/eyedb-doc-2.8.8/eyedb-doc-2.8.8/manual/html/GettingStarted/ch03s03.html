@@ -1,0 +1,57 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Creating and updating objects with the OQL interpreter</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="ch03.html" title="Chapter 3. Databases"><link rel="prev" href="ch03s02.html" title="Defining a simple schema with ODL"><link rel="next" href="ch03s04.html" title="Querying objects using the OQL interpreter"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Creating and updating objects with the OQL interpreter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s02.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Databases</th><td width="20%" align="right"> <a accesskey="n" href="ch03s04.html">Next</a></td></tr></table><hr></div><div class="section" title="Creating and updating objects with the OQL interpreter"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id300389"></a>Creating and updating objects with the OQL interpreter</h2></div></div></div><p>
+	Once a schema has been created in the database, we can create and update <code class="classname">Person</code> and <code class="classname">Employee</code> instances.
+      </p><p>
+	Using the <span class="command"><strong>eyedboql</strong></span> monitor, we are going to perform the following operations:
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>create a person named "john wayne"</p></li><li class="listitem"><p>create a person named "mary poppins"</p></li><li class="listitem"><p>mary them</p></li><li class="listitem"><p>create 3 "john wayne" children named "baby1", "baby2" and "baby3"</p></li></ul></div><p>
+      </p><p>
+	Here is the way to perform the first three step:
+	</p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo -w</code></strong>
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+? john := Person(firstname : "john", lastname : "wayne", age : 72);
+= 2585.2.196439:oid
+? mary := Person(firstname : "mary", lastname : "poppins", age : 68);
+= 2587.2.702511:oid
+? john.spouse := mary;
+= 2587.2.702511:oid
+	  </pre></div><p>
+      </p><p>
+Note the <span class="command"><strong>-w</strong></span> option on the <span class="command"><strong>eyedboql</strong></span> command line, specifying that you open the <span class="database">foo</span> database in write mode.
+      </p><p>
+	A few comments:
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="command"><strong>?</strong></span> is the <span class="command"><strong>eyedboql</strong></span> prompt: of course, do not type this string!</p></li><li class="listitem"><p><span class="command"><strong>:=</strong></span> is the assignment operator</p></li><li class="listitem"><p>each time you create an object, its identifier (<span class="emphasis"><em>oid</em></span>) is displayed on your terminal</p></li><li class="listitem"><p>because of the relationship integrity constraint on the <code class="varname">spouse</code> attribute, the operation <span class="command"><strong>john.spouse := mary</strong></span> is equivalent to <span class="command"><strong>mary.spouse := john</strong></span></p></li></ul></div><p>
+      </p><p>
+	To create the three "john wayne" children:
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>add Person(firstname : "baby1", age : 2) to john-&gt;children;</code></strong>
+= 2589.2.36448:oid
+? <strong class="userinput"><code>add Person(firstname : "baby2", age : 3) to john-&gt;children;</code></strong>
+= 2595.2.683802:oid
+? <strong class="userinput"><code>add Person(firstname : "baby3", age : 4) to john-&gt;children;</code></strong>
+= 2597.2.134950:oid
+	  </pre></div><p>
+      </p><p>
+	At this stage, it is interesting to perform the following operation: in another terminal, launch another <span class="command"><strong>eyedboql</strong></span> command on the same database <span class="database">foo</span> and query all persons, as follows:
+	</p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo -w -c "select Person;"</code></strong>
+= bag()
+	  </pre></div><p>
+      </p><p>
+	It may seem surprising that no person instance is returned, but in fact it is not: each interaction with the database occurs within a <span class="emphasis"><em>transaction</em></span>, and as long as this transaction has not been <span class="emphasis"><em>committed</em></span>, the database is not modified by the operations that have been done since the beginning of the transaction. To perform effectively these operations, you must <span class="emphasis"><em>commit</em></span> the transaction, by typing in the first <span class="command"><strong>eyedboql</strong></span> session:
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>\commit</code></strong>
+	  </pre></div><p>
+      </p><p>
+	If you now query the person instances in your second <span class="command"><strong>eyedboql</strong></span> session, the five person instances will be returned:
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>eyedboql -d foo -w -c "select Person;"</code></strong>
+= bag(2597.2.134950:oid, 2595.2.683802:oid, 2589.2.36448:oid, 2587.2.702511:oid, 2585.2.196439:oid)
+	  </pre></div><p>
+      </p><p>
+	You can now quit the first <span class="command"><strong>eyedboql</strong></span> session with the following command:
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>\quit</code></strong>
+	  </pre></div><p>
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Defining a simple schema with ODL </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Querying objects using the OQL interpreter</td></tr></table></div></body></html>

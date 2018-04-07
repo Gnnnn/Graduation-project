@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Manipulating objects using OQL</TITLE>
+<META NAME="description" CONTENT="Manipulating objects using OQL">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html148"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html144"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html138"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html146"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html149"
+  HREF="node9.html">Updating the database schema</A>
+<B> Up:</B> <A NAME="tex2html145"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html139"
+  HREF="node7.html">Querying objects using the</A>
+ &nbsp; <B>  <A NAME="tex2html147"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00260000000000000000"></A> <A NAME="768"></A>
+<BR>
+Manipulating objects using OQL
+</H1>
+
+<P>
+The OQL interpreter can be used to manipulate object, for instance updating the attributes of objects returned by a query.
+<BR>
+<BR>
+First, launch an <TT>eyedboql</TT> session as in:
+<PRE>
+% eyedboql -d foo -w
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+?
+</PRE>
+The database must be opened in write mode, because we are going to modify the objects stored in the database.
+<BR>
+<BR>
+To change the <TT>lastname</TT> attribute of the person whose firstname is <TT>mary</TT>:
+<PRE>
+? (select Person.firstname = "mary").lastname := "stuart";
+= bag("stuart")
+</PRE>
+To increment the <TT>age</TT> attribute of all persons, we use a <TT>for</TT> loop to iterate on the result of a query:
+<PRE>
+? select Person.age;
+= bag(4, 3, 2, 68, 72)
+? for (p in (select Person)) { p.age += 1 ; };
+? select Person.age;
+= bag(5, 4, 3, 69, 73)
+</PRE>
+
+<P>
+<BR><HR>
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

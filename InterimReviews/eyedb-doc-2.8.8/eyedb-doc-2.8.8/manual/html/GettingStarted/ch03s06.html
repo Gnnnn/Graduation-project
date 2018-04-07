@@ -1,0 +1,173 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Updating the database schema</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="ch03.html" title="Chapter 3. Databases"><link rel="prev" href="ch03s05.html" title="Manipulating objects using OQL"><link rel="next" href="ch04.html" title="Chapter 4. Using the C++ Binding"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Updating the database schema</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s05.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Databases</th><td width="20%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr></table><hr></div><div class="section" title="Updating the database schema"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id300783"></a>Updating the database schema</h2></div></div></div><p>
+	Once created, a database schema can be updated, to add or remove attributes, add or remove classes or schema, add indexes or contraints.
+      </p><div class="section" title="Adding indexes"><div class="titlepage"><div><div><h3 class="title"><a name="id300793"></a>Adding indexes</h3></div></div></div><p>
+	  To introduce the necessity of indexes, we propose to perform the following operations:
+	  </p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>for (x in 1 &lt;= 50000) new Person(firstname : "xx" + string(x));</code></strong>
+? <strong class="userinput"><code>select Person.firstname = "xx20";</code></strong>
+= bag(23336.2.420154:oid)
+? <strong class="userinput"><code>select Person.firstname = "xx10";</code></strong>
+= bag(23316.2.824639:oid)
+	    </pre></div><p>
+	</p><p>
+	  The first operation creates 50000 person instances: as you can notice, this operation takes a few seconds. The two last operations query for person instances according to their firstname attribute. These operations also take a few seconds to perform and take a significant amount of CPU.
+	</p><p>
+	  A good idea is to create an index on the attributes - for instance <code class="varname">firstname</code>, <code class="varname">lastname</code> and <code class="varname">age</code> - for which one wants to perform efficient queries.
+	</p><p>
+	  The first step to add an index is to add the index specification to the class <code class="classname">Person</code> in the ODL schema <code class="filename">person.odl</code> as follows:
+	  </p><div class="informalexample"><pre class="programlisting">
+class Person {
+  string firstname;
+  char lastname;
+  int age;
+  Address addr;
+  ...
+  set&lt;Person *&gt; children;
+
+  index on firstname;
+  index on lastname;
+  index on age;
+};
+
+	    </pre></div><p>
+	</p><p>
+	  The database schema can then be updated using the <span class="command"><strong>eyedbodl</strong></span> tool:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo -u person.odl</code></strong>
+Updating 'person' schema in database foo...
+Creating [NULL] hashindex 'index&lt;type = hash, propagate = on&gt; on Person.firstname' on class 'Person'...
+Creating [NULL] hashindex 'index&lt;type = hash, propagate = on&gt; on Person.lastname' on class 'Person'...
+Creating [NULL] btreeindex 'index&lt;type = btree, propagate = on&gt; on Person.age' on class 'Person'...
+
+Done
+</pre></div><p>
+	</p><p>
+	  Now, you can try again to query for <code class="classname">Person</code> instances according to its <code class="varname">firstname</code>, <code class="varname">lastname</code> or <code class="varname">age</code>, and you will notice that these operations are now immediate.:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo -w</code></strong>
+? <strong class="userinput"><code>select Person.firstname = "xx20";</code></strong>
+= bag(23336.2.420154:oid)
+? <strong class="userinput"><code>select Person.firstname = "xx10";</code></strong>
+= bag(23316.2.824639:oid)
+	    </pre></div><p>
+	</p></div><div class="section" title="Adding constraints"><div class="titlepage"><div><div><h3 class="title"><a name="id300926"></a>Adding constraints</h3></div></div></div><p>
+	  In the same way, you can add a <span class="command"><strong>notnull</strong></span> and a <span class="command"><strong>unique</strong></span> constraint on the <code class="varname">lastname</code> attribute within the class <code class="classname">Person</code>.
+	</p><p>
+	  First step is to add the constraint specification to the class <code class="classname">Person</code> in the <code class="filename">person.odl</code> file as follows:
+	  </p><div class="informalexample"><pre class="programlisting">
+class Person {
+  string firstname;
+  string lastname;
+  int age;
+  Address addr;
+  ...
+
+  index on firstname;
+  index on lastname;
+  index on age;
+  constraint&lt;notnull&gt; on lastname;
+  constraint&lt;unique&gt; on lastname;
+};
+
+	    </pre></div><p>
+	</p><p>
+	  Then, use the <span class="command"><strong>eyedbodl</strong></span> tool to update the database schema:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo -u person.odl</code></strong>
+Updating 'person' schema in database foo...
+Creating [NULL] notnull_constraint 'constraint&lt;notnull, propagate = on&gt; on Person.lastname' on class 'Person'...
+Creating [NULL] unique_constraint 'constraint&lt;unique, propagate = on&gt; on Person.lastname' on class 'Person'...
+
+Done
+
+	    </pre></div><p>
+	</p><p>
+	  Now try to create two person instances with the same <code class="varname">lastname</code> attribute:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo -w</code></strong>
+? <strong class="userinput"><code>new Person(lastname : "curtis");</code></strong>
+= 79902.2.884935:oid
+? <strong class="userinput"><code>new Person(lastname : "curtis");</code></strong>
+near line 2: 'new Person(lastname : "curtis")' =&gt; oql error: new operator 'new&lt;oql$db&gt; Person(lastname:"curtis"); ' : unique[] constraint error: attribute path 'Person.lastname'.
+
+	    </pre></div><p>
+	</p><p>
+	  or with no <code class="varname">lastname</code> attribute:
+	  </p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>new Person();</code></strong>
+near line 3: 'new Person()' =&gt; oql error: new operator 'new&lt;oql$db&gt; Person(); ' : notnull[] constraint error: attribute path 'Person.lastname'.
+
+	    </pre></div><p>
+	</p></div><div class="section" title="Removing classes and schema"><div class="titlepage"><div><div><h3 class="title"><a name="id301044"></a>Removing classes and schema</h3></div></div></div><p>It is possible to remove a class in a schema using <span class="command"><strong>eyedbodl</strong></span>. For instance, to remove the class <code class="classname">Employee</code> in the already introduced schema:
+	</p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo -u --rmcls=Employee</code></strong>
+Updating 'UNTITLED' schema in database foo...
+Removing class Employee
+
+Done
+	  </pre></div><p>
+	</p><p>
+	  You can then check the class removal by:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo --gencode=ODL</code></strong>
+//
+// EyeDB Version 2.8.4 Copyright (c) 1995-2007 SYSRA
+//
+// UNTITLED Schema
+//
+// Generated by eyedbodl at Mon Dec 10 13:44:03 CET 2007
+//
+
+class Address (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute int32 num;
+        attribute string street;
+        attribute string town;
+        attribute string country;
+};
+
+class Person (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute string firstname;
+        attribute string lastname;
+        attribute int32 age;
+        attribute Address addr;
+        relationship Person* spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; children;
+
+        index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.firstname;
+        index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.lastname;
+        constraint&lt;unique, propagate = on&gt; on Person.lastname;
+        constraint&lt;notnull, propagate = on&gt; on Person.lastname;
+        index&lt;type = btree, hints = "degree = 128;", propagate = on&gt; on Person.age;
+};
+
+	    </pre></div><p>
+	</p><p>
+	  It is as well possible to remove entirely the database schema:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo -u --rmsch</code></strong>
+Updating 'UNTITLED' schema in database foo...
+Removing [2570.2.500986:oid] hashindex 'index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.firstname' from class 'Person'...
+Removing [2585.2.286352:oid] hashindex 'index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096; extend_coef = 1; size_max = 4096;", propagate = on&gt; on Person.lastname' from class 'Person'...
+Removing [2599.2.7912:oid] btreeindex 'index&lt;type = btree, hints = "degree = 128;", propagate = on&gt; on Person.age' from class 'Person'...
+Removing [2625.2.396262:oid] unique_constraint 'constraint&lt;unique, propagate = on&gt; on Person.lastname' from class 'Person'...
+Removing [2620.2.240536:oid] notnull_constraint 'constraint&lt;notnull, propagate = on&gt; on Person.lastname' from class 'Person'...
+Removing class Address
+Removing class Person
+Removing class set&lt;Person*&gt;
+
+Done
+
+	    </pre></div><p>
+	</p><p>
+	  The result can be checked with:
+	  </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo --gencode=ODL</code></strong>
+//
+// EyeDB Version 2.8.4 Copyright (c) 1995-2007 SYSRA
+//
+// UNTITLED Schema
+//
+// Generated by eyedbodl at Mon Dec 10 13:44:03 CET 2007
+//
+	    </pre></div><p>
+	</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Manipulating objects using OQL </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. Using the C++ Binding</td></tr></table></div></body></html>

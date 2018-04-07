@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Object Definition Language</TITLE>
+<META NAME="description" CONTENT="The Object Definition Language">
+<META NAME="keywords" CONTENT="ODL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ODL.css">
+
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="ODL.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html84"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html80"
+  HREF="ODL.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html76"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html82"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html85"
+  HREF="node3.html">The Language Specifications</A>
+<B> Up:</B> <A NAME="tex2html81"
+  HREF="ODL.html">ODL</A>
+<B> Previous:</B> <A NAME="tex2html77"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html83"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00200000000000000000">
+The Object Definition Language</A>
+</H1>
+
+<P>
+The E<SMALL>YE</SMALL>DB Object Definition Language (ODL) is a specification language
+to define the specifications of object types based on the ODMG ODL (but not compliant).
+<BR>
+ODL <A NAME="tex2html1"
+  HREF="footnode.html#foot384"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> 
+is not intended to be a full programming language. It is
+a definition language for object specifications. Database management
+systems traditionally provide facilities that support
+data definition (using a Data Definition Language (DDL)). The DDL allows
+users to define their data types and interfaces while the
+Data Manipulation Language (DML) allows to create, delete, read update
+instances of those data types.
+<BR>
+ODL is a DDL for objects types.
+If defines the characteristics of types, including their properties
+and operations.
+ODL defines only the signatures of operations defined in C++ and does not
+address definitions of the methods that implements those operations.
+Operations defined in OQL can be defined in the ODL.
+
+<BR>
+ODL is intended to define object types that can be implemented
+in a variety of programming languages. Therefore, ODL is not tied
+to the syntax of a particular programming language.
+<BR>
+<BR>
+E<SMALL>YE</SMALL>DB ODL differs from ODMG ODL from several points:
+
+<UL>
+<LI>ODMG ODL defines class attributes, relationships, method signatures and keys.
+It supports nested classes, typedef constructs, constant definitions and
+exception hints.
+</LI>
+<LI>E<SMALL>YE</SMALL>DB ODL defines class attributes, relationships, method signatures,
+attribute constraints (notnull, unique, collection cardinality), index
+specifications and trigger declarations. It does not support
+nested classes, typedef constructs, constant definitions and
+exception hints.
+</LI>
+<LI>in E<SMALL>YE</SMALL>DB ODL, any type instance can be both a literal or
+an object. In ODMG ODL, this property is tied to the type: all
+basic types and user defined <SPAN  CLASS="textit">struct</SPAN> are literal while <SPAN  CLASS="textit">interface</SPAN>s
+and <SPAN  CLASS="textit">class</SPAN>es are objects.
+In E<SMALL>YE</SMALL>DB ODL, any type instance can be an object, even the basic types.
+</LI>
+<LI>at last, E<SMALL>YE</SMALL>DB ODL allows to specify whether a method is executed by the server or by the client,
+and whether it is a class or instance method.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html86"
+  HREF="node3.html">The Language Specifications</A>
+<UL>
+<LI><A NAME="tex2html87"
+  HREF="node3.html#SECTION00211000000000000000">Comments</A>
+<LI><A NAME="tex2html88"
+  HREF="node3.html#SECTION00212000000000000000">Basic types</A>
+<LI><A NAME="tex2html89"
+  HREF="node3.html#SECTION00213000000000000000">Enum types</A>
+<LI><A NAME="tex2html90"
+  HREF="node3.html#SECTION00214000000000000000">Array types</A>
+<LI><A NAME="tex2html91"
+  HREF="node3.html#SECTION00215000000000000000">Literal and object types</A>
+<LI><A NAME="tex2html92"
+  HREF="node3.html#SECTION00216000000000000000">Collection types</A>
+<LI><A NAME="tex2html93"
+  HREF="node3.html#SECTION00217000000000000000">Inheritance</A>
+<LI><A NAME="tex2html94"
+  HREF="node3.html#SECTION00218000000000000000">Constraints</A>
+<UL>
+<LI><A NAME="tex2html95"
+  HREF="node3.html#SECTION00218100000000000000">Constraint and inheritance propagation</A>
+<LI><A NAME="tex2html96"
+  HREF="node3.html#SECTION00218200000000000000">Constraint on attribute of literal composite type</A>
+</UL>
+<LI><A NAME="tex2html97"
+  HREF="node3.html#SECTION00219000000000000000">Referential integrity</A>
+<LI><A NAME="tex2html98"
+  HREF="node3.html#SECTION002110000000000000000">Methods</A>
+<LI><A NAME="tex2html99"
+  HREF="node3.html#SECTION002111000000000000000">Triggers</A>
+<LI><A NAME="tex2html100"
+  HREF="node3.html#SECTION002112000000000000000">Indexes</A>
+<UL>
+<LI><A NAME="tex2html101"
+  HREF="node3.html#SECTION002112100000000000000">Index and inheritance propagation</A>
+<LI><A NAME="tex2html102"
+  HREF="node3.html#SECTION002112200000000000000">Index on attribute of literal composite type</A>
+<LI><A NAME="tex2html103"
+  HREF="node3.html#SECTION002112300000000000000">Index specifications</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html104"
+  HREF="node4.html">The eyedbodl tool</A>
+<UL>
+<LI><A NAME="tex2html105"
+  HREF="node4.html#SECTION00221000000000000000">Updating a schema</A>
+<LI><A NAME="tex2html106"
+  HREF="node4.html#SECTION00222000000000000000">Generates C++ code</A>
+<LI><A NAME="tex2html107"
+  HREF="node4.html#SECTION00223000000000000000">Generates Java code</A>
+<LI><A NAME="tex2html108"
+  HREF="node4.html#SECTION00224000000000000000">Generates ODL</A>
+<LI><A NAME="tex2html109"
+  HREF="node4.html#SECTION00225000000000000000">Display schema differences</A>
+<LI><A NAME="tex2html110"
+  HREF="node4.html#SECTION00226000000000000000">Checking the syntax of an ODL file</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html111"
+  HREF="node5.html">Annexes</A>
+<UL>
+<LI><A NAME="tex2html112"
+  HREF="node5.html#SECTION00231000000000000000">A simple example</A>
+<LI><A NAME="tex2html113"
+  HREF="node5.html#SECTION00232000000000000000">A more complex example</A>
+<LI><A NAME="tex2html114"
+  HREF="node5.html#SECTION00233000000000000000">The eyedbodl usage</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html84"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html80"
+  HREF="ODL.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html76"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html82"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html85"
+  HREF="node3.html">The Language Specifications</A>
+<B> Up:</B> <A NAME="tex2html81"
+  HREF="ODL.html">ODL</A>
+<B> Previous:</B> <A NAME="tex2html77"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html83"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

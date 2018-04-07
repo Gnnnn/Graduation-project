@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Using the Java Binding</TITLE>
+<META NAME="description" CONTENT="Using the Java Binding">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html189"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html185"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html179"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html187"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html190"
+  HREF="node12.html">Learning more about EYEDB</A>
+<B> Up:</B> <A NAME="tex2html186"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html180"
+  HREF="node10.html">Using the C++ Binding</A>
+ &nbsp; <B>  <A NAME="tex2html188"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html191"
+  HREF="node11.html#SECTION00291000000000000000">Generating the Java code</A>
+<LI><A NAME="tex2html192"
+  HREF="node11.html#SECTION00292000000000000000">A minimal client program</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00290000000000000000"></A> <A NAME="789"></A>
+<BR>
+Using the Java Binding
+</H1>
+
+<P>
+Although the C++ binding is more complete than the Java binding
+- essentially according to the administrative operations - the Java
+bindings allow to manipulate data without limitations.
+<BR>
+<BR>
+Using the Java binding is very similar to the C++ binding. Writing a
+Java program that can create, retrieve, modify and delete person
+instances that are stored in an E<SMALL>YE</SMALL>DB database involves the following
+steps:
+
+<OL>
+<LI>generates the specific <TT>Person</TT> binding using the <TT>eyedbodl</TT> tool
+</LI>
+<LI>write the Java client program
+</LI>
+<LI>compile the generated binding and the client program
+</LI>
+</OL>
+This example is located in the <TT>examples/GettingStarted</TT> subdirectory.
+
+<P>
+
+<H2><A NAME="SECTION00291000000000000000"></A> <A NAME="792"></A>
+<BR>
+Generating the Java code
+</H2>
+
+<P>
+The Java code is generated from the ODL schema definition using the following command:
+<PRE>
+% eyedbodl --gencode=Java --package=person person.odl
+</PRE>
+The <TT>-package</TT> option is mandatory: this name will be used as the name of the Java package to which all generated Java classes will belong.
+<BR>
+<BR>
+This command will generate a number of Java file in subdirectory <TT>person/</TT>,
+each generated file containing a Java class having the same name.
+
+<P>
+If you have a look to the files in sub-directory <TT>person</TT>,
+you will notice that the following classes have been generated:
+
+<OL>
+<LI>the class <TT>Address</TT>
+</LI>
+<LI>the class <TT>Database</TT>
+</LI>
+<LI>the class <TT>Employee</TT>
+</LI>
+<LI>the class <TT>Person</TT>
+</LI>
+<LI>the class <TT>set_class_Person_ref</TT>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION00292000000000000000"></A> <A NAME="794"></A>
+<BR>
+A minimal client program
+</H2>
+
+<P>
+We are now going to write a minimal client program which will perform
+the following operations:
+
+<OL>
+<LI>initialize the E<SMALL>YE</SMALL>DB and <TT>person</TT> packages
+</LI>
+<LI>connect to the E<SMALL>YE</SMALL>DB server
+</LI>
+<LI>open a database
+</LI>
+<LI>creates two person instances and mary them
+</LI>
+</OL>
+Here is the code for this minimal client:
+<PRE>
+//
+// Persontest.java
+//
+
+import person.*;
+
+class PersonTest {
+  public static void main(String args[]) {
+
+    // Initialize the eyedb package and parse the default eyedb options
+    // on the command line
+    String[] outargs = org.eyedb.Root.init("PersonTest", args);
+     
+    // Check that a database name is given on the command line
+    int argc = outargs.length;
+    if (argc != 1) {
+        System.err.println("usage: java PersonTest dbname");
+        System.exit(1);
+    }
+
+    try {
+      // Initialize the person package
+      person.Database.init();
+
+      // Open the connection with the backend
+      org.eyedb.Connection conn = new org.eyedb.Connection();
+
+      // Open the database named outargs[0]
+      person.Database db = new person.Database(outargs[0]);
+      db.open(conn, org.eyedb.Database.DBRW);
+
+      db.transactionBegin();
+      // Create two persons john and mary
+      Person john = new Person(db);
+      john.setFirstname("john");
+      john.setLastname("travolta");
+      john.setAge(26);
+     
+      Person mary = new Person(db);
+      mary.setFirstname("mary");
+      mary.setLastname("stuart");
+      mary.setAge(22);
+     
+      // Mary them ;-)
+      john.setSpouse(mary);
+
+      // Store john and mary in the database
+      john.store(org.eyedb.RecMode.FullRecurs);
+
+      john.trace();
+
+      db.transactionCommit();
+    }
+    catch(org.eyedb.Exception e) { // Catch any eyedb exception
+       e.print();
+       System.exit(1);
+    }
+  }
+}
+</PRE>
+To use this client, you must first compile it using a standard Makefile, as follows 
+(replace <TT>&#171;datadir&#187;</TT> with the data directory, usually /usr/share):
+<PRE>
+include &lt;&lt;datadir&gt;&gt;/eyedb/Makefile.eyedb
+
+all: PersonTest.class
+
+person/Database.java: schema.odl
+        $(EYEDB_ODL) --gencode=Java --package=person --output-dir=person $&lt;
+
+PersonTest.class: PersonTest.java person/Database.java
+        CLASSPATH=$(EYEDB_CLASSPATH):. javac *.java person/*.java
+</PRE> 
+
+Once compiled, you can execute the program as follows:
+<PRE>
+% CLASSPATH=. eyedbjrun PersonTest person_g
+</PRE>
+The <TT>eyedbjrun</TT> script is a helper script that wraps the call to the Java 
+virtual machine with an appropriate CLASSPATH environment variable containing the path to <TT>eyedb.jar</TT> and passes the necessary options to the <TT>PersonTest</TT> class.
+<BR>
+<BR>
+A few remarks about the Java code:
+
+<UL>
+<LI>all operations - setting, getting attributes, storing, querying instances
+in a database - must be performed within a transaction.
+A transaction is initiated using the <TT>Database::transactionBegin</TT>
+method and is committed (resp. aborted) using the
+<TT>Database::transactionCommit</TT>
+(resp. <TT>Database::transactionAbort</TT>) method.
+</LI>
+<LI>to store any instance in the database, you need to call the 
+emphstore (or <TT>realize</TT>) method on this instance.
+In our case, we use the argument <TT>FullRecurs</TT> indicating that
+we want all related instances (through relationship or indirect
+attribute) to be stored in the database.
+</LI>
+</UL>
+The Java binding support both the standalone applications and the applets.
+<BR>
+<BR>
+To have more information about the Java binding, please refer to the
+E<SMALL>YE</SMALL>DB Java binding manual.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html189"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html185"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html179"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html187"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html190"
+  HREF="node12.html">Learning more about EYEDB</A>
+<B> Up:</B> <A NAME="tex2html186"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html180"
+  HREF="node10.html">Using the C++ Binding</A>
+ &nbsp; <B>  <A NAME="tex2html188"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

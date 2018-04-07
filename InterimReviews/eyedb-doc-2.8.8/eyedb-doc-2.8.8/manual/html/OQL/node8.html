@@ -1,0 +1,2174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Quick Reference Manual</TITLE>
+<META NAME="description" CONTENT="Quick Reference Manual">
+<META NAME="keywords" CONTENT="OQL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="OQL.css">
+
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html640"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html638"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html642"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html641"
+  HREF="node2.html">The Object Query Language</A>
+<B> Previous:</B> <A NAME="tex2html639"
+  HREF="node7.html">Language Syntax</A>
+ &nbsp; <B>  <A NAME="tex2html643"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html644"
+  HREF="node8.html#SECTION00261000000000000000">Builtin and Library Functions and Methods</A>
+<UL>
+<LI><A NAME="tex2html645"
+  HREF="node8.html#SECTION00261100000000000000">Type Predicat Functions</A>
+<LI><A NAME="tex2html646"
+  HREF="node8.html#SECTION00261200000000000000">Collection Conversion Functions</A>
+<LI><A NAME="tex2html647"
+  HREF="node8.html#SECTION00261300000000000000">Sort Functions</A>
+<LI><A NAME="tex2html648"
+  HREF="node8.html#SECTION00261400000000000000">Collection Miscelleanous Functions</A>
+<LI><A NAME="tex2html649"
+  HREF="node8.html#SECTION00261500000000000000">String Function Functions</A>
+<LI><A NAME="tex2html650"
+  HREF="node8.html#SECTION00261600000000000000">Query Functions</A>
+<LI><A NAME="tex2html651"
+  HREF="node8.html#SECTION00261700000000000000">Useful Functions</A>
+<LI><A NAME="tex2html652"
+  HREF="node8.html#SECTION00261800000000000000">Native Methods of the Class <TT>object</TT></A>
+<LI><A NAME="tex2html653"
+  HREF="node8.html#SECTION00261900000000000000">Native Methods of the Class <TT>connection</TT></A>
+<LI><A NAME="tex2html654"
+  HREF="node8.html#SECTION002611000000000000000">Native Methods of the Class <TT>database</TT></A>
+<LI><A NAME="tex2html655"
+  HREF="node8.html#SECTION002611100000000000000">Native Methods of the Class <TT>EyeDB</TT></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html656"
+  HREF="node8.html#SECTION00262000000000000000">Special Variables</A>
+<LI><A NAME="tex2html657"
+  HREF="node8.html#SECTION00263000000000000000">The <TT>eyedboql</TT> Tool</A>
+<UL>
+<LI><A NAME="tex2html658"
+  HREF="node8.html#SECTION00263100000000000000">Running <TT>eyedboql</TT></A>
+<LI><A NAME="tex2html659"
+  HREF="node8.html#SECTION00263200000000000000">Executing Statements</A>
+<LI><A NAME="tex2html660"
+  HREF="node8.html#SECTION00263300000000000000">Execution Process</A>
+<LI><A NAME="tex2html661"
+  HREF="node8.html#SECTION00263400000000000000">Getting Started</A>
+<LI><A NAME="tex2html662"
+  HREF="node8.html#SECTION00263500000000000000">Command Line Options</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html663"
+  HREF="node8.html#SECTION00264000000000000000">The Standard Library Package</A>
+<LI><A NAME="tex2html664"
+  HREF="node8.html#SECTION00265000000000000000">OQL Quick Reference Card</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00260000000000000000"></A> <A NAME="7704"></A>
+<A NAME="qref"></A>
+<BR>
+Quick Reference Manual
+</H1>
+This OQL quick reference manual presents consise information about
+the builtin and library functions and methods, the special variables,
+and the <TT>eyedboql</TT> tool. The standard library source code
+is presented and it provides a quick reference card containing
+all the language constructs.
+
+<P>
+
+<H2><A NAME="SECTION00261000000000000000"></A> <A NAME="7706"></A>
+<BR>
+Builtin and Library Functions and Methods
+</H2>
+OQL provides a few builtin and library functions. The builtin functions
+are written in C++ and cannot be overriden while the library functions
+are written in OQL and may be redefined by the user.
+The code for the library functions can be found in the section
+<SPAN  CLASS="textit">The Standard Library Package</SPAN>. The E<SMALL>YE</SMALL>DB system classes
+<TT>object</TT>, <TT>database</TT>, <TT>connection</TT> and <TT>EyeDB</TT> contains
+builtin class and instance methods that can be accessed from OQL.
+Some of these methods are briefly introduced in this section.
+
+<P>
+
+<H3><A NAME="SECTION00261100000000000000"></A> <A NAME="7709"></A>
+<BR>
+Type Predicat Functions
+</H3>
+<PRE><TT>
+<TT>is_int(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> is an <TT>int</TT>
+<BR><TT>is_double(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>double</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_string(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>string</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_oid(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isan <TT>oid</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_num(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isan number (<TT>int</TT>, <TT>float</TT> or <TT>char</TT>);otherwise, returns <TT>false</TT>
+<BR><TT>is_bool(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>bool</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_bag(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>bag</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_set(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>set</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_array(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>array</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_list(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>list</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_coll(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa collection; otherwise, returns <TT>false</TT>
+<BR><TT>is_struct(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> isa <TT>struct</TT>; otherwise, returns <TT>false</TT>
+<BR><TT>is_empty(x)</TT>		: returns <TT>true</TT> if <TT>x</TT> is<TT>nil</TT>; otherwise, returns <TT>false</TT>
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261200000000000000">
+Collection Conversion Functions</A>
+</H3>
+
+<P>
+The collection conversion functions take one collection argument and
+convert this collection to another collection type and returns
+the converted collection.
+
+<P>
+
+<P>
+<PRE><TT>
+<TT>toset(coll)</TT>		: converts <TT>coll</TT> to a <TT>set</TT>
+<BR><TT>tolist(coll)</TT>		: converts <TT>coll</TT> to a <TT>list</TT>
+<BR><TT>tobag(coll)</TT>		: converts <TT>coll</TT> to a <TT>bag</TT>
+<BR><TT>toarray(coll)</TT>		: converts <TT>coll</TT> to a <TT>array</TT>
+<BR><TT>listtoset(coll)</TT>		: checks that <TT>coll</TT> is a <TT>list</TT> then  converts <TT>coll</TT> to a <TT>set</TT>
+<BR><TT>bagtoset(coll)</TT>		: checks that <TT>coll</TT> is a <TT>bag</TT> then  converts <TT>coll</TT> to a <TT>set</TT>
+<BR><TT>arraytoset(coll)</TT>		: checks that <TT>coll</TT> is a <TT>array</TT> then  converts <TT>coll</TT> to a <TT>set</TT>
+<BR><TT>listtobag(coll)</TT>		: checks that <TT>coll</TT> is a <TT>list</TT> then  converts <TT>coll</TT> to a <TT>bag</TT>
+<BR><TT>settobag(coll)</TT>		: checks that <TT>coll</TT> is a <TT>set</TT> then  converts <TT>coll</TT> to a <TT>bag</TT>
+<BR><TT>arraytobag(coll)</TT>		: checks that <TT>coll</TT> is a <TT>array</TT> then  converts <TT>coll</TT> to a <TT>bag</TT>
+<BR><TT>bagtolist(coll)</TT>		: checks that <TT>coll</TT> is a <TT>bag</TT> then  converts <TT>coll</TT> to a <TT>list</TT>
+<BR><TT>settolist(coll)</TT>		: checks that <TT>coll</TT> is a <TT>set</TT> then  converts <TT>coll</TT> to a <TT>list</TT>
+<BR><TT>arraytolist(coll)</TT>		: checks that <TT>coll</TT> is a <TT>array</TT> then  converts <TT>coll</TT> to a <TT>list</TT>
+<BR><TT>bagtoarray(coll)</TT>		: checks that <TT>coll</TT> is a <TT>bag</TT> then  converts <TT>coll</TT> to a <TT>array</TT>
+<BR><TT>settoarray(coll)</TT>		: checks that <TT>coll</TT> is a <TT>set</TT> then  converts <TT>coll</TT> to a <TT>array</TT>
+<BR><TT>listtoarray(coll)</TT>		: checks that <TT>coll</TT> is a <TT>set</TT> then  converts <TT>coll</TT> to a <TT>array</TT>
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261300000000000000">
+Sort Functions</A>
+</H3>
+
+<P>
+These functions are used to sort collection of sortable atom of homogeneous
+types: <TT>int</TT>, <TT>char</TT>, <TT>float</TT> or <TT>string</TT>.
+<PRE><TT>
+<TT>sort(coll)</TT>		: <TT>coll</TT> must a be a collection of homogeneoussortable atoms;
+<BR>
+sorts and returns this collection
+<BR><TT>rsort(coll)</TT>		: <TT>coll</TT> must a be a collection of homogeneoussortable atoms;
+<BR>
+reverse sorts and returns this collection
+<BR><TT>isort(coll, idx)</TT>		: <TT>coll</TT> must a be a collection of <TT>list</TT>or <TT>array</TT>
+<BR>
+of homogeneous sortable atoms;
+<BR><TT>idx</TT> must be of <TT>int</TT> type;
+<BR>
+sorts the collection of collections according to the
+<BR>#<TT>idx</TT> elementof the inner collection
+<BR><TT>risort(coll, idx)</TT>		: same as previous function, but perform a reverse sort
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261400000000000000">
+Collection Miscelleanous Functions</A>
+</H3>
+
+<P>
+<PRE><TT>
+<TT>first(coll)</TT>		: returns the first element of <TT>coll</TT>
+<BR><TT>car(coll)</TT>		: returns the first element of <TT>coll</TT>
+<BR><TT>last(coll)</TT>		: returns the last element of <TT>coll</TT>
+<BR><TT>cdr(coll)</TT>		: returns all elements of <TT>coll</TT> but the first
+<BR><TT>getn(coll, n)</TT>		: returns at most n elements of <TT>coll</TT>
+<BR><TT>count(coll)</TT>		: returns the count of elements of <TT>coll</TT>
+<BR>
+identical to <TT>coll[!]</TT>, but less efficient
+<BR><TT>sum(coll)</TT>		: returns the sum of the numbers of <TT>coll</TT>
+<BR><TT>avg(coll)</TT>		: returns the float average of the numbers <TT>coll</TT>
+<BR><TT>distinct(coll)</TT>		: eliminates duplicates of <TT>coll</TT>
+<BR><TT>flatten(coll)</TT>		: recursive flattening of <TT>coll</TT>
+<BR><TT>flatten1(coll)</TT>		: one level flattening of <TT>coll</TT>
+<BR><TT>min(coll)</TT>		: returns the minimal number of <TT>coll</TT>
+<BR><TT>max(coll)</TT>		: returns the maximal number of <TT>coll</TT>
+<BR><TT>forone(coll, f, data)</TT>		: if <TT>f(e, data)</TT> for one element<TT>e</TT>
+<BR>
+of <TT>coll</TT>, returns <TT>true</TT>;
+<BR>
+otherwise returns <TT>false</TT>;
+<BR><TT>forall(coll, f, data)</TT>		: if <TT>f(e, data)</TT> for all element<TT>e</TT>
+<BR>
+of <TT>coll</TT>, returns <TT>true</TT>;
+<BR>
+otherwiser returns <TT>false</TT>;
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261500000000000000">
+String Function Functions</A>
+</H3>
+<PRE><TT>
+<TT>tolower(str)</TT>		: converts (and returns) string <TT>str</TT> into lowercase
+<BR><TT>toupper(str)</TT>		: converts (and returns) string <TT>str</TT> into uppercase
+<BR><TT>tocap(str)</TT>		: converts the first character and each characterfollowing
+<BR>
+a <TT>_</TT> of <TT>str</TT> into an uppercase
+<BR><TT>strlen(str)</TT>		: returns the length of <TT>str</TT>;
+<BR>
+same as <TT>str[!]</TT>, but less efficient
+<BR><TT>substring(str, from, len)</TT>		: returns the sub-string of <TT>str</TT>
+<BR>
+from the #<TT>from</TT> to the
+<BR><TT>from+len</TT> characters;
+<BR>
+same as <TT>str[from:from+len]</TT> but less efficient
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261600000000000000">
+Query Functions</A>
+</H3>
+<PRE><TT>
+<TT>delete_from(class)</TT>		: deletes all the instances of a given class
+<BR><TT>get_from(class)</TT>		: gets all the instances of a given class
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261700000000000000">
+Useful Functions</A>
+</H3>
+<PRE><TT>
+<TT>assert(cond)</TT>		: throws an exception is <TT>cond</TT> is not <TT>true</TT>
+<BR><TT>assert_msg(cond, msg)</TT>		: throws the exception message <TT>msg</TT> if <TT>cond</TT> is not <TT>true</TT>
+<BR><TT>interval(from, to)</TT>		: returns a <TT>list</TT> composed of the numberfrom <TT>from</TT> to <TT>to</TT>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261800000000000000">
+Native Methods of the Class <TT>object</TT></A>
+</H3> <A NAME="7770"></A>
+The native methods of the class <TT>object</TT> allows us to perform
+a few action such as getting the oid of an instance <TT>getOid()</TT>,
+getting the database of an instance <TT>getDatabase()</TT> or
+converts the instance to its string representation <TT>toString()</TT>.
+For instance, to apply this last method to the first <TT>Person</TT> instance:
+<TT>first(select Person).toString()</TT>.
+<BR>
+<BR>
+All the native methods of the class <TT>object</TT> are instance methods.
+<PRE><TT>
+<TT>oid getOid()</TT>		 : returns the <TT>oid</TT> of the object
+<BR><TT>string toString()</TT>		 : returns the string representation of the object
+<BR><TT>database *getDatabase()</TT>		 : returns the <TT>database</TT> instance ofthe object
+<BR><TT>void setDatabase(in database *)</TT>		 : changes the <TT>database</TT> of the object
+<BR><TT>void store()</TT>		 : stores the object in the database 
+<BR><TT>object *clone()</TT>		 : clones the object; returns the clone 
+<BR><TT>int getCTime()</TT>		 : returns the creation time of the object (seconds from <TT>1/1/1970</TT>)
+<BR><TT>int getMTime()</TT>		 : returns the last modification time of the object
+<BR><TT>string getStringCTime()</TT>		 : returns the string representation ofthe creation time of the object
+<BR><TT>string getStringMTime()</TT>		 : returns the string representation ofthe creation time of the object
+<BR><TT>bool isRemoved()</TT>		 : returns <TT>true</TT> if the object is removed;<TT>false</TT> otherwise
+<BR><TT>bool isModify()</TT>		 :  returns <TT>true</TT> if the object is modified;<TT>false</TT> otherwise
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION00261900000000000000">
+Native Methods of the Class <TT>connection</TT></A>
+</H3> <A NAME="7777"></A>
+All the native methods of the class <TT>connection</TT> are instance methods.
+an object obtained using the <TT>new</TT> operator,
+They can be applied on a <TT>database</TT> object that can be either the
+current connection
+<TT>oql$db-&gt;getConnection()</TT> either an object obtained using the <TT>new</TT> operator,
+for instance: <TT>new &lt;&gt; connection()</TT>.
+<PRE><TT>
+<TT>void open()</TT>		 : opens a new connection with default host and port
+<BR><TT>void open(in string host, in string port)</TT>		 : opens a new connectionusing <TT>host</TT> and <TT>port</TT>
+<BR><TT>void close()</TT>		 : closes the connection 
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION002611000000000000000">
+Native Methods of the Class <TT>database</TT></A>
+</H3> <A NAME="7784"></A>
+The following methods are the instance methods of the class <TT>database</TT>:
+They can be applied on a <TT>database</TT> object that can be either
+<TT>oql$db</TT> either an object obtained using the <TT>new</TT> operator,
+for instance: <TT>new &lt;&gt; database(name : "foo")</TT>.
+<PRE><TT>
+<TT>void open(</TT>		<TT>in connection *conn,</TT>
+<BR><TT>in int mode)</TT>		 : opens a new database using the connection
+<BR><TT>conn</TT> and the open flag mode <TT>mode</TT>
+<BR><TT>void open(</TT>		<TT>in connection *conn,</TT>
+<BR><TT>in int mode,</TT> 
+<BR><TT>in string userauth,</TT>
+<BR><TT>in string passwdauth)</TT>		 :  opens a new database using the connection <TT>conn</TT>,
+<BR>
+the open flag mode <TT>mode</TT> and the authentication
+<BR><TT>userauth</TT>/<TT>passwdauth</TT>
+<BR><TT>void close()</TT>				 : closes the database
+<BR><TT>connection *getConnection()</TT>				: returns the connection tied tothe database
+<BR><TT>int getOpenMode()</TT>				: returns the open flag mode of the database
+<BR><TT>int getVersionNumber()</TT>				 : returns the version number of the database
+<BR><TT>string getVersion()</TT>				 : returns the string version of the database
+<BR>
+<BR><TT>void removeObject(in oid)</TT>				 : removes the object whose oid is given
+<BR>
+<BR><TT>void transactionBegin()</TT>				 : begins a new transaction
+<BR><TT>void transactionBegin(in string mode)</TT>				 : begins a new transactionin mode <TT>mode</TT>
+<BR><TT>void transactionCommit()</TT>				 : commits the current transaction
+<BR><TT>void transactionAbort()</TT>				 : abort the current transaction
+<BR>
+<BR><TT>bool isInTransaction()</TT>				 : returns <TT>true</TT> ifa transaction is in progress;
+<BR><TT>false</TT> otherwiser
+<BR>
+<BR>
+</TT></PRE>
+
+<P>
+
+<H3><A NAME="SECTION002611100000000000000">
+Native Methods of the Class <TT>EyeDB</TT></A>
+</H3> <A NAME="7791"></A>
+All the native methods of the class <TT>EyeDB</TT> are class methods.
+
+<P>
+<PRE><TT>
+<TT>string getConfigValue(in string s)</TT>		 : returns thestring value of the configuration variable <TT>s</TT>
+<BR><TT>int getVersionNumber()</TT>		 : returns the E<SMALL>YE</SMALL>DB current version number
+<BR><TT>string getVersion()</TT>		 : returns the E<SMALL>YE</SMALL>DB current stringversion
+<BR><TT>string getArchitecture()</TT>		 : returns the architecture of the current server
+<BR><TT>string getDefaultCompiler()</TT>		 : returns the C++ compiler used tocompile the current server
+<BR>
+</TT></PRE>
+
+<P>
+
+<H2><A NAME="SECTION00262000000000000000"></A> <A NAME="7797"></A>
+<BR>
+Special Variables
+</H2>
+The following variables are predefined or have a special meaning:
+<PRE><TT>
+<TT>oql$variables</TT>		 : list containing the name of all variables
+<BR><TT>oql$functions</TT>		 : list containing the name of all functions
+<BR><TT>oql$result</TT>		 : the result atom of the last statement
+<BR><TT>oql$db</TT>		 : <TT>object</TT> atom instance of the class<TT>database</TT> denoting the current database
+<BR><TT>oql$minint</TT>		 : the minimal integer <TT>0x8000000000000000</TT>
+<BR><TT>oql$maxint</TT>		 : the maximal integer <TT>0x7FFFFFFFFFFFFFFF</TT>
+<BR><TT>oql$minfloat</TT>		 : the minimal float <TT>4.94065645841246544e-324</TT>
+<BR><TT>oql$maxfloat</TT>		 : the maximal float <TT>1.79769313486231570e+308</TT>
+<BR>
+</TT></PRE>
+<H2><A NAME="SECTION00263000000000000000">
+The <TT>eyedboql</TT> Tool</A>
+</H2> <A NAME="7802"></A>
+
+<P>
+<TT>eyedboql</TT> is a tool that allows you to execute interactively OQL 
+statements.
+This tool is similar to the <TT>Oracle</TT> <TT>sqlplus</TT> and <TT>Sybase</TT>
+<TT>isql</TT> well known tools.
+
+<H3><A NAME="SECTION00263100000000000000">
+Running <TT>eyedboql</TT></A>
+</H3> <A NAME="7809"></A>
+The simplest way to run <TT>eyedboql</TT> is to type <TT>eyedboql</TT>
+as follows (assuming that <TT>$</TT> is your shell prompt):
+
+<PRE>
+$ eyedboql
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+?
+</PRE>
+The string ``<TT>?</TT> `` is the default prompt for <TT>eyedboql</TT>.
+
+<BR>
+<BR>
+In an <TT>eyedboql</TT> session, anything you type is interpreted as an
+OQL construct (or a part of an OQL construct),
+
+<BR>
+Nevertheless, if the first word of an input line begins with the escape
+character ``<TT>
+<BR></TT>'', this word is interpreted as an <TT>eyedboql</TT>
+internal command.
+There are about 30 internal commands, but you need to know only of few of them
+to use <TT>eyedboql</TT>.
+<BR>
+<BR>
+The purpose of the main internal commands is:
+<BR>  - to create or delete databases,
+<BR>  - to open a database,
+<BR>  - to begin, commit or abort a transaction,
+<BR>  - to set the current user and password,
+<BR>  - to execute the contents of a file,
+<BR>  - to display the string representation of an object,
+<BR>  - to display the HTML representation of an object in a WEB browser,
+<BR>  - to change the prompts and the escape character.
+
+<H3><A NAME="SECTION00263200000000000000"></A> <A NAME="7813"></A>
+<BR>
+Executing Statements
+</H3>
+<TT>eyedboql</TT> allows us to execute OQL statements in an interactive way.
+For instance, to perform the addition <TT>1+3</TT>:
+
+<PRE>
+$ eyedboql
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+? 1+3;
+= 4
+?
+</PRE>
+The string ``<TT>=</TT> '' preceedes the result atom (if any) of your statement;
+in the current example, the result atom is the evaluation of the expression
+statement <TT>1+3;</TT>.
+
+<H3><A NAME="SECTION00263300000000000000"></A> <A NAME="7815"></A>
+<BR>
+Execution Process
+</H3>
+Each complete statement typed is sent to the OQL interpreter,
+A complete statement has a special meaning: it is any sequence of characters:
+<BR>  <SPAN  CLASS="textit">a.</SPAN> that end with a semi-colon and
+<BR>  <SPAN  CLASS="textit">b.</SPAN> which parenthesis are balanced and
+<BR>  <SPAN  CLASS="textit">c.</SPAN> which brakets are balanced and
+<BR>  <SPAN  CLASS="textit">d.</SPAN> which braces are balanced.
+<BR>
+<BR>
+While the statement is not complete, <TT>eyedboql</TT> prompts the
+``second prompt'' (``<TT>&#187; </TT>'' by default) after each newline.
+<BR>
+Once the statement is complete, it is sent to the OQL interpreter, then
+the atom result is display (if any) after the string ``<TT>=</TT> ''
+and the main prompt ``<TT>?</TT> '' is displayed again.
+<BR>
+<BR>
+For instance, the input sequence of characters
+``<TT>1+</TT><SPAN  CLASS="textit">newline</SPAN><TT>3</TT><SPAN  CLASS="textit">newline</SPAN><TT>;</TT>'' gives:
+
+<PRE>
+? 1+
+&gt;&gt; 3
+&gt;&gt; ;
+= 4
+</PRE>
+while the input sequence ``<TT>{ a := 1+3;</TT><SPAN  CLASS="textit">newline</SPAN><TT>c := 2+94;</TT><SPAN  CLASS="textit">newline</SPAN><TT>d := a+c}</TT>'' gives:
+
+<PRE>
+? { a := 1+3;
+&gt;&gt; c := 2+94;
+&gt;&gt; d := a+c}
+?
+</PRE>
+Note that no ``<TT>=</TT> <SPAN  CLASS="textit">result atom</SPAN>'' is echoed because a compound
+statement does not return any atom.
+
+<BR>
+<BR>
+This last example:
+
+<PRE>
+? while (true) {
+&gt;&gt;   a++;
+&gt;&gt;   b++;
+&gt;&gt; }
+&gt;&gt;
+&gt;&gt; ;
+?
+</PRE>
+shows the necessity of typing a semicolon after the <TT>while</TT> statement
+although a <TT>while</TT> statement does not need to end by a semi-colom
+in the OQL specifications.
+
+<P>
+
+<H3><A NAME="SECTION00263400000000000000"></A> <A NAME="7817"></A>
+<BR>
+Getting Started
+</H3>
+By default in an <TT>eyedboql</TT> session, the database <TT>EYEDBDBM</TT> is opened in
+read-only mode. To use another database, one must use either the command line
+option <TT>-db</TT> either the <TT>
+<BR>
+open</TT> internal command.
+<BR>
+<BR>
+To start to play with <TT>eyedboql</TT> one needs to know the following
+five internal commands:
+
+<OL>
+<LI><TT>
+<BR>
+open</TT> <SPAN  CLASS="textit">database</SPAN> [<TT>rw</TT><SPAN CLASS="MATH"><IMG
+ WIDTH="8" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\vert$"></SPAN><TT>ro</TT>] <TT>local</TT> <TT>trsless</TT>:
+opens the <SPAN  CLASS="textit">database</SPAN> in read-write (<TT>rw</TT>) or
+read-only (<TT>ro</TT> or no option) mode. If <TT>local</TT> is there,
+<SPAN  CLASS="textit">database</SPAN> is opened in a local mode. If <TT>trsless</TT> is
+there <SPAN  CLASS="textit">database</SPAN> is opened in transaction-less mode.
+<BR>
+For instance ``<TT>
+<BR>
+open foo rw</TT>'' opens the database <TT>foo</TT> is
+read-write mode.
+</LI>
+<LI><TT>
+<BR>
+print</TT> [<SPAN  CLASS="textit">sequence of oids</SPAN>] <SPAN  CLASS="textit">other options</SPAN>: 	
+if a sequence of oids is given: loads the object corresponding to each <TT>oid</TT>
+and displays its string representation,
+<BR>
+if no sequence of oids is given: loads the object corresponding to each <TT>oid</TT>
+returned by the last statement and displays its string representation.
+<BR>
+For instance, ``<TT>select Person;</TT>'' will return a <TT>bag</TT> containing
+the <TT>oid</TT> of each <TT>Person</TT> instance.
+<BR>
+The internal command ``<TT>
+<BR>
+print</TT>'' typed after that will loads and
+displays of the corresponding <TT>Person</TT> instances.
+<BR>
+The <SPAN  CLASS="textit">other options</SPAN> are one or more space-separated of the followings:
+<PRE><TT>
+		<TT>full</TT>		: loads and displays object using the full recursive mode
+<BR><TT>ctime</TT>		: displays the creation time of the object
+<BR><TT>mtime</TT>		: displays the last modification time of the object
+<BR><TT>contents</TT>		:  displays the contents of collections
+<BR><TT>native</TT>		:  displays the native attributes
+<BR><TT>all</TT>		: means ``<TT>ctime mtime contents native</TT>''
+</TT></PRE>
+For instance ``<TT>
+<BR>
+print full contents</TT>'' will load and display 
+the objects and their collection contents in a full recursive mode.
+</LI>
+<LI><TT>
+<BR>
+commit</TT>: commits the current transaction
+</LI>
+<LI><TT>
+<BR>
+abort</TT>: aborts the current transaction
+</LI>
+<LI><TT>
+<BR>
+quit</TT> or <SPAN  CLASS="textit">^D</SPAN>: quits the current <TT>eyedboql</TT> session
+</LI>
+</OL>
+Note that a transaction is started automatically before the first
+complete statement of the sesssion of before the complete statement
+immediately following <TT>
+<BR>
+commit</TT> or <TT>
+<BR>
+abort</TT> internal command.
+
+<BR>
+<BR>
+Here is a commented example showing the use of these internal commands:
+<BR>
+<BR><SPAN  CLASS="textit">run</SPAN> <TT>eyedboql</TT>:
+<PRE>
+$ eyedboql
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+</PRE>
+<SPAN  CLASS="textit">open the database</SPAN> <TT>person</TT> <SPAN  CLASS="textit">in read-write mode</SPAN>:
+<PRE>
+? \open person rw
+</PRE>
+<SPAN  CLASS="textit">get the first person whose name is "john" and display it</SPAN>:
+<PRE>
+? john := first(select Person.name = "john");
+= 66373.12.4008447:oid
+? \print
+66373.12.4008447:oid Person = { 
+        name = "john";
+        age = 32;
+        addr Address = { 
+                street = "clichy";
+                town = "Paris";
+                country = NULL;
+        };
+        cstate = Sir;
+        *spouse 66891.12.2738687:oid;
+        cars set&lt;Car*&gt; = set { 
+                name       = "";
+                count      = 4;
+                dimension  = 1;
+                reference  = true;
+                magorder   = 4;
+        };
+        children array&lt;Person*&gt; = array { 
+                name       = "";
+                count      = 0;
+                range      = [0,0[;
+                dimension  = 1;
+                reference  = true;
+                magorder   = 4;
+        };
+        x = NULL;
+};
+</PRE>
+<SPAN  CLASS="textit">change the name of john to "JOHNNY"</SPAN>:
+<PRE>
+? john.name := "JOHNNY";
+= "JOHNNY"
+</PRE>
+<SPAN  CLASS="textit">retrieve the person whose name is "JOHNNY" and compares it to</SPAN>
+<TT>john</TT> <SPAN  CLASS="textit">using</SPAN> <TT>assert</TT>
+<SPAN  CLASS="textit">: all is fine, no error is raised!</SPAN>
+<PRE>
+? assert(john = first(select Person.name = "JOHNNY"));
+</PRE>
+<SPAN  CLASS="textit">abort the transaction and look for the person whose name is
+"JOHNNY": no person is returned! this is ok as the transaction was aborted</SPAN>:
+<PRE>
+? \abort
+? select Person.name = "JOHNNY";
+= list()
+</PRE>
+<SPAN  CLASS="textit">change the name of john to "JOHNNY" again and commit the transaction</SPAN>:
+<PRE>
+? john.name := "JOHNNY";
+= "JOHNNY"
+? \commit
+</PRE>
+<SPAN  CLASS="textit">then retrieve again the person whose name is "JOHNNY" and compare
+it to</SPAN> <TT>john</TT> <SPAN  CLASS="textit">using</SPAN>
+<TT>assert</TT><SPAN  CLASS="textit">: all is fine, no error is raised!</SPAN>
+<PRE>
+? assert(john = first(select Person.name = "JOHNNY"));
+</PRE>
+<SPAN  CLASS="textit">quit</SPAN> <TT>eyedboql</TT> <SPAN  CLASS="textit">session</SPAN>
+<PRE>
+? \quit
+$
+</PRE>
+We are going to conclude this section by this important note:
+<BR>
+as introduced previously,
+the current transaction will be committed (resp. aborted) by a <TT>
+<BR>
+commit</TT>
+(resp. <TT>
+<BR>
+abort</TT>) command.
+
+<BR>
+If you quit <TT>eyedboql</TT> before committing (resp. aborting) the transaction,
+it will be automatically aborted, so all your changes will be lost.
+
+<BR>
+This is the default behaviour. This behaviour can be changed by using the
+<TT>
+<BR>
+commitonclose</TT> internal command.
+
+<P>
+
+<H3><A NAME="SECTION00263500000000000000"></A> <A NAME="7821"></A>
+<BR>
+Command Line Options
+</H3>
+The <TT>eyedboql</TT> command line options are as follows:
+<PRE><TT>
+		<B>Program Options</B>:
+<BR>-d <TT>&lt;</TT>name<TT>&gt;</TT>, -database=<TT>&lt;</TT>name&gt; 		  Database name
+<BR>-r, -read 		   Open database in read mode
+<BR>-w, -read-write 		   Open database in read/write mode
+<BR>-s, -strict-read 		  Open database in strict read mode
+<BR>-l, -local 		       Open database in local mode
+<BR>-c <TT>&lt;</TT>command<TT>&gt;</TT>, -command=<TT>&lt;</TT>command<TT>&gt;</TT>		 OQL command to execute
+<BR>-p, -print 		 Display all the objects loaded
+<BR>-full 		  Full recursive mode is used to display objects
+<BR>-commit 		  Commits the current transaction on close
+<BR>-i, -interact 		  Enter interpreter after executing file or commands
+<BR>-e, -echo 		  Echo each command
+<BR>-admin 		  Open database in admin mode
+<BR>-h, -help 		  Display this message
+<BR><TT>&lt;</TT>file&gt; 		  File(s) to execute
+<BR>
+<BR><B>Common Options</B>:
+<BR>-U <TT>&lt;</TT>user<TT>&gt;|</TT>@, -user=<TT>&lt;</TT>user<TT>&gt;|</TT>@ 		    User name
+<BR>-P [<TT>&lt;</TT>passwd<TT>&gt;</TT>], -passwd[=<TT>&lt;</TT>passwd<TT>&gt;</TT>]		  Password
+<BR>-host=<TT>&lt;</TT>host<TT>&gt;</TT> 		       eyedbd host
+<BR>-port=<TT>&lt;</TT>port<TT>&gt;</TT> 		         eyedbd port
+<BR>-inet 		       Use the tcp_port variable if port is not set
+<BR>-dbm=<TT>&lt;</TT>dbmfile<TT>&gt;</TT> 		     EYEDBDBM database file
+<BR>-conf=<TT>&lt;</TT>conffile<TT>&gt;</TT> 		    Configuration file
+<BR>-logdev=<TT>&lt;</TT>logfile<TT>&gt;</TT> 		   Output log file
+<BR>-logmask=<TT>&lt;</TT>mask<TT>&gt;</TT> 		   Output log mask
+<BR>-logdate=on<TT>|</TT>off 		   Control date display in output log
+<BR>-logtimer=on<TT>|</TT>off 		   Control timer display in output log
+<BR>-logpid=on<TT>|</TT>off 		   Control pid display in output log
+<BR>-logprog=on<TT>|</TT>off 		   Control progname display in output log
+<BR>-error-policy=<TT>&lt;</TT>value<TT>&gt;</TT> 		  Control error policy: status<TT>|</TT>exception<TT>|</TT>abort<TT>|</TT>stop<TT>|</TT>echo
+<BR>-trans-def-mag=<TT>&lt;</TT>magorder<TT>&gt;</TT> 		   Default transaction magnitude order
+<BR>-arch 		   Display the client architecture
+<BR>-v, -version 		   Display the version
+<BR>-help-eyedb-options 		   Display this message
+<BR>
+</TT></PRE>
+For instance, to execute the statement ``<TT>delete_from(Person)</TT>''
+on the database <TT>person</TT>:
+<PRE>
+$ eyedboql -d person -w -c "delete_from(Person)"
+$
+</PRE>
+To execute the command ``<TT>persons := (select Person)</TT>'' and then
+enter the interactive mode of <TT>eyedboql</TT>:
+<PRE>
+$ eyedboql -d person -w -c "persons := (select Person)" -i
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+?
+</PRE>
+To execute the file <TT>mylib.oql</TT>:
+<PRE>
+$ eyedboql -d person -w mylib.oql
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00264000000000000000"></A> <A NAME="7823"></A>
+<BR>
+The Standard Library Package
+</H2>
+The <TT>stdlib.oql</TT> file contains a few basic library functions.
+It can be found in the directory <SPAN  CLASS="textit">libdir</SPAN><TT>/eyedb/oql</TT>.
+It is automatically imported when opening an OQL session.
+The following code, extracted from this file, provides an interesting way to
+understand OQL.
+<PRE>
+//
+// minimal and maximal integer values
+//
+
+oql$maxint := 0x7FFFFFFFFFFFFFFF;
+oql$minint := 0x8000000000000000;
+
+nulloid := 0:0:0:oid;
+NULLOID := 0:0:0:oid;
+
+//
+// type predicat functions
+//
+
+define is_int(x)    as (typeof x == "integer");
+define is_char(x)   as (typeof x == "char");
+define is_float(x)  as (typeof x == "float");
+define is_string(x) as (typeof x == "string");
+define is_oid(x)    as (typeof x == "oid");
+define is_object(x) as (typeof x == "object");
+define is_num(x)    as (is_int(x) || is_float(x) || is_char(x));
+define is_bool(x)   as (typeof x == "bool");
+define is_bag(x)    as (typeof x == "bag");
+define is_set(x)    as (typeof x == "set");
+define is_array(x)  as (typeof x == "array");
+define is_list(x)   as (typeof x == "list");
+define is_coll(x)   as (is_list(x) || is_array(x) || is_set(x) || is_bag(x));
+define is_struct(x) as (typeof x == "struct");
+define is_empty(x)  as (typeof x == "nil");
+
+//
+// void(x): evaluates argument and returns nil
+//
+
+define void(x) as (x, nil);
+
+function assert(|cond) {
+  r := eval cond;
+  if (!r)
+    throw "assertion failed: '" + cond + "'";
+}
+
+function assert_msg(|cond, msg) {
+  r := eval cond;
+  if (!r)
+    throw "assertion failed: '" + msg + "'";
+}
+
+//
+// min(l): returns the minimal integer in a collection
+//
+
+function min(l) {
+  msg := "function min(" + (string l) + "): ";
+  if (!is_coll(l))
+    throw msg + "collection expected";
+
+  m := oql$maxint;
+
+  for (x in l) {
+    if (x != null) {
+      if (!is_num(x))
+        throw (msg + "numeric expected");
+      if (x &lt; m) 
+        m := x;
+    }
+  }
+
+  return m;
+}
+
+//
+// max(l): returns the maximal integer in a collection
+//
+
+function max(l) {
+  msg := "function max(" + (string l) + "): ";
+  if (!is_coll(l))
+    throw msg + "collection expected";
+  m := oql$minint;
+  for (x in l) {
+    if (x != null) {
+      if (!is_num(x))
+        throw (msg + "numeric expected");
+      if (x &gt; m)
+        m := x;
+    }
+  }
+  return m;
+}
+
+//
+// first(l): returns the first element in a list or array
+//
+
+function first(l) {
+  if (!is_coll(l)) // if (!is_list(l) &amp;&amp; !is_array(l))
+    throw "function first: collection expected";
+
+  start := 0;
+  f := nil;
+  for (x in l)
+    if (start == 0) {
+      start := 1;
+      f := x;
+      break;
+    }
+  return f;
+}
+
+car := &amp;first;
+
+//
+// last(l): returns the last element in a list or array
+//
+
+function last(l) {
+  if (!is_coll(l)) // if (!is_list(l) &amp;&amp; !is_array(l))
+    throw "function last: list or array expected";
+
+  f := nil;
+  for (x in l)
+    f := x;
+  return f;
+}
+
+//
+// cdr(l): returns all elements in a collection except the first one
+//
+
+function cdr(l) {
+  if (!is_coll(l)) // if (!is_list(l) &amp;&amp; !is_array(l))
+    throw "function cdr: list or array expected";
+
+  r := list();
+  n := 0;
+  for (x in l) {
+    if (n != 0)
+      r += x;
+    n++;
+  }
+  return r;
+}
+
+//
+// getn(l, n): returns all elements in a collection
+//
+
+function getn(l, n) {
+   rl := list();
+   cnt := 0;
+
+   for (x in l) {
+     if (cnt++ &gt;= n)
+       break;
+     rl += x;
+   }
+
+   return rl;
+}
+
+//
+// getrange(l, f, nb): returns all elements in a collection from element from
+//
+// identical to l[f:f+nb]
+//
+
+function getrange(l, f, nb) {
+  if (!is_list(l) &amp;&amp; !is_array(l))
+    throw "function getrange: list or array expected";
+
+   rl := list();
+   cnt := 0;
+
+   max := f + nb;
+
+   for (x in l) {
+     if (cnt &gt;= max)
+       break;
+
+     if (cnt &gt;= f)
+       rl += x;
+
+     cnt++;
+   }
+
+   return rl;
+}
+
+//
+// count(l): returns element count of a collection
+//
+
+function count(l) {
+  if (typeof l == "nil")
+    return 0;
+  if (!is_coll(l))
+    throw "function count: collection expected, got " + typeof(l);
+  return l[!];
+}
+
+//
+// interval(x, y): constructs an integer list bounded by 'x' and 'y'
+//
+
+function interval(x, y) {
+  n := x-1;
+  l := list();
+  while (n++ &lt; y)
+    l += n;
+  return l;
+}
+
+//
+// sum(l): returns the sum of collection elements
+//
+
+function sum(l) {
+  if (!is_coll(l))
+    throw "function sum: collection expected";
+  n := 0;
+  for (x in l)
+    n += x;
+  return n;
+}
+
+//
+// avg(l): returns the average of collection elements
+//
+
+function avg(l) {
+  if (!is_coll(l))
+    throw "function avg: collection expected";
+  return float(sum(l))/count(l);
+}
+
+//
+// is_in(l, z): returns true in element 'z' is in collection 'l'
+//
+
+function is_in(l, z) {
+  for (x in l)
+    if (x == z)
+      return true;
+
+  return false;
+}
+
+//
+// distinct(l): returns distinct elements in a collection
+//
+
+function distinct(l) {
+  if (is_list(l)) ll := list();
+  else if (is_bag(l)) ll := bag();
+  else if (is_array(l)) ll := array();
+  else if (is_set(l)) ll := set();
+  else throw "function distinct: collection expected";
+
+  for (x in l)
+    if (!is_in(ll, x))
+      ll += x;
+
+  return ll;
+}
+
+//
+// flatten(l): full recursive flatten function
+//
+
+function flatten(l) {
+  if (!is_coll(l))
+    return l;
+  ll := list();
+  for (x in l)
+    if (is_coll(x))
+      ll += flatten(x);
+    else
+      ll += x;
+
+  return ll;
+}
+
+//
+// flatten1(l): 1-level recursive flatten function
+//
+
+function flatten1(l) {
+  if (!is_coll(l))
+    return l;
+
+  ll := list();
+  for (x in l)
+    ll += x;
+  return ll;
+}
+            
+//
+// tolower(s): returns lower case string
+//
+
+function tolower(s) {
+
+  n := 0;
+  x := "";
+  delta := 'a' - 'A';
+
+  while (s[n] != '\000') {
+    if (s[n] &gt;= 'A' &amp;&amp; s[n] &lt;= 'Z')
+      x += string(char(s[n] + delta));
+    else
+      x += string(s[n]);
+    n++;
+  }
+
+  return x;
+}
+
+//
+// toupper(s): returns upper cased string
+//
+
+function toupper(s) {
+
+  n := 0;
+  x := "";
+  delta := 'A' - 'a';
+
+  while (s[n] != '\000') {
+    if (s[n] &gt;= 'a' &amp;&amp; s[n] &lt;= 'z')
+      x += string(char(s[n] + delta));
+    else x += string(s[n]);
+    n++;
+  }
+
+  return x;
+}
+
+//
+// tocap(s): returns capitalized word string
+//
+
+function tocap(s) {
+
+  n := 1;
+  x := "";
+  delta := 'A' - 'a';
+
+  s := tolower(s);
+
+  if (s[0] &gt;= 'a' &amp;&amp; s[0] &lt;= 'z')
+    x += string(char(s[0] + delta));
+
+  while (s[n] != '\000') {
+    if (s[n] == '_')
+      x += string(char(s[++n] + delta));
+    else
+      x += string(s[n]);
+    n++;
+  }
+
+  return x;
+}
+
+//
+// Collection Conversion Functions
+//
+
+//
+// General Conversion Functions
+//
+
+function toset(l) {
+  if (!is_coll(l))
+    throw ("function toset: collection expected, got " + typeof(l));
+
+  if (!is_set(l)) {
+    s := set();
+    for (x in l)
+      s += x;
+    return s;
+  }
+
+  return l;
+}
+
+function tolist(l) {
+  if (!is_coll(l))
+    throw ("function tolist: collection expected, got " +  typeof(l));
+
+  if (!is_list(l)) {
+    s := list();
+    for (x in l)
+      s += x;
+    return s;
+  }
+
+  return l;
+}
+
+function tobag(l) {
+  if (!is_coll(l))
+    throw ("function tobag: collection expected, got " +  typeof(l));
+
+  if (!is_bag(l)) {
+    s := bag();
+    for (x in l)
+      s += x;
+    return s;
+  }
+
+  return l;
+}
+
+function toarray(l) {
+  if (!is_coll(l))
+    throw ("function toarray: collection expected, got " +  typeof(l));
+
+  if (!is_array(l)) {
+    s := array();
+    for (x in l)
+      s += x;
+    return s;
+  }
+
+  return l;
+}
+
+//
+// toset family Conversion Functions
+//
+
+function listtoset(l) {
+  if (!is_list(l))
+    throw ("function listtoset: list expected, got " + typeof(l));
+  return toset(l);
+}
+
+function bagtoset(l) {
+  if (!is_bag(l))
+    throw ("function bagtoset: bag expected, got " + typeof(l));
+  return toset(l);
+}
+
+function arraytoset(l) {
+  if (!is_array(l))
+    throw ("function arraytoset: array expected, got " + typeof(l));
+  return toset(l);
+}
+
+
+//
+// tobag family Conversion Functions
+//
+
+function listtobag(l) {
+  if (!is_list(l))
+    throw ("function listtobag: list expected, got " + typeof(l));
+  return tobag(l);
+}
+
+function settobag(l) {
+  if (!is_set(l))
+    throw ("function settobag: set expected, got " + typeof(l));
+  return tobag(l);
+}
+
+function arraytobag(l) {
+  if (!is_array(l))
+    throw ("function arraytobag: array expected, got " + typeof(l));
+  return tobag(l);
+}
+
+//
+// tolist family Conversion Functions
+//
+
+function bagtolist(l) {
+  if (!is_bag(l))
+    throw ("function bagtolist: bag expected, got " + typeof(l));
+  return tolist(l);
+}
+
+function settolist(l) {
+  if (!is_set(l))
+    throw ("function settolist: set expected, got " + typeof(l));
+  return tolist(l);
+}
+
+function arraytolist(l) {
+  if (!is_array(l))
+    throw ("function arraytolist: array expected, got " + typeof(l));
+  return tolist(l);
+}
+
+//
+// toarray family Conversion Functions
+//
+
+function bagtoarray(l) {
+  if (!is_bag(l))
+    throw ("function bagtoarray: bag expected, got " + typeof(l));
+  return toarray(l);
+}
+
+function settoarray(l) {
+  if (!is_set(l))
+    throw ("function settoarray: set expected, got " + typeof(l));
+  return toarray(l);
+}
+
+function listtoarray(l) {
+  if (!is_list(l))
+    throw ("function listtoarray: list expected, got " + typeof(l));
+  return toarray(l);
+}
+
+//
+// strlen(s): same as s[!]
+//
+
+function strlen(s) {
+  len := 0;
+  while (s[len] != '\000')
+    len++;
+  return len;
+}
+
+//
+// substring(str, f, len)
+//
+
+function substring(str, f, len) {
+  s := "";
+  n := 0;
+  max := str[!] - f;
+  while (n &lt; len &amp;&amp; n &lt; max) {
+    s += string(str[n+f]);
+    n++;
+  }
+
+  return s;
+}
+
+//
+// forone(l, fpred, data): returns true if and only if the function 'fpred'
+// returns true for at least one element 'x' in list 'l'
+//
+
+function forone(l, fpred, data) {
+  for (x in l)
+    if (fpred(x, data)) return true;
+  return false;
+}
+        
+//
+// forone(l, fpred, data): returns true if and only if the function 'fpred'
+// returns true for all elements 'x' in list 'l'
+//
+
+function forall(l, fpred, data) {
+  for (x in l)
+    if (!fpred(x, data)) return false;
+  return true;
+}
+        
+//
+// delete_from(cls): delete all instances of class 'cls'
+//
+
+function delete_from(|cls) {
+  for (x in (eval "select " + cls))
+    delete x;
+}
+
+//
+// delete_(coll): delete contents of collection coll
+//
+
+function delete_(coll) {
+  for (x in coll)
+    delete x;
+}
+
+//
+// get_from(cls): returns all instances of class 'cls'
+//
+
+function get_from(|cls) {
+  eval "select " + cls;
+}
+
+//
+// generates an unused global symbol
+//
+
+function gensym() {
+  prefix := "::oql#_#_#";
+  for (i := 0; ; i++) {
+    varname := prefix + string(i);
+    if (!(eval "isset " + varname)) {
+      eval varname + " := 0";
+      return ident(varname);
+    }                        
+  }                
+}
+
+//
+// expression-like for-each function
+//
+
+function foreach_expr(|x, |coll, |expr, colltyp ? "list") {
+  varname := "_#_#_R_#_#_";
+
+  statement := "push " + varname + " := " + colltyp + "(); " +
+    "for (" + x + " in " + coll + ") " +
+    "{" + varname + " += " + expr + ";}" +
+    "pop " + varname;
+
+  return eval statement;
+}
+
+//
+// expression-like for-C function
+//
+
+function for_expr(|start, |cond, |end, |expr, colltyp ? "list") {
+  varname := "_#_#_R_#_#_";
+
+  statement := "push " + varname + " := " + colltyp + "(); " +
+    "for (" + start + "; " + cond + "; " + end + ")" +
+    "{" + varname + " += " + expr + ";}" +
+    "pop " + varname;
+   
+   return eval statement;
+}
+
+//
+// expression-like while-C function
+//
+
+function while_expr(|cond, |expr, colltyp ? "list") {
+  varname := "_#_#_R_#_#_";
+
+  statement := "push " + varname + " := " + colltyp + "(); " +
+    "while (" + cond + ")" +
+    "{" + varname + " += " + expr + ";}" +
+    "pop " + varname;
+   
+   return eval statement;
+}
+
+//
+// expression-like do/while-C function
+//
+
+function do_while_expr(|expr, |cond, colltyp ? "list") {
+  varname := "_#_#_R_#_#_";
+
+  statement := "push " + varname + " := " + colltyp + "(); " +
+    "do {" + varname + " += " + expr + ";}" +
+    "while (" + cond + ");" +
+    "pop " + varname;
+  
+   return eval statement;
+}
+
+function extentof(|classname) {
+  return (select one class.name = classname).extent;
+}
+
+function countof(|classname) {
+  return (select one class.name = classname).extent.count;
+}
+
+function objectcount(db := oql$db) {
+     objcnt := 0;
+     db-&gt;transactionBegin();
+     for (cl in (select &lt;db&gt; x from class x where
+                 x.type != "system" and x.name !~ "&lt;"))
+        objcnt += cl.extent.count;
+     db-&gt;transactionCommit();
+     return objcnt;
+}
+
+function ifempty(x, y) {
+  if (is_empty(x)) 
+    return y;
+  return x;
+}
+
+function null_ifempty(x) {
+  return ifempty(x, null);
+}
+
+function getone(x) {
+  if (is_empty(x)) 
+    return null;
+  return first(flatten(x));
+}
+
+//
+// database and transaction management
+//
+
+function open_db(db_name_or_id, strmode, user := null, passwd := null) {
+
+  if (strmode == "r")
+    mode := DBREAD;
+  else if (strmode == "rw")
+    mode := DBRW;
+  else if (strmode == "rlocal")
+    mode := DBREAD|DBOPENLOCAL;
+  else if (strmode == "rwlocal")
+    mode := DBRW|DBOPENLOCAL;
+  else
+    throw "invalid open mode: r, rw, rlocal or rwlocal expected, got " +
+      strmode;
+
+  if (is_int(db_name_or_id))
+    db := new&lt;&gt; database(dbid : db_name_or_id);
+  else
+    db := new&lt;&gt; database(dbname : db_name_or_id);
+
+  if (user == null)
+    db.open(oql$db.getConnection(), mode);
+  else
+    db.open(oql$db.getConnection(), mode, user, passwd);
+
+  return db;
+}
+
+function set_default(db) {
+  db-&gt;setDefaultDatabase();
+}
+
+function begin(db := oql$db) {
+  db-&gt;transactionBegin();
+}
+
+function begin_params(trsmode, lockmode, recovmode, magorder, ratioalrt, wait_timeout, db := oql$db) {
+  db-&gt;transactionBegin(trsmode, lockmode, recovmode, magorder, ratioalrt, wait_timeout);
+}
+
+function commit(db := oql$db) {
+  db-&gt;transactionCommit();
+}
+
+function abort(db := oql$db) {
+  db-&gt;transactionAbort();
+}
+
+//
+// miscellaneous
+//
+
+function print_function(f) {
+  print "function " + (bodyof f) + "\n";
+}
+
+function print_functions() {
+  cnt := 0;
+  for (f in oql$functions) {
+    if (cnt &gt; 0) print "\n";
+    print_function(f);
+    cnt++;
+  }
+}
+
+function print_variable(v) {
+   print string(v) + " = " + string(eval string(v)) + ";\n";
+}
+
+function print_variables() {
+  for (v in oql$variables) {
+    print_variable(v);
+    cnt++;
+  }
+}
+
+function print_classes(system := false) {
+  if (system)
+    l := (select list(x, x.name) from class x order by x.name);
+  else
+    l :=  (select list(x, x.name) from class x where x.type = "user" and x.name !~ "&lt;" order by x.name);
+
+  for (c in l) {
+    cls := c[0];
+    clsname := c[1];
+    print "class " + clsname;
+    if (cls.parent != NULL &amp;&amp; (system || cls.parent.type != "system"))
+       print " extends " + cls.parent.name;
+    print "\n";
+  }
+}
+
+function print_obj(o, flags := 0) {
+   print o-&gt;toString(flags);
+}
+
+function print_objs(l, flags := 0) {
+   for (o in l)
+     print_obj(o, flags);
+}
+
+//
+// contents_ expression
+//
+
+function contents_(coll) {
+  r := list();
+  for (x in coll) {
+   for (s in contents(x)) 
+     r += s;
+  }
+
+  return r;
+};
+
+function println(s) {
+  print(s+"\n");
+}
+
+function bench(|cmd) {
+  t0 := time_stamp::local_time_stamp();
+  r := eval cmd;
+  t1 := time_stamp::local_time_stamp();
+  us := t1-&gt;substract(t0).usecs;
+  println("Elapsed time: " + string(us/1000.) + " ms");
+  return r;
+}
+
+;
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00265000000000000000"></A> <A NAME="7825"></A>
+<BR>
+OQL Quick Reference Card
+</H2>
+The following table presents all the OQL statements, expression types and the operators.
+For the operators common to C++ and OQL, the precedence and associativity
+is the same.
+
+<BR><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN><B>Quick Reference Card</B></SPAN></TD>
+</TR>
+<TR><TD></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Statements</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>expression statement</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><SPAN  CLASS="textit">expr</SPAN> <TT>;</TT></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>selection statement</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>if</TT> <TT>(</TT> <SPAN  CLASS="textit">cond_expr</SPAN> <TT>)</TT> <SPAN  CLASS="textit">statement</SPAN> [<TT>else</TT> <SPAN  CLASS="textit">statement</SPAN>]</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>jump statements</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>break</TT> [<SPAN  CLASS="textit">expr</SPAN>] <TT>;</TT></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>&nbsp;</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>return</TT> [<SPAN  CLASS="textit">expr</SPAN>] <TT>;</TT></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>iteration statements</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>while</TT> <TT>(</TT> <SPAN  CLASS="textit">cond_expr</SPAN> <TT>)</TT> <SPAN  CLASS="textit">statement</SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>&nbsp;</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>do</TT> <SPAN  CLASS="textit">statement</SPAN> <TT>while</TT> <TT>(</TT> <SPAN  CLASS="textit">cond_expr</SPAN> <TT>)</TT></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>&nbsp;</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>for</TT> <TT>(</TT> [<SPAN  CLASS="textit">expr</SPAN>] <TT>;</TT> [<SPAN  CLASS="textit">cond_expr</SPAN>] <TT>;</TT> [<SPAN  CLASS="textit">expr</SPAN>] <TT>)</TT> <SPAN  CLASS="textit">statement</SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>&nbsp;</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>for</TT> <TT>(</TT> <SPAN  CLASS="textit">var</SPAN> <TT>in</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT> <SPAN  CLASS="textit">statement</SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>compound statement</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>{</TT> <SPAN  CLASS="textit">statement</SPAN> <TT>}</TT></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>function definition statement</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN>
+<TT>function</TT> <SPAN  CLASS="textit">identifier</SPAN> <TT>(</TT>[<SPAN  CLASS="textit">arglist</SPAN>]<TT>)</TT>
+<SPAN  CLASS="textit">compound_statement</SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>empty statement</TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><TT>;</TT></SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Arithmetic Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>add</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>+</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>+</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>substract</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>-</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>-</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>multiply</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>*</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>*</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>divide</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>/</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>/</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>shift left</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&#171;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&#171;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>shift right</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&#187;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&#187;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>modular</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>%</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>%</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>bitwise and</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&amp;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&amp;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>bitwise inclusive or</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>|</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>|</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>bitwise xor</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>^</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>^</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>complement</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>~</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>~</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Assignment Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>simple assignment</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>:=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>:=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>add and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>+=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>+=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>substract and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>-=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>-=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>multiply and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>*=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>*=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>divide and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>/=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>/=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>shift left and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&#171;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>&#171;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>shift right and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&#187;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>&#187;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>inclusive OR and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>|=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>|=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>exclusive OR and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&amp;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>&amp;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>modulo and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>%</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>%=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>exclusive OR and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>^</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN> <TT>^=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Auto Increment &amp; Decrement Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>post increment</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>++</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN><TT>++</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>post decrement</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>-</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">lvalue</SPAN><TT>-</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>pre increment</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>++</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>++</TT><SPAN  CLASS="textit">lvalue</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>pre increment</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>-</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>-</TT><SPAN  CLASS="textit">lvalue</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Logical Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>logical and</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&amp;&amp;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&amp;&amp;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>logical and</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>and</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>and</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>logical or</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>||</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>||</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>logical or</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>or</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>or</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Comparison Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>not</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>!</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>!</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>not</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>not</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>not</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>equal</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>equal</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>==</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>==</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>not equal</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>!=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>!=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>less than</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&lt;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&lt;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>less</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&lt;=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&lt;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>greater</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&gt;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&gt;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>greater than</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&gt;=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&gt;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>match regular expression</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>~</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>~</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>match regular expression case insensitive</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>~~</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>~~</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>not match regular expression</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>!~</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>!~</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>not match regular expression case insensitive</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>!~~</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>!~~</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>match regular expression</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>like</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>like</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Conditionnal Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>conditionnal expression</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>? :</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>?</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>:</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Expression Lists</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>comma sequencing</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>,</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>,</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Array Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>subscripting</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>[]</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>[</TT><SPAN  CLASS="textit">expr</SPAN> <TT>]</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>interval subscriptiong</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>[:]</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>[</TT><SPAN  CLASS="textit">expr</SPAN> <TT>:</TT><SPAN  CLASS="textit">expr</SPAN> <TT>]</TT></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Path Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>member selection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>.</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>.</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>member selection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>-&gt;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>-&gt;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Function Call</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>function call</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>()</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>(</TT><SPAN  CLASS="textit">expr_list</SPAN><TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Method Invocation</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>member selection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>()</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>-&gt;</TT><SPAN  CLASS="textit">expr</SPAN> <TT>(</TT><SPAN  CLASS="textit">arglist</SPAN><TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Eval/Unval Operators</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>eval</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>eval</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>eval</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>no eval</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>unval</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>unval</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Identifier Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>scope</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>::</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>::</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>is set</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>isset</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>isset</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>unset</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>unset</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>unset</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>reference of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&amp;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>&amp;</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>refof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>refof</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>value of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>*</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>*</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>value of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>valof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>valof</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>scope of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>scopeof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>scopeof</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>push onto symbol table</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>push</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>push</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>push onto symbol table and assign</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>push</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>push</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>pop from symbol table</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>pop</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>pop</TT> <SPAN  CLASS="textit">identifier</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Set Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>union</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>union</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>union</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>intersection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>intersect</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>intersect</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>except</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>except</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>except</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>include</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&lt;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&lt;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>include or equal</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&lt;=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&lt;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>contain</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&gt;</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&gt;</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>contain or equal</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>&gt;=</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>&gt;=</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Object Creation</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>new</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>new</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>[<TT>new</TT>] <SPAN  CLASS="textit">new_construct</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>new</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>new</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>new&lt;</TT> <SPAN  CLASS="textit">opt_expr</SPAN> <TT>&gt;</TT> <SPAN  CLASS="textit">new_construct</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Object Deletion</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>delete</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>delete</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>delete</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Collection Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>contents</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>contents</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>contents</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>is in</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>in</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>in</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>add to collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>add to</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>add</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>to</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>suppress from collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>suppress from</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>suppress</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>from</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>set element in or get element from an indexed collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>[]</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>[</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>]</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>append to an indexed collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>append/to</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>append</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>to</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>empty collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>empty</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>empty</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>exists in collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>in</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>exists</TT> <SPAN  CLASS="textit">identifier</SPAN> <TT>in</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>:</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>for all in collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>for all</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>for</TT> <TT>all</TT> <SPAN  CLASS="textit">identifier</SPAN> <TT>in</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>:</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>for some in collection</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>for</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>for</TT> <TT>&lt;</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>,</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>&gt;</TT>
+  <TT>in</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>:</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Exception Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>throw exception</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>throw</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>throw</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Function Definition</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>define function</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>define as</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>define</TT> <SPAN  CLASS="textit">identifier</SPAN> [<SPAN  CLASS="textit">arglist</SPAN> <TT>as</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Conversion</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>string conversion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>string</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>string(</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>integer conversion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>int</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>int(</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>character conversion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>char</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>char(</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>float conversion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>float</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>float(</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>identifier conversion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>ident</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ident(</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>oid conversion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>oid</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>oid(</TT> <SPAN  CLASS="textit">expr</SPAN> <TT>)</TT></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Query Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>database query</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>select</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>select</TT> <SPAN  CLASS="textit">expr</SPAN> [<TT>from</TT> {<SPAN  CLASS="textit">expr</SPAN> [<TT>as</TT>] <SPAN  CLASS="textit">identifier</SPAN>} [<TT>where</TT> <SPAN  CLASS="textit">expr</SPAN>]] [<TT>order</TT> <TT>by</TT> {<SPAN  CLASS="textit">expr</SPAN>}]</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>select</TT> <SPAN  CLASS="textit">expr</SPAN> [<TT>from</TT> {<SPAN  CLASS="textit">identifier</SPAN> <TT>in</TT> <SPAN  CLASS="textit">expr</SPAN>} [<TT>where</TT> <SPAN  CLASS="textit">expr</SPAN>]] [<TT>order</TT> <TT>by</TT> {<SPAN  CLASS="textit">expr</SPAN>}]</TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Type Information Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>class of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>classof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>classof</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>typeof of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>typeof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>typeof</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=3><SPAN>Miscellenaous Expressions</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>structure of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>structof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>structof</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>body of</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>bodyof</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>bodyof</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>length pf</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>[!]</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><SPAN  CLASS="textit">expr</SPAN> <TT>[!]</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>import package</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><TT>import</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>import</TT> <SPAN  CLASS="textit">expr</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html640"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html638"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html642"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html641"
+  HREF="node2.html">The Object Query Language</A>
+<B> Previous:</B> <A NAME="tex2html639"
+  HREF="node7.html">Language Syntax</A>
+ &nbsp; <B>  <A NAME="tex2html643"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

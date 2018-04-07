@@ -1,0 +1,103 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Managing users</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch04.html" title="Chapter 4. User administration"><link rel="prev" href="ch04.html" title="Chapter 4. User administration"><link rel="next" href="ch04s03.html" title="Managing user access rights"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Managing users</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04.html">Prev</a> </td><th width="60%" align="center">Chapter 4. User administration</th><td width="20%" align="right"> <a accesskey="n" href="ch04s03.html">Next</a></td></tr></table><hr></div><div class="section" title="Managing users"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id566084"></a>Managing users</h2></div></div></div><div class="section" title="Adding a user"><div class="titlepage"><div><div><h3 class="title"><a name="id551398"></a>Adding a user</h3></div></div></div><p>
+	  Adding user is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">user add</code>  [options...] [<em class="replaceable"><code>user</code></em>] [<em class="replaceable"><code>password</code></em>]</p></div><p>
+	</p><p>
+	  Options are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[ --unix  |   --strict-unix ]</p></div><p>
+		specify the user type, if unix or strict-unix type
+	      </p></li></ul></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[user]</p></div><p>
+		user name, if not unix or strict-unix type (if unix or strict-unix type, the user name is the user running the eyedbadmin command)
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[password]</p></div><p>
+		password, if not strict-unix type. If no password is provided on command line, <span class="command"><strong>eyedbadmin</strong></span> will ask for a password on standard input.
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-user-add"></a><p class="title"><b>Example 4.1. <span class="command">eyedbadmin</span> user add</b></p><div class="example-contents"><pre class="screen">
+## Adding a 'eyedb' user: password is required
+<strong class="userinput"><code>eyedbadmin user add joe</code></strong>
+joe password: <strong class="userinput"><code>123</code></strong>
+
+retype joe password: <strong class="userinput"><code>123</code></strong>
+
+## Adding a 'unix' user with password on command line: Unix user does not exist, error
+<strong class="userinput"><code>eyedbadmin user add --unix tom 456</code></strong>
+eyedb error: username 'tom' is an unknown unix user
+
+## Adding a 'unix' user: Unix user already exists, password is required
+<strong class="userinput"><code>eyedbadmin user add --unix eric</code></strong>
+eric password: <strong class="userinput"><code>456</code></strong>
+
+retype eric password: <strong class="userinput"><code>456</code></strong>
+
+## Adding a 'strict-unix' user: no password is required
+<strong class="userinput"><code>eyedbadmin user add --strict-unix mimi</code></strong>
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Deleting a user"><div class="titlepage"><div><div><h3 class="title"><a name="id560034"></a>Deleting a user</h3></div></div></div><p>
+	  Deleting user is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">user delete</code>  {<em class="replaceable"><code>user</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>user</code></em>}</p></div><p>
+		EyeDB user name (can be of any user type)
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-user-delete"></a><p class="title"><b>Example 4.2. <span class="command">eyedbadmin</span> user delete</b></p><div class="example-contents"><pre class="screen">
+## Deleting existing user
+<strong class="userinput"><code>eyedbadmin user delete joe</code></strong>
+## Deleting unknown user
+<strong class="userinput"><code>eyedbadmin user delete r2d2</code></strong>
+delete user error: user entry 'r2d2' does not exist
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Setting user password"><div class="titlepage"><div><div><h3 class="title"><a name="id571990"></a>Setting user password</h3></div></div></div><p>
+	  Setting user password is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">user passwd</code>   <em class="replaceable"><code>user</code></em>  [<em class="replaceable"><code>password</code></em>] [<em class="replaceable"><code>new_password</code></em>]</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[user]</p></div><p>
+		EyeDB user name (can be of type 'eyedb' or 'unix')
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[password]</p></div><p>
+		old password (will be asked if not provided on command line)
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[new_password]</p></div><p>
+		new password (will be asked if not provided on command line)
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-user-passwd"></a><p class="title"><b>Example 4.3. <span class="command">eyedbadmin</span> user passwd</b></p><div class="example-contents"><pre class="screen">
+## Setting password with prompt
+<strong class="userinput"><code>eyedbadmin user passwd eric</code></strong>
+user old password: <strong class="userinput"><code>456</code></strong>
+
+user new password: <strong class="userinput"><code>123</code></strong>
+retype user new password: <strong class="userinput"><code>123</code></strong>
+## Setting password from command-line
+<strong class="userinput"><code>eyedbadmin user passwd eric 123 789</code></strong>
+ 	  </pre></div></div><br class="example-break"></div><div class="section" title="Listing users"><div class="titlepage"><div><div><h3 class="title"><a name="id572176"></a>Listing users</h3></div></div></div><p>
+	  Listing existing EyeDB users is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">user list</code>  [<em class="replaceable"><code>user</code></em>]</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[<em class="replaceable"><code>user</code></em>]</p></div><p>
+		EyeDB user name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-user-list"></a><p class="title"><b>Example 4.4. <span class="command">eyedbadmin</span> user list</b></p><div class="example-contents"><pre class="screen">
+## Listing all users
+<strong class="userinput"><code>eyedbadmin user list</code></strong>
+name      : "mimi" [strict unix user]
+sysaccess : NO_SYSACCESS_MODE
+
+name      : "eric" [unix user]
+sysaccess : NO_SYSACCESS_MODE
+
+name      : "francois" [strict unix user]
+sysaccess : SUPERUSER_SYSACCESS_MODE
+dbaccess  : (dbname : "newtest", access : ADMIN_DBACCESS_MODE)
+            (dbname : "test3", access : ADMIN_DBACCESS_MODE)
+## Listing a specific user
+<strong class="userinput"><code>eyedbadmin user list mimi</code></strong>
+name      : "mimi" [strict unix user]
+sysaccess : NO_SYSACCESS_MODE
+	  </pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 4. User administration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Managing user access rights</td></tr></table></div></body></html>

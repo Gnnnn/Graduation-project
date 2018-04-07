@@ -1,0 +1,20 @@
+prefix=/home/francois/projects/eyedb/install
+include ${prefix}/share/eyedb/Makefile.eyedb
+
+CXXFLAGS += $(EYEDB_CXXFLAGS) $(EYEDB_CPPFLAGS) -I${prefix}/share/doc/eyedb/examples/C++Binding/schema-oriented/share
+LDFLAGS += ${EYEDB_LDFLAGS}
+LDLIBS += ${EYEDB_LDLIBS}
+
+all: query
+
+query: query.o ../share/person.o
+	$(CXX) $(LDFLAGS) -Wl,-R$(EYEDB_LIBDIR) -o $@ $^ $(LDLIBS)
+
+init:
+	@for i in person.h person.cc person.o; \
+	do \
+		if [ ! -h $$i ]; then ln -s ../../../common/$$i $$i; fi\
+	done	
+
+clean:
+	rm -f *.o query

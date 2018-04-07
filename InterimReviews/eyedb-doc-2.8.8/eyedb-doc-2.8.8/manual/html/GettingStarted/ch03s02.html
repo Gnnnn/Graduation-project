@@ -1,0 +1,132 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Defining a simple schema with ODL</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="ch03.html" title="Chapter 3. Databases"><link rel="prev" href="ch03.html" title="Chapter 3. Databases"><link rel="next" href="ch03s03.html" title="Creating and updating objects with the OQL interpreter"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Defining a simple schema with ODL</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Databases</th><td width="20%" align="right"> <a accesskey="n" href="ch03s03.html">Next</a></td></tr></table><hr></div><div class="section" title="Defining a simple schema with ODL"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id299979"></a>Defining a simple schema with ODL</h2></div></div></div><p>
+	Now that a database has been created, we are going to populate it with objects.
+      </p><p>
+	The first step is to define the database schema.
+      </p><p>
+	A standard example in databases is the well known <code class="classname">Person</code> class (or table in relational system) which contains a few attributes such as a firstname, a lastname, an age, an address, a spouse and a set of children.
+      </p><p>
+	We will show the inheritance feature through the simple class <code class="classname">Employee</code> which inherits from the <code class="classname">Person</code> class and will contains a simple attribute: salary.
+      </p><p>
+	<a class="xref" href="ch03s02.html#odl-schema" title="Example 3.1. The ODL schema">Example 3.1, “The ODL schema”</a> shows the ODL schema for the classes <code class="classname">Address</code>, <code class="classname">Person</code> and <code class="classname">Employee</code>:
+      </p><div class="example"><a name="odl-schema"></a><p class="title"><b>Example 3.1. The ODL schema</b></p><div class="example-contents"><pre class="programlisting">
+//
+// person.odl
+//
+
+class Address {
+  int num;
+  string street;
+  string town;
+  string country;
+};
+
+class Person {
+  string firstname;
+  string lastname;
+  int age;
+  Address addr;
+  Person * spouse inverse Person::spouse;
+  set&lt;Person *&gt; children;
+};
+
+class Employee extends Person {
+  long salary;
+};
+
+	</pre></div></div><br class="example-break"><p>
+	A few comments about this schema:
+	</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+	      the <code class="classname">Address</code> class contains four attributes, one integer and three strings
+	      </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p><code class="classname">integer</code>: there are three types of ODL integers: 16-bits integer, named <code class="classname">int16</code> or <code class="classname">short</code>, 32-bits integer, named <code class="classname">int32</code> or <code class="classname">int</code> and 64-bits integer, named <code class="classname">int64</code> or <code class="classname">long</code>, so the <code class="classname">num</code> attribute is a 32-bits integer</p></li><li class="listitem"><p><code class="classname">string</code>: an ODL string is under the form: <code class="classname">string</code> or <code class="classname">string&lt;N&gt;</code>. The first form means that the string is not bounded, the second form means that the string contains at most <span class="command"><strong>N</strong></span> characters.</p></li></ul></div><p>
+	    </p></li><li class="listitem"><p>
+	      the <code class="classname">Person</code> class contains six attributes: two strings, one 32-bits integer, one <code class="classname">Person</code> object and one set of <code class="classname">Person</code> objects:
+	      </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>the third attribute <code class="varname">addr</code> is of <code class="classname">Address</code> type and is a literal because there is no <code class="varname">*</code> before the attribute name. A literal is an object without identifier: the <code class="varname">addr</code> attribute is tied to a <code class="classname">Person</code> instance, it has no proper existence.</p></li><li class="listitem"><p>the <code class="varname">spouse</code> attribute is an object, not a literal, because it is preceded by a <code class="varname">*</code>. An object has an identifier and has its proper existence. The <code class="varname">*</code> means a reference or pointer to an object. The directive after the attribute name <code class="varname">inverse Person::spouse</code> is a relationship directive.</p></li><li class="listitem"><p>the <code class="varname">children</code> attribute is a collection set of <code class="classname">Person</code> objects</p></li></ul></div><p>
+	    </p></li><li class="listitem"><p>
+	      the <code class="classname">Employee</code> contains seven attributes: the six <code class="classname">Person</code> attributes because <code class="classname">Employee</code> inherits from <code class="classname">Person</code> and 64-bits integer attribute: <code class="varname">salary</code>.
+	    </p></li></ul></div><p>
+      </p><p>
+	To add the previous schema in the <span class="command"><strong>foo</strong></span> database, you need to use the <span class="command"><strong>eyedbodl</strong></span> tool as follows:
+	</p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedbodl -d foo -u person.odl</code></strong>
+Updating 'person' schema in database foo...
+Adding class Address
+Adding class Person
+Adding class Employee
+
+Done
+	  </pre></div><p>
+      </p><p>
+	Note that you must pass the following command line options to the <span class="command"><strong>eyedbodl</strong></span> command: <span class="command"><strong>-d foo</strong></span> to specify to which database you are applying the schema and <span class="command"><strong>-u</strong></span> to update the database schema.
+      </p><p>
+	To verify that the update has correctly worked, you can generate the ODL schema from the database, as in <a class="xref" href="ch03s02.html#generating-odl-schema" title="Example 3.2. Generating the ODL schema from a database">Example 3.2, “Generating the ODL schema from a database”</a>.
+      </p><div class="example"><a name="generating-odl-schema"></a><p class="title"><b>Example 3.2. Generating the ODL schema from a database</b></p><div class="example-contents"><pre class="screen">
+% eyedbodl -d foo --gencode=ODL
+//
+// EyeDB Version 2.8.4 Copyright (c) 1995-2007 SYSRA
+//
+// UNTITLED Schema
+//
+// Generated by eyedbodl at Mon Dec 10 13:44:03 CET 2007
+//
+
+class Address (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute int32 num;
+        attribute string street;
+        attribute string town;
+        attribute string country;
+};
+
+class Person (implementation &lt;hash, hints = "key_count = 2048;"&gt;) {
+        attribute string firstname;
+        attribute string lastname;
+        attribute int32 age;
+        attribute Address addr;
+        relationship Person* spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; children;
+};
+
+class Employee (implementation &lt;hash, hints = "key_count = 2048;"&gt;) extends Person {
+        attribute int64 salary;
+};
+
+	</pre></div></div><br class="example-break"><p>
+	Note that the exact output may differ a bit from what is displayed above, depending on EyeDB's version.
+      </p><p>
+	By default, <span class="command"><strong>eyedbodl</strong></span> generates the ODL on the standard output. You see here that the displayed ODL is very similar to the original ODL except that the keywords <code class="varname">attribute</code> and <code class="varname">relationship</code> have been added before each attribute declaration. The <code class="varname">relationship</code> keyword means that the attribute has an <code class="varname">inverse</code> directive.
+      </p><p>
+	Note that these two keywords are optional: it is why we have not used them in our example.
+      </p><p>
+	Another way to check that the schema has been created within the database, is to use the <span class="command"><strong>eyedboql</strong></span> tool, as in <a class="xref" href="ch03s02.html#generating-oql-schema" title="Example 3.3. Checking the database schema using eyedboql">Example 3.3, “Checking the database schema using <span class="command">eyedboql</span>”</a>
+      </p><div class="example"><a name="generating-oql-schema"></a><p class="title"><b>Example 3.3. Checking the database schema using <span class="command">eyedboql</span></b></p><div class="example-contents"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo -c "select schema" --print</code></strong>
+
+= bag(2546.2.120579:oid, 2553.2.112046:oid, 2568.2.515951:oid)
+struct Address {2546.2.120579:oid} : struct : agregat : instance : object { 
+        attribute int32 num;
+        attribute string street;
+        attribute string town;
+        attribute string country;
+};
+struct Person {2553.2.112046:oid} : struct : agregat : instance : object { 
+        attribute string firstname;
+        attribute string lastname;
+        attribute int32 age;
+        attribute Address addr;
+        relationship Person* spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; children;
+};
+struct Employee {2568.2.515951:oid} : Person : struct : agregat : instance : object { 
+        attribute string Person::firstname;
+        attribute string Person::lastname;
+        attribute int32 Person::age;
+        attribute Address Person::addr;
+        relationship Person* Person::spouse inverse Person::spouse;
+        attribute set&lt;Person*&gt; Person::children;
+        attribute int64 salary;
+};
+
+	</pre></div></div><br class="example-break"><p>
+	Again, note that the exact output may differ a bit from what is displayed above, depending on the EyeDB version.
+      </p><p>
+	Note that the object identifiers (<span class="emphasis"><em>oid</em></span>) of the classes are displayed.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Databases </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Creating and updating objects with the OQL interpreter</td></tr></table></div></body></html>

@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Object Definition Language</TITLE>
+<META NAME="description" CONTENT="The Object Definition Language">
+<META NAME="keywords" CONTENT="Overview">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="Overview.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html162"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html158"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html152"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html160"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html163"
+  HREF="node8.html">The Object Query Language</A>
+<B> Up:</B> <A NAME="tex2html159"
+  HREF="node2.html">Overview</A>
+<B> Previous:</B> <A NAME="tex2html153"
+  HREF="node6.html">The Object Model</A>
+ &nbsp; <B>  <A NAME="tex2html161"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00250000000000000000">
+The Object Definition Language</A>
+</H1>
+The E<SMALL>YE</SMALL>DB Object Definition Language (ODL) is a language
+based on the ODMG ODL to define the specifications of object types.
+
+<BR>
+ODL is not intended to be a full programming language, it is a definition
+language for objet specifications.
+
+<BR>
+<BR>
+Like ODMG ODL, E<SMALL>YE</SMALL>DB ODL defines classes (inheritance and
+attributes), relationships and method signatures.
+E<SMALL>YE</SMALL>DB ODL extends the ODMG ODL to allow the definition of
+attribute constraints (notnull, unique, collection cardinality), index
+specifications and trigger declarations. Unlike ODMG ODL, any instance
+of a class can be used either as a <SPAN  CLASS="textit"><TT>literal</TT></SPAN> or as
+an <SPAN  CLASS="textit"><TT>object</TT></SPAN>. E<SMALL>YE</SMALL>DB ODL also allows the user to specify whether a method
+is backend (i.e. server side) or frontend (i.e. client side),
+and whether it is a class or instance method.
+
+<BR>
+<BR>
+Here is a simple example of an E<SMALL>YE</SMALL>DB ODL construct:
+
+<PRE>
+enum CivilState {
+  Lady = 0x10,
+  Sir  = 0x20,
+  Miss = 0x40
+};
+
+class Address {
+  attribute string street;
+  attribute string&lt;32&gt; town;
+};
+
+class Person {
+  attribute string name;
+  attribute int age;
+  attribute Address addr;
+  attribute CivilState cstate;
+  attribute Person * spouse inverse Person::spouse;
+  attribute set&lt;Car *&gt; * cars inverse Car::owner;
+  attribute Person *children[];
+
+  instmethod void change_address(in string street,
+                                 in string town,
+                                 out string oldstreet,
+                                 out string oldtown);
+
+  classmethod int getPersonCount();
+  index on name;
+};
+
+class Car {
+  attribute string brand;
+  attribute int num;
+  attribute Person *owner inverse Person::cars;
+};
+
+class Employee extends Person {
+  attribute long salary;
+  Person *boss;
+};
+</PRE>
+This example illustrates all the concepts that we described
+previously.
+
+<BR>
+The class <TT>Person</TT> is composed of a number of attributes
+each of one having an interesting particularity.
+
+<BR>
+The <TT>name</TT> attribute is a variable size character array, i.e. a string.
+
+<BR>
+This attribute is <SPAN  CLASS="textit"><TT>literal</TT></SPAN>, which means that it has no identifier within
+a database. The hint <TT>index</TT> means that this attribute should be
+indexed to provide efficient query according to the attribute value.
+
+<BR>
+<BR>
+The <TT>age</TT> attribute is a simple <SPAN  CLASS="textit"><TT>literal</TT></SPAN> <TT>32-bit integer</TT>.
+
+<BR>
+<BR>
+The <TT>addr</TT> attribute is a <SPAN  CLASS="textit"><TT>literal</TT></SPAN> user type attribute.
+As this attribute is <SPAN  CLASS="textit"><TT>literal</TT></SPAN>, the type attribute, <TT>Address</TT>,
+must have been defined before, which is the case.
+
+<BR>
+<BR>
+The next attribute <TT>spouse</TT> has two interesting particularities:
+
+<OL>
+<LI>a <SPAN  CLASS="textit">*</SPAN> character follows the user type <SPAN  CLASS="textit">Person</SPAN>, meaning that this
+attribute is not a <SPAN  CLASS="textit"><TT>literal</TT></SPAN> but an <SPAN  CLASS="textit"><TT>object</TT></SPAN> (i.e. with
+an identifier). The <SPAN  CLASS="textit">*</SPAN> character
+means a reference to an object.
+</LI>
+<LI>the hint <TT>(invers Person::spouse</TT> following <TT>spouse</TT>
+means that this attribute is a relationship.
+
+<BR>
+As the attribute <TT>spouse</TT> is not a collection and the target attribute
+<TT>spouse</TT> is not a collection, this is a one-to-one relationship.
+</LI>
+</OL>
+The <TT>cars</TT> attribute has also several interesting particularities:
+
+<OL>
+<LI>as a <SPAN  CLASS="textit">*</SPAN> character follows the user type, this is an <SPAN  CLASS="textit"><TT>object</TT></SPAN>.
+</LI>
+<LI>this attribute is a <TT>set</TT> whose elements are <SPAN  CLASS="textit"><TT>object</TT></SPAN>
+of type <TT>Car</TT>.
+Note that the user type <TT>Car</TT> is defined after.
+</LI>
+<LI>the hint <TT>(inverse Car::owner</TT> following <TT>cars</TT>
+means that this attribute is a relationship whose target is the
+<TT>owner</TT> attribute within the class <TT>Car</TT>.
+
+<BR>
+As the source attribute <TT>cars</TT> is a collection and the target
+attribute <TT>owner</TT> is not a collection, the relationship is 
+a many-to-one relationship.
+</LI>
+</OL>
+As indicated by the keyword <TT>instmethod</TT>, the method        
+<TT>change_address</TT> is an instance method. Note that this keyword
+is optionnal as this is the default.
+
+<BR>
+The method <TT>getPersonCount</TT> is a class method as indicated by
+the <TT>classmethod</TT> keyword.
+
+<BR>
+<BR>
+The class <TT>Employee</TT> inherits from the class <TT>Person</TT>
+as indicated by the keyword <TT>extends</TT>.
+It introduces two attributes <TT>salary</TT>, a <SPAN  CLASS="textit"><TT>literal</TT></SPAN> integer
+attribute and <TT>boss</TT>, an <SPAN  CLASS="textit"><TT>object</TT></SPAN> attribute which reference
+an instance of the class <TT>Person</TT>. Note that as there is no relationship
+indication (i.e. <TT>inverse</TT> keyword), the <TT>boss</TT> attribute is an
+object-valued attribute (i.e. a unidirectionnal relationship):
+in this case, E<SMALL>YE</SMALL>DB does not guarantee the referential integrity.
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html162"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html158"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html152"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html160"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html163"
+  HREF="node8.html">The Object Query Language</A>
+<B> Up:</B> <A NAME="tex2html159"
+  HREF="node2.html">Overview</A>
+<B> Previous:</B> <A NAME="tex2html153"
+  HREF="node6.html">The Object Model</A>
+ &nbsp; <B>  <A NAME="tex2html161"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

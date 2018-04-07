@@ -1,0 +1,996 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Language Specifications</TITLE>
+<META NAME="description" CONTENT="The Language Specifications">
+<META NAME="keywords" CONTENT="ODL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ODL.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html125"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html121"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html115"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html123"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html126"
+  HREF="node4.html">The eyedbodl tool</A>
+<B> Up:</B> <A NAME="tex2html122"
+  HREF="node2.html">The Object Definition Language</A>
+<B> Previous:</B> <A NAME="tex2html116"
+  HREF="node2.html">The Object Definition Language</A>
+ &nbsp; <B>  <A NAME="tex2html124"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html127"
+  HREF="node3.html#SECTION00211000000000000000">Comments</A>
+<LI><A NAME="tex2html128"
+  HREF="node3.html#SECTION00212000000000000000">Basic types</A>
+<LI><A NAME="tex2html129"
+  HREF="node3.html#SECTION00213000000000000000">Enum types</A>
+<LI><A NAME="tex2html130"
+  HREF="node3.html#SECTION00214000000000000000">Array types</A>
+<LI><A NAME="tex2html131"
+  HREF="node3.html#SECTION00215000000000000000">Literal and object types</A>
+<LI><A NAME="tex2html132"
+  HREF="node3.html#SECTION00216000000000000000">Collection types</A>
+<LI><A NAME="tex2html133"
+  HREF="node3.html#SECTION00217000000000000000">Inheritance</A>
+<LI><A NAME="tex2html134"
+  HREF="node3.html#SECTION00218000000000000000">Constraints</A>
+<UL>
+<LI><A NAME="tex2html135"
+  HREF="node3.html#SECTION00218100000000000000">Constraint and inheritance propagation</A>
+<LI><A NAME="tex2html136"
+  HREF="node3.html#SECTION00218200000000000000">Constraint on attribute of literal composite type</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html137"
+  HREF="node3.html#SECTION00219000000000000000">Referential integrity</A>
+<LI><A NAME="tex2html138"
+  HREF="node3.html#SECTION002110000000000000000">Methods</A>
+<LI><A NAME="tex2html139"
+  HREF="node3.html#SECTION002111000000000000000">Triggers</A>
+<LI><A NAME="tex2html140"
+  HREF="node3.html#SECTION002112000000000000000">Indexes</A>
+<UL>
+<LI><A NAME="tex2html141"
+  HREF="node3.html#SECTION002112100000000000000">Index and inheritance propagation</A>
+<LI><A NAME="tex2html142"
+  HREF="node3.html#SECTION002112200000000000000">Index on attribute of literal composite type</A>
+<LI><A NAME="tex2html143"
+  HREF="node3.html#SECTION002112300000000000000">Index specifications</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00210000000000000000"></A> <A NAME="734"></A>
+<BR>
+The Language Specifications
+</H1>
+
+<P>
+The basic concept of the E<SMALL>YE</SMALL>DB object model is the class which, as in any
+traditional object model, model a set
+of objects of similar properties (attributes) and behaviors (methods).
+The attributes can be basic types, user types, references, arrays, collections.
+The methods can be defined in C++ or in OQL (Object Query Language).
+
+<BR>
+<BR>
+ODL allows one to specify classes, attributes, methods, triggers, constraints,
+enumerate types, indexes and implementation hints.
+
+<BR>
+<BR>
+We are going to introduced in details all the features of ODL.
+
+<H2><A NAME="SECTION00211000000000000000"></A> <A NAME="737"></A>
+<BR>
+Comments
+</H2>
+The ODL comments are like in C++:
+
+<UL>
+<LI>mono-line comments: any characters following <TT>//</TT> and until
+the end of the line are comments
+</LI>
+<LI>multi-line comments: any characters (including newlines) between <TT>/*</TT> and <TT>*/</TT>
+are comments
+</LI>
+</UL>
+For instance:
+<BR>
+<PRE>
+// this is a simple line comments
+
+/* this is
+   a multi line
+   comments */
+</PRE>
+<H2><A NAME="SECTION00212000000000000000"></A> <A NAME="741"></A>
+<BR>
+Basic types
+</H2>
+The basic types are as follows:
+<BR>
+<BR><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>byte</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>1-byte integer</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>char</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>1-byte character</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>short</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>2-byte integer</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>int</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>4-byte integer</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>long</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>8-byte integer</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>double</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>8-byte floating point</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>oid</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>8-byte internal object identifier</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=57>enum</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>4-byte integer</TD>
+</TR>
+</TABLE>
+
+<BR>
+<BR>
+For instance:
+<BR>
+<PRE>
+class C {
+  attribute byte b;
+  attribute char c;
+  attribute short s;
+  attribute int i;
+  attribute long l;
+  attribute double d;
+  attribute oid o;
+};
+</PRE>
+Notes :
+
+<BR>
+<OL>
+<LI>The key word <TT>attribute</TT> is optional:
+<BR>
+<PRE>
+class C {
+  byte b;
+  char c;
+  // ...
+};
+</PRE>
+<BR>
+is correct.
+</LI>
+<LI>The grammar does not allow one to gather several attributes on
+the same line declaration:
+<BR>
+<PRE>
+class C {
+  attribute char c1, c2, c3; // NOT correct
+  // ...
+};
+</PRE>
+</LI>
+</OL>
+<H2><A NAME="SECTION00213000000000000000"></A> <A NAME="745"></A>
+<BR>
+Enum types
+</H2>
+An enumerate type is denoted by a set of integers mapped to symbols
+like in C++.
+The syntax is similar to the C++ syntax, for instance:
+<BR>
+<PRE>
+enum E1 {
+  A, // A == 0
+  B, // B == 1
+  C  // C == 2
+};
+
+enum E2 {
+  D = 3,   // D == 3
+  E,       // E == 4
+  F = 100, // F == 100
+  G,       // G == 101
+  H        // H == 102
+};
+
+class C {
+  attribute int i;
+  E1 e1;
+  E2 e2;
+};
+</PRE>
+<H2><A NAME="SECTION00214000000000000000"></A> <A NAME="747"></A>
+<BR>
+Array types
+</H2>
+The object model supports multi-dimensional fixed or variable size arrays
+of any type. For instance:
+<BR>
+<PRE>
+class C {
+  attribute byte b_a[4];      // fixed length mono-dimensional array
+  attribute char str[];       // variable size mono-dimensional array
+  attribute int i_a[3][4][8]; // multi-dimensional fixed size array
+  attribute long l_a[][4][8]; // multi-dimensional variable size array
+};
+</PRE>
+One particular interesting array type is the array of characters, which
+can be denoted as <TT>string</TT> as follows:
+<BR>
+<PRE>
+class C {
+  attribute string s;       // &lt;=&gt; char s[] (unlimited size string)
+  attribute string&lt;32&gt; bs;  // &lt;=&gt; char bs[32] (bounded string)
+};
+</PRE>
+Note that in a multi-dimensional array, only the extreme left dimension can be
+variable:
+<BR>
+<PRE>
+class C {
+  attribute long l_a1[][4][8]; // correct
+  attribute long l_a2[4][][8]; // NOT correct
+  attribute long l_a2[4][8][]; // NOT correct
+};
+</PRE>
+<H2><A NAME="SECTION00215000000000000000"></A> <A NAME="749"></A>
+<BR>
+Literal and object types
+</H2>
+Remember that each object in a set of E<SMALL>YE</SMALL>DB databases has an unique identifier called OID.
+
+<BR>
+A literal attribute is an attribute fully included in the class and has
+no OID, while an object attribute denotes the reference
+to another object with an object identifier.
+A reference attribute is denoted by a <TT>*</TT> or a <TT>&amp;</TT> symbol.
+For instance:
+<BR>
+<PRE>
+class C1 {
+  attribute int i;
+};
+
+class C {
+  attribute C1  l_c1;  // literal attribute included in C
+  attribute C1 *o_c1;  // object attribute referenced by C (or &amp;oc1_1)
+};
+</PRE>
+Let <TT>c</TT> an instance of the class <TT>C</TT>.
+
+<UL>
+<LI><TT>c</TT> includes a literal of type <TT>C1</TT> through the attribute
+<TT>l_c1</TT>
+</LI>
+<LI><TT>c</TT> can reference an object of type <TT>C1</TT> through the attributes 
+<TT>o_c1</TT>
+</LI>
+<LI>if <TT>c</TT> is removed from the database, the attribute <TT>l_c1</TT>
+is removed at the same time, but the object denoted by <TT>o_c1</TT> is
+not removed
+</LI>
+</UL>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=476>
+<BR>
+Do not confuse the <TT>*</TT> ODL meaning and the <TT>*</TT> C/C++ meaning:
+in C/C++, the <TT>*</TT> type modifier denotes an address to an area of the
+indicated type instances: it is a pointer to an address. This pointer
+can be incremented and decremented to change its location in the area.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=476>In ODL, the <TT>*</TT> denotes a reference to one and only one object, it is why
+the <TT>&amp;</TT> token is also accepted, although the meaning of this token
+is a little bit different in C++.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=476>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=476>So, in ODL the construct <TT>C1 **oc1</TT> makes no sense, in the same
+manner that the construct <TT>C1 &amp;&amp;oc1</TT> makes no sense in C++.</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+One can have arrays of literal or object as follows:
+<BR>
+<PRE>
+class C {
+  attribute C1  l_c1_1[2];
+  attribute C1  l_c1_2[];
+  attribute C1  l_c1_3[][10][20];
+
+  attribute C1 *o_c1_1[4];
+  attribute C1 *o_c1_2[];
+  attribute C1 *o_c1_3[][4][5];
+};
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00216000000000000000"></A> <A NAME="754"></A>
+<BR>
+Collection types
+</H2>
+The E<SMALL>YE</SMALL>DB object model support three types of collections, set, bag and array. A fourth type, list, will be implemented in a further version:
+
+<UL>
+<LI>a set an unordered collection of elements of the same type
+not allowing duplicate elements
+</LI>
+<LI>a bag a unordered collection of elements of the same type
+allowing duplicate elements
+</LI>
+<LI>an array an ordered collection of elements of the same type
+allowing duplicate elements
+</LI>
+<LI>a list (<SPAN  CLASS="textit">non yet implemented</SPAN>) is an ordered collections of elements of
+the same type allowing duplicate elements
+and where element insertion and removal is
+efficiently implemented
+</LI>
+</UL>
+An element may be of any type, literal or object and
+a collection attribute may be a literal or an object, and one can have
+arrays of collection, for instance:
+<BR>
+<PRE>
+class C {
+  attribute set&lt;int&gt;  i_lset;    // literal set of int
+  attribute set&lt;C1&gt;   l_c1_lset; // literal set of C1 literals
+  attribute set&lt;C1 *&gt; o_c1_lset; // literal set of C1 objects
+
+  attribute set&lt;int&gt;  *i_oset;    // object set of int
+  attribute set&lt;C1&gt;   *l_c1_oset; // object set of C1 literals
+  attribute set&lt;C1 *&gt; *o_c1_oset; // object set of C1 objects
+
+  attribute bag&lt;C1 *&gt; o_c1_lbag;  // literal bag of C1 objects
+
+  attribute array&lt;C1 *&gt; o_c1_larr;   // literal array of C1 objects
+  attribute bag&lt;C1 *&gt;   o_c1_lbag[]; // array of literal bag of C1 objects
+
+  // multi-dimensional array of literal bag of set of array of C1 objects
+  attribute bag&lt;set&lt;array&lt;set&lt;C1 *&gt; &gt; &gt; &gt; x[2][3][4]; 
+};
+</PRE>
+The differences between an array collection (i.e.
+<TT>array&lt;</TT><SPAN  CLASS="textit">type</SPAN><TT>&gt;</TT> and an attribute array (i.e. 
+<SPAN  CLASS="textit">type</SPAN> <TT>[]</TT>) are:
+
+<UL>
+<LI>a collection array may exists independently from any class as a
+an attribute array exists only within a class
+</LI>
+<LI>the implementation is very different:
+
+<UL>
+<LI>one can have a big collection array (thousand or millions of elements)
+without loss of performance (if the collection is well parameterised, see
+below)). Big attribute array are unefficient
+</LI>
+<LI>collection array can have ``holes'' without loss of performance, for instance an element at index 1 and another one at index 1000000 and nothing between. An attribute array with holes are unefficient as they are stored
+consecutively
+</LI>
+<LI>a collection array is heavier than an attribute array, and so is not
+recommended for little size
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00217000000000000000"></A> <A NAME="763"></A>
+<BR>
+Inheritance
+</H2>
+The object model support single inheritance using the keyword <TT>extends</TT>:
+<BR>
+<PRE>
+class C1 {
+  attribute string c1;
+};
+
+class C2 extends C1 {
+  attribute string c2;
+};
+
+class C3 extends C2 {
+  attribute string c3;
+};
+</PRE>
+As in usual object conception, an object of class <TT>C2</TT> includes the two
+attributes <TT>c1</TT> and <TT>c2</TT> and an object of class <TT>C3</TT>
+includes the three attributes <TT>c1</TT>, <TT>c2</TT> and <TT>c3</TT>.
+
+<BR>
+<BR>
+In the following construct:
+<PRE>
+class C4 {
+  attribute C1 *oc1;
+  attribute C2 *oc2;
+  attribute C3 *oc3;
+
+  attribute C1 lc1;
+  attribute C2 lc2;
+  attribute C3 lc3;
+};
+</PRE>
+The attribute <TT>oc1</TT> may be of type <TT>C1</TT>, <TT>C2</TT> or
+<TT>C3</TT>.
+<BR>
+The attribute <TT>oc2</TT> may be of type <TT>C2</TT> or <TT>C3</TT>.
+<BR>
+The attribute <TT>oc3</TT> may be of type <TT>C3</TT> only.
+<BR>
+The attribute <TT>lc1</TT> is of type <TT>C1</TT>.
+<BR>
+The attribute <TT>lc2</TT> is of type <TT>C2</TT>.
+<BR>
+The attribute <TT>lc3</TT> is of type <TT>C3</TT>.
+
+<P>
+
+<H2><A NAME="SECTION00218000000000000000"></A> <A NAME="765"></A>
+<BR>
+Constraints
+</H2>
+The object model supports currently two declarative constraints: notnull
+and unique. The cardinality constraint on collection is partially
+implemented and is not currently supported.
+Non declarative constraints are defined using triggers (see below).
+
+<BR>
+<BR>
+Note that:
+
+<UL>
+<LI>unique constraint cannot be defined on several attributes and
+</LI>
+<LI>unique constraint on an attribute needs an index. The index is not
+automatically created, it must be defined in the ODL (see below)
+or outside using the <TT>idxcreate</TT> tool.
+</LI>
+</UL>
+For instance:
+<BR>
+<PRE>
+class C {
+  attribute string s1;
+  attribute string s2;
+  attribute string s3;
+
+  constraint&lt;notnull&gt; on s1;
+
+  constraint&lt;notnull&gt; on s2;
+  constraint&lt;unique&gt; on s2;
+
+  constraint&lt;unique&gt; on s3;
+};
+</PRE>
+The attribute <TT>s1</TT> must not be null.
+<BR>
+The attribute <TT>s2</TT> must not be null and is unique in the collection
+of C objects.
+<BR>
+The attribute <TT>s3</TT> is unique in the collection
+of C objects.
+
+<H3><A NAME="SECTION00218100000000000000"></A> <A NAME="769"></A>
+<BR>
+Constraint and inheritance propagation
+</H3>
+By default, constraints are propagated to subclasses, let <TT>C2</TT>
+a subclass of <TT>C</TT>:
+<BR>
+<PRE>
+class C2 extends C {
+  attribute string c2;
+};
+</PRE>
+When one creates an <TT>C2</TT> object, the attributes <TT>s1</TT> and
+<TT>s2</TT> must not be null and the attributes <TT>s2</TT> and
+<TT>s3</TT> must be unique.
+<BR>
+<BR>
+Important note: the unique constraint applies separately on each class
+(<TT>C</TT> and <TT>C2</TT>) and not on the set of inheritance class tree.
+This means that one can have a <TT>C</TT> object with a given value
+for <TT>s2</TT> and a <TT>C2</TT> object with the same value for <TT>s2</TT>.
+
+<BR>
+This is not the expected default behavior and will
+be parameterised in a next version.
+
+<BR>
+<BR>
+If you do no want to propagate automatically a constraint to the subclasses,
+you need to use the construct <TT>propagate = off</TT> as follows:
+<BR>
+<PRE>
+class C {
+  attribute string s1;
+  attribute string s2;
+  attribute string s3;
+
+  constraint&lt;notnull, propagate = off&gt; on s1;
+
+  constraint&lt;notnull&gt; on s2;
+  constraint&lt;unique, propagate = off&gt; on s2;
+
+  constraint&lt;unique&gt; on s3;
+};
+
+class C2 extends C {
+  attribute string c2;
+};
+</PRE>
+The notnull constraint on <TT>C::s1</TT> and the unique constraint
+on <TT>C1::s2</TT> will not be propagated to <TT>C2</TT>, but the
+notnull constraint on <TT>C::s1</TT> and the unique constraint on
+<TT>C::s3</TT> will be propagated to <TT>C2</TT>.
+
+<P>
+
+<H3><A NAME="SECTION00218200000000000000"></A> <A NAME="771"></A>
+<BR>
+Constraint on attribute of literal composite type
+</H3>
+One can define constraints on attributes of literal composite type
+attribute, for instance:
+<BR>
+<PRE>
+class C1 {
+  attribute string s1;
+  attribute int i1;
+};
+
+class C {
+  attribute C1 c1;
+ 
+  constraint&lt;notnull&gt; on c1.s1;
+  constraint&lt;unique&gt; on c1.i1;
+};
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00219000000000000000"></A> <A NAME="773"></A>
+<BR>
+Referential integrity
+</H2>
+The E<SMALL>YE</SMALL>DB object model support one-to-one, one-to-many and many-to-many
+relationships. 
+
+<BR>
+<BR>
+A relationship between a class <TT>A</TT> and a class <TT>B</TT> is
+materialized by attributes in the two classes of the following
+types according to the cardinality of the relationship:
+
+<UL>
+<LI>one-to-one : <TT>A</TT> contains an attribute of type <TT>B *</TT> and
+<TT>A</TT> contains an attribute  of type <TT>B *</TT>
+</LI>
+<LI>one-to-many : <TT>A</TT> contains an attribute of type <SPAN  CLASS="textit">collection</SPAN><TT>&lt;B *&gt;</TT> (<SPAN  CLASS="textit">collection</SPAN> is a set or a bag) and
+<TT>A</TT> contains an attribute  of type <TT>B *</TT>
+</LI>
+<LI>many-to-many : <TT>A</TT> contains an attribute of type <SPAN  CLASS="textit">collection</SPAN><TT>&lt;B *&gt;</TT> and
+<TT>A</TT> contains an attribute  of type <SPAN  CLASS="textit">collection</SPAN><TT>&lt;B *&gt;</TT>
+</LI>
+</UL>
+For instance for a one-to-one relationship:
+<BR>
+<PRE>
+class A {
+  attribute string sa;
+  attribute B *b;
+};
+
+class B {
+  attribute string sb;
+  attribute A *a;
+};
+</PRE>
+In the previous case, E<SMALL>YE</SMALL>DB maintains only partially the referential
+integrity: for instance, one cannot create an object <TT>A</TT>
+with an attribute <TT>b</TT> which refers an non-existent <TT>B</TT>
+object. But, if the referenced <TT>B</TT> object is removed, the attribute
+<TT>b</TT> will still referenced the removed object.
+
+<BR>
+<BR>
+E<SMALL>YE</SMALL>DB can maintain the referential integrity by indicating the
+<TT>inverse directive</TT> in the ODL as follows:
+<BR>
+<PRE>
+class A {
+  attribute string sa;
+  relationship B *b inverse B::b; // or inverse b
+};
+
+class B {
+  attribute string sb;
+  relationship A *a inverse A::b; // or inverse a
+};
+</PRE>
+Note <TT>attribute</TT> has been replaced by <TT>relationship</TT> in
+this case: this is mandatory.
+
+<BR>
+In this case, if the <TT>B</TT> object referenced by a <TT>A</TT> object
+through <TT>b</TT> is removed, <TT>b</TT> is set to the null value.
+
+<BR>
+A one-to-many relationship:
+<BR>
+<PRE>
+class A {
+  attribute string sa;
+  relationship set&lt;B *&gt; b_set inverse a;
+};
+
+class B {
+  attribute string sb;
+  relationship A *a inverse b_set;;
+};
+</PRE>
+and a many-to-many relationship:
+<BR>
+<PRE>
+class A {
+  attribute string sa;
+  relationship set&lt;B *&gt; b_set inverse a_set;
+};
+
+class B {
+  attribute string sb;
+  relationship set&lt;A *&gt; a_set inverse b_set;;
+};
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION002110000000000000000"></A> <A NAME="780"></A>
+<BR>
+Methods
+</H2>
+In ODL, one can declare the signature of C++ and OQL methods
+and one can defined the body of OQL methods.
+By default, a method is executed on the server side.
+
+<BR>
+A method argument can be any basic type, reference on a composite type or
+mono-dimensional array of basic or composite type. An argument
+can be <TT>in</TT>, <TT>out</TT> or <TT>inout</TT>.
+Argument may be named or unnamed (only type is given), for instance:
+<BR>
+<PRE>
+class C1 {
+  attribute string c1;
+};
+
+class C2 {
+  attribute string c2;
+  int perform(in int size, in string str, out double, in C1 &amp;, inout C2 &amp;);
+};
+</PRE>
+Note that the <TT>&amp;</TT> symbol may be replaced by the <TT>*</TT> symbol
+or no symbol as anyhow only a persistent object (not a litteral) may
+be passed to a method call.
+
+<BR>
+<BR>
+The <TT>C::perform</TT> method must be defined in C++ but may be called
+from OQL or a C++ client. To define a C++ method, refer to the
+document <SPAN  CLASS="textit">C++ Binding</SPAN>.
+
+<BR>
+<BR>
+Methods can be overloaded (same name but different signatures), for instance:
+<BR>
+<PRE>
+class C2 {
+  attribute string c2;
+  int perform(in int size, in string str, out double, in C1 &amp;, inout C2 &amp;);
+  int perform(in double, out string mystr);
+};
+</PRE>
+One can define OQL methods in ODL. In this case, the name of the
+arguments must be given:
+<BR>
+<PRE>
+class C2 {
+  attribute string c2;
+  int append(in string s)
+  %oql{
+    this.s2 += s;
+    return strlen(this.s);
+  %};
+};
+</PRE>
+The OQL <TT>this</TT> variable denotes the calling instance.
+
+<BR>
+<BR>
+A method can be an instance method (the default) or a class method (equivalent
+to C++ or Java static methods). To defined a class method, there are
+two constructs, using the keyword <TT>static</TT> or <TT>classmethod</TT>:
+<BR>
+<PRE>
+class C {
+  static int perform1(in string); // or
+  classmethod int perform2(in string);
+
+  instmethod int perform3(in string); // &lt;=&gt; int perform3(in string)
+};
+</PRE>
+If you want to execute a method on the client side, you must
+use the keyword <TT>client</TT> as follows:
+<BR>
+<PRE>
+class C {
+  instmethod&lt;client&gt; int perform1(in string);
+  classmethod&lt;client&gt; int perform2(in string);
+
+  instmethod&lt;server&gt; int perform3(in string);  // &lt;=&gt; int perform3(...)
+  classmethod&lt;server&gt; int perform4(in string); // &lt;=&gt; classmethod perform3(...)
+};
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION002111000000000000000"></A> <A NAME="782"></A>
+<BR>
+Triggers
+</H2>
+Triggers are server methods which are executed when a particular
+event occurs on an object: before or after creation, update, load or delete.
+
+<BR>
+Like methods, a trigger can be written in C++ or in OQL. On the other
+hand a trigger has no argument but has a name;
+<BR>
+<PRE>
+class C {
+  attribute string s;
+
+  // C++ triggers
+  trigger&lt;create_before&gt; c_b();
+  trigger&lt;create_after&gt; c_a();
+
+  trigger&lt;update_before&gt; u_b();
+  trigger&lt;update_after&gt; u_a();
+
+  trigger&lt;load_before&gt; l_a();
+  trigger&lt;load_after&gt; l_b();
+
+  trigger&lt;remove_before&gt; r_b();
+  trigger&lt;remove_after&gt; r_a();
+
+  trigger&lt;create_before&gt; c_b2(); // one can have several create_before triggers
+
+  // OQL trigger
+  trigger&lt;create_before&gt; l_a2()
+  %oql{
+    if (strlen(this.s) &gt; 100)
+      throw "invalid length";
+  %};
+};
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION002112000000000000000"></A> <A NAME="784"></A>
+<BR>
+Indexes
+</H2>
+Indexes can be either defined in ODL or with the tool <TT>eyedbidxadmin</TT>.
+To define indexes on attributes:
+<PRE>
+class C {
+  attribute string s;
+  attribute int i;
+
+  index on s;
+  index on i;
+};
+</PRE>
+Note that we cannot define one index on several attributes.
+
+<BR>
+<H3><A NAME="SECTION002112100000000000000"></A> <A NAME="786"></A>
+<BR>
+Index and inheritance propagation
+</H3>
+As constraints, indexes may be or not propagated to subclasses.
+The behavior is the same as for constraints: indexes are propagated
+by default to subclasses:
+<PRE>
+class C {
+  attribute string s;
+  attribute int i;
+
+  index on s;
+  index on i;
+};
+
+class C2 extends C {
+  attribute long l;
+  
+};
+</PRE>
+Indexes are created for <TT>C::s</TT>, <TT>C::i</TT>, <TT>C2::s</TT>
+and <TT>C2::i</TT>.
+
+<BR>
+<BR>
+Note that the index on <TT>C::s</TT> (resp. <TT>C::i</TT> is different from the
+index on <TT>C2::s</TT> (resp. <TT>C2::i</TT>).
+
+<BR>
+To forbid propagation:
+<PRE>
+class C {
+  attribute string s;
+  attribute int i;
+
+  index&lt;propagate=off&gt; on s;
+  index&lt;propagate=off&gt; on i;
+};
+
+class C2 extends C {
+  attribute long l;
+  
+};
+</PRE>
+Indexes are created only for only <TT>C::s</TT> and <TT>C::i</TT>.
+
+<H3><A NAME="SECTION002112200000000000000"></A> <A NAME="788"></A>
+<BR>
+Index on attribute of literal composite type
+</H3>
+One can create indexes on an attribute of a literal composite type, for
+instance:
+<PRE>
+class C1 {
+  attribute int i;
+  attribute double d;
+};
+
+class C {
+  attribute string s;
+  C1 c1; // literal composite type
+
+  index on s;
+  index on c1.i;
+  index on c1.d;
+};
+</PRE>
+<H3><A NAME="SECTION002112300000000000000"></A> <A NAME="790"></A>
+<BR>
+Index specifications
+</H3>
+By default, an index on a number attribute (char, short, int, long and double)
+is implemented as a BTree, while an index on either a string or a bounded string is
+implemented as a Hash index.
+
+<BR>
+The differences between BTree and Hash are as follows:
+
+<UL>
+<LI>BTree indexes allows one to retrieve in an efficient way
+entries with values greater or lesser than a given value. Hash indexes
+does not allows this in a efficient way.
+</LI>
+<LI>On big volume of data, BTree indexes are more efficient 
+with the default parameters than Hash indexes with the default parameters
+</LI>
+<LI>On the other hand, for exact match search, a Hash index
+with good parameters is more efficient than a BTree index
+</LI>
+<LI>Usually, Hash index creation is at least four times faster
+than creating a BTree index
+</LI>
+</UL>
+The ODL index specification allows one to change the default index
+type and parameters of a given target attribute.
+To set the type of an index on a given attribute, one uses:
+<PRE>
+class C {
+  attribute string&lt;32&gt; s;
+  attribute int i;
+
+  index&lt;type = btree&gt; on s; // default is hash: change to btree
+  index&lt;type = hash&gt; on i;  // default is btree: change to hash
+};
+</PRE>
+Important note: one cannot create a BTree index on a non bounded string.
+One can set implementation parameters for indexes as follows:
+<PRE>
+class C {
+  attribute string&lt;32&gt; s;
+  attribute int i;
+
+  index&lt;type = btree, hints = "degree = 64;"&gt; on s;
+  index&lt;type = hash, hints = "key_count = 4096; initial_size = 4096;
+        extend_coef = 1; size_max = 4096;"&gt; on i;
+};
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html125"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html121"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html115"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html123"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html126"
+  HREF="node4.html">The eyedbodl tool</A>
+<B> Up:</B> <A NAME="tex2html122"
+  HREF="node2.html">The Object Definition Language</A>
+<B> Previous:</B> <A NAME="tex2html116"
+  HREF="node2.html">The Object Definition Language</A>
+ &nbsp; <B>  <A NAME="tex2html124"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

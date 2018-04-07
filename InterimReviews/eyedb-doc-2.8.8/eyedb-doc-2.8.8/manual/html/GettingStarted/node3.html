@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Starting the server</TITLE>
+<META NAME="description" CONTENT="Starting the server">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html88"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html84"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html78"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html86"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html89"
+  HREF="node4.html">Creating a database</A>
+<B> Up:</B> <A NAME="tex2html85"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html79"
+  HREF="node2.html">Getting Started</A>
+ &nbsp; <B>  <A NAME="tex2html87"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00210000000000000000"></A> <A NAME="747"></A>
+<BR>
+Starting the server
+</H1>
+
+<P>
+In the following sections, we assume that you are running all the E<SMALL>YE</SMALL>DB tools under
+the same Unix user as the one used when installing E<SMALL>YE</SMALL>DB , in order not to be forced to create a new E<SMALL>YE</SMALL>DB user and give this new user the necessary authorizations to create a database. In case this assumption is not valid, please refer to the administration guide for further information about creating a user and assigning a user database creation permission.
+<BR>
+<BR>
+For any E<SMALL>YE</SMALL>DB operation, a server must run on your computer. To check if a server is running, use the following command:
+<PRE>
+% eyedbctl status
+</PRE>
+If a server is running, this command will print a message like:
+<PRE>
+EyeDB Server running since Mon Dec 10 13:42:51 2007
+
+  Version       V2.8.4
+  Date          Dec 10 2007 12:51:35
+  Architecture  x86_64-unknown-linux-gnu
+  Program Pid   8778
+  Running Under eyedb
+
+  Listening on  localhost:6240
+                localhost:/var/lib/eyedb/pipes/eyedbd
+  Datafile Directory /share
+
+  No Clients connected.
+</PRE>
+If no server is running, it will print an error message such as:
+<PRE>
+No EyeDB Server is running on localhost:6240
+</PRE>
+To start a server, just do this:
+<PRE>
+% eyedbctl start
+</PRE>
+This command will print a message like:
+<PRE>
+Starting EyeDB Server
+ Version      V2.8.4
+ Compiled     Dec 10 2007 12:51:35
+ Architecture x86_64-unknown-linux-gnu
+ Program Pid  8785
+</PRE>
+Then, you may try again <TT>eyedbctl status</TT>.
+<BR>
+<BR>
+If you get any trouble at this step, refer to the installation and to the
+administration manuals.
+
+<P>
+<BR><HR>
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

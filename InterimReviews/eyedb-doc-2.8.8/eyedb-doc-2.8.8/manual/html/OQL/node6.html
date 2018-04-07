@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Language Concepts</TITLE>
+<META NAME="description" CONTENT="Language Concepts">
+<META NAME="keywords" CONTENT="OQL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="OQL.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html505"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html501"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html495"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html503"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html506"
+  HREF="node7.html">Language Syntax</A>
+<B> Up:</B> <A NAME="tex2html502"
+  HREF="node2.html">The Object Query Language</A>
+<B> Previous:</B> <A NAME="tex2html496"
+  HREF="node5.html">OQL vs. ODMG 3</A>
+ &nbsp; <B>  <A NAME="tex2html504"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00240000000000000000"></A> <A NAME="5454"></A>
+<A NAME="lconcepts"></A>
+<BR>
+Language Concepts
+</H1>
+The basic entity in OQL is the atom. An atom is the result of the
+evaluation of any expression. Atoms are manipulated through expressions.
+
+<BR>
+<BR>
+Although OQL is not fully an expression language as some valid constructs, such
+as flow controls, are not expressions, the expression is the basic
+concept of OQL.
+The non-expression constructs, such as selection and iteration statements,
+control the flow (or evaluation) of expressions.
+An expression is built from typed operands composed recursively by operators.
+
+<BR>
+<BR>
+OQL is a typed language: each atom has a type. This type
+can be an OQL builtin type or can be derived from the schema type
+declarations.
+
+<BR>
+<BR>
+OQL binds the E<SMALL>YE</SMALL>DB object model by providing a mapping between OQL builtin
+types and the E<SMALL>YE</SMALL>DB object model types. As in the E<SMALL>YE</SMALL>DB object model,
+OQL supports both object entities (with a unique object identifier)
+and literal entities (with no identifier).
+The concept of object/literal is orthogonal to the concept of type, this
+means that any type may have object instances and literal instances.
+For instance, one can have literal or object integers, literal or
+object collections.
+For instance, the following constructs produces a literal integer:
+
+<PRE>
+1; // OQL interpreter generates a literal integer
+first(select x.age from Person x); // database produces a literal integer
+                                   // bound to an atom of type integer
+</PRE>
+while the followings produce respectively a <TT>Person</TT> object and
+a literal collection of <TT>Person</TT> objects:
+
+<PRE>
+first(select x from Person x);
+select x from Person x;
+</PRE>
+An E<SMALL>YE</SMALL>DB object is always bound
+in OQL to an atom of type <TT>oid</TT> or of type <TT>object</TT>.
+A literal is bound to the corresponding direct type in OQL using a trivial
+mapping. For instance, a literal entity of the E<SMALL>YE</SMALL>DB type <TT>integer</TT>
+is bound to an OQL atom of the OQL type <TT>integer</TT>; while an
+object entity of the E<SMALL>YE</SMALL>DB type <TT>Person</TT> is bound to an OQL atom
+of type <TT>oid</TT> or <TT>object</TT>.
+
+<BR>
+<BR>
+We introduce now the OQL builtin types and the way that they are generated.
+OQL includes 15 builtin types as follows:
+<BR> - <TT>integer</TT>
+<BR> - <TT>string</TT>
+<BR> - <TT>float</TT>
+<BR> - <TT>char</TT>
+<BR> - <TT>boolean</TT>
+<BR> - <TT>identifier</TT>
+<BR> - <TT>set</TT>
+<BR> - <TT>bag</TT>
+<BR> - <TT>array</TT>
+<BR> - <TT>list</TT>
+<BR> - <TT>struct</TT>
+<BR> - <TT>oid</TT>
+<BR> - <TT>object</TT>
+<BR> - <TT>null</TT>
+<BR> - <TT>nil</TT>
+<BR>
+<BR>
+Some of these atoms can be expressed as terminals of the OQL grammar - for
+instance <TT>integer</TT>, <TT>float</TT>, <TT>string</TT> - others are
+generated using syntaxic constructions such as function calls or specific
+constructions - for instance <TT>list</TT>, <TT>bag</TT>, <TT>struct</TT>.
+
+<BR>
+<BR>
+We will introduced first the syntax of the atoms which can be expressed
+as terminals, then the way to produce non terminal atoms.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html505"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html501"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html495"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html503"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html506"
+  HREF="node7.html">Language Syntax</A>
+<B> Up:</B> <A NAME="tex2html502"
+  HREF="node2.html">The Object Query Language</A>
+<B> Previous:</B> <A NAME="tex2html496"
+  HREF="node5.html">OQL vs. ODMG 3</A>
+ &nbsp; <B>  <A NAME="tex2html504"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

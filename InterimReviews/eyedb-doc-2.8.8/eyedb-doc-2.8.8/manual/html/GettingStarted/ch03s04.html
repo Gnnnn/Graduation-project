@@ -1,0 +1,42 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Querying objects using the OQL interpreter</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="ch03.html" title="Chapter 3. Databases"><link rel="prev" href="ch03s03.html" title="Creating and updating objects with the OQL interpreter"><link rel="next" href="ch03s05.html" title="Manipulating objects using OQL"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Querying objects using the OQL interpreter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s03.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Databases</th><td width="20%" align="right"> <a accesskey="n" href="ch03s05.html">Next</a></td></tr></table><hr></div><div class="section" title="Querying objects using the OQL interpreter"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id300626"></a>Querying objects using the OQL interpreter</h2></div></div></div><p>
+	To query on all persons in the database, launch an <span class="command"><strong>eyedboql</strong></span> session as in:
+	</p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo</code></strong>
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+? select Person;
+= bag(2597.2.134950:oid, 2595.2.683802:oid, 2589.2.36448:oid, 2587.2.702511:oid, 2585.2.196439:oid)
+	  </pre></div><p>
+      </p><p>
+	To query on all persons whose firstname is "john":
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>select Person.firstname = "john";</code></strong>
+= bag(2585.2.196439:oid)
+? <strong class="userinput"><code>\print</code></strong>
+Person {2585.2.196439:oid} = { 
+        firstname = "john";
+        lastname = "wayne";
+        age = 72;
+        addr Address = { 
+                num = NULL;
+                street = NULL;
+                town = NULL;
+                country = NULL;
+        };
+        *spouse = {2587.2.702511:oid};
+        children set&lt;Person*&gt; = set { 
+                name = "";
+                count = 3;
+        };
+};
+
+	  </pre></div><p>
+      </p><p>
+	Note that the <span class="command"><strong>print</strong></span> command allows to display the content of the last objects returned on your terminal.
+      </p><p>To query on all persons whose firstname contains a <span class="command"><strong>y</strong></span>:
+      </p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>select Person.firstname ~ "y";</code></strong>
+= bag(2597.2.134950:oid, 2595.2.683802:oid, 2589.2.36448:oid, 2587.2.702511:oid)
+	</pre></div><p>
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Creating and updating objects with the OQL interpreter </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Manipulating objects using OQL</td></tr></table></div></body></html>

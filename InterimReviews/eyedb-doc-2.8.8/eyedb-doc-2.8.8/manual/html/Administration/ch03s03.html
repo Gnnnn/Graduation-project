@@ -1,0 +1,43 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Exporting and importing a database</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch03.html" title="Chapter 3. Database administration"><link rel="prev" href="ch03s02.html" title="Renaming, copying and moving a database"><link rel="next" href="ch04.html" title="Chapter 4. User administration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Exporting and importing a database</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s02.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Database administration</th><td width="20%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr></table><hr></div><div class="section" title="Exporting and importing a database"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id571042"></a>Exporting and importing a database</h2></div></div></div><p>
+	Database export and import is used to make a copy of a database content in a single file. It can be used to backup a database or to copy a database between computers that do not share file systems.
+      </p><div class="section" title="Exporting a database"><div class="titlepage"><div><div><h3 class="title"><a name="id571054"></a>Exporting a database</h3></div></div></div><p>
+	  Exporting a database is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">database export</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>file</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		name of database to export
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>file</code></em>}</p></div><p>
+		file for export (- means export to standard output)
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-database-export"></a><p class="title"><b>Example 3.8. <span class="command">eyedbadmin</span> database export</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database export test2 /var/tmp/test2.dump</code></strong>
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Importing a database"><div class="titlepage"><div><div><h3 class="title"><a name="id571188"></a>Importing a database</h3></div></div></div><p>
+	  Importing a database is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">database import</code>  [options...] {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>file</code></em>}</p></div><p>
+	</p><p>
+	  Options are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --filedir=<em class="replaceable"><code>directory</code></em> </p></div><p>
+		specifies the directory that will contains the database files
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --mthdir=<em class="replaceable"><code>directory</code></em> </p></div><p>
+		specifies the directory that will contains the database methods
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --list </p></div><p>
+		list only, do not import
+	      </p></li></ul></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		name of database to import
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>file</code></em>}</p></div><p>
+		file for import (- means import from standard output)
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-database-import"></a><p class="title"><b>Example 3.9. <span class="command">eyedbadmin</span> database import</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database import test2 /var/tmp/test2.dump</code></strong>
+	  </pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Renaming, copying and moving a database </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. User administration</td></tr></table></div></body></html>

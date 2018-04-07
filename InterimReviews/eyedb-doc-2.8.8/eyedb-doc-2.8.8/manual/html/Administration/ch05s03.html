@@ -1,0 +1,294 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Managing dataspaces</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch05.html" title="Chapter 5. Database advanced administration"><link rel="prev" href="ch05s02.html" title="Managing datafiles"><link rel="next" href="ch06.html" title="Chapter 6. Database tuning"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Managing dataspaces</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Database advanced administration</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="section" title="Managing dataspaces"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="managing-dataspaces"></a>Managing dataspaces</h2></div></div></div><p>
+	After being created, datafiles must be attached to <span class="emphasis"><em>dataspaces</em></span>. Before attaching a datafile to a dataspace, the dataspace must have been created if it is not the default dataspace (which is created when creating the database).
+      </p><div class="section" title="Creating, listing, and deleting dataspaces"><div class="titlepage"><div><div><h3 class="title"><a name="id575263"></a>Creating, listing, and deleting dataspaces</h3></div></div></div><p>
+	  This section explains how to create, listing and delete dataspaces. When creating or updating a dataspace, the list of datafiles contained in this dataspace must be specified; datafiles must therefore have been created before, refer to <a class="xref" href="ch05s02.html" title="Managing datafiles">the section called “Managing datafiles”</a> for explainations on datafiles management.
+	</p><p>
+	  Creating a dataspace is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">dataspace create</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>} {[{<em class="replaceable"><code>datafile_id</code></em>} |  {<em class="replaceable"><code>datafile_name</code></em>}]...}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace to be created
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{[{<em class="replaceable"><code>datafile_id</code></em>} |  {<em class="replaceable"><code>datafile_name</code></em>}]...}</p></div><p>
+		the datafiles to be attached to the dataspace, that can be specified either by its id or by its name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-create"></a><p class="title"><b>Example 5.8. <span class="command">eyedbadmin</span> dataspace create</b></p><div class="example-contents"><pre class="screen">
+	    ## create 2 datafiles
+	    <strong class="userinput"><code>eyedbadmin datafile create test4 data1.dat</code></strong>
+	    <strong class="userinput"><code>eyedbadmin datafile create test4 data2.dat</code></strong>
+	    ## create a dataspace, attaching the 2 datafiles to this dataspace
+	    <strong class="userinput"><code>eyedbadmin dataspace create test4 DSP1 1 2</code></strong>
+	  </pre></div></div><br class="example-break"><p>
+	  Obtaining the list of dataspaces is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">dataspace list</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace to be listed
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-list"></a><p class="title"><b>Example 5.9. <span class="command">eyedbadmin</span> dataspace list</b></p><div class="example-contents"><pre class="screen">
+	    ## List all the dataspaces of database 'test4'
+	    <strong class="userinput"><code>eyedbadmin dataspace list test4</code></strong>
+	    Dataspace #0
+	    Name DEFAULT
+	    Datafile #0
+	    Name     DEFAULT
+	    File     test4.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Dataspace #1
+	    Name DSP1
+	    Datafile #1
+	    File     data1.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Datafile #2
+	    File     data2.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	  </pre></div></div><br class="example-break"><p>
+	  Deleting a dataspace is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">delete</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-delete"></a><p class="title"><b>Example 5.10. <span class="command">eyedbadmin</span> dataspace delete</b></p><div class="example-contents"><pre class="screen">
+	    ## delete dataspace named 'NEWDSP1'
+	    <strong class="userinput"><code>eyedbadmin dataspace delete test4 NEWDSP1</code></strong>
+	    ## list all dataspaces
+	    <strong class="userinput"><code>eyedbadmin dataspace list test4</code></strong>
+	    Dataspace #0
+	    Name DEFAULT
+	    Datafile #0
+	    Name     DEFAULT
+	    File     test4.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Updating and renaming dataspaces"><div class="titlepage"><div><div><h3 class="title"><a name="id575752"></a>Updating and renaming dataspaces</h3></div></div></div><p>
+	  Updating a dataspace is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">dataspace update</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>} {[{<em class="replaceable"><code>datafile_id</code></em>} |  {<em class="replaceable"><code>datafile_name</code></em>}]...}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{[{<em class="replaceable"><code>datafile_id</code></em>} |  {<em class="replaceable"><code>datafile_name</code></em>}]...}</p></div><p>
+		the datafiles to be attached to the dataspace, that can be specified either by its id or by its name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-update"></a><p class="title"><b>Example 5.11. <span class="command">eyedbadmin</span> dataspace update</b></p><div class="example-contents"><pre class="screen">
+	    ## create 2 more datafiles
+	    <strong class="userinput"><code>eyedbadmin datafile create test4 data3.dat</code></strong>
+	    <strong class="userinput"><code>eyedbadmin datafile create test4 data4.dat</code></strong>
+	    ## update the dataspace, attaching the 4 datafiles to the dataspace
+	    <strong class="userinput"><code>eyedbadmin dataspace update test4 DSP1 1 2 3 4</code></strong>
+	    ## list the updated dataspace
+	    <strong class="userinput"><code>eyedbadmin dataspace list test4 DSP1</code></strong>
+	    Dataspace #1
+	    Name DSP1
+	    Datafile #1
+	    File     data1.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Datafile #2
+	    File     data2.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Datafile #3
+	    File     data3.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Datafile #4
+	    File     data4.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    ## update dataspace, leaving only the last 2 datafiles
+	    <strong class="userinput"><code>eyedbadmin dataspace update test4 DSP1 3 4</code></strong>
+	    ## list updated dataspace
+	    <strong class="userinput"><code>eyedbadmin dataspace list test4 DSP1</code></strong>
+	    Dataspace #1
+	    Name NEWDSP1
+	    Datafile #3
+	    File     data3.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Datafile #4
+	    File     data4.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	  </pre></div></div><br class="example-break"><p>
+	  Renaming a dataspace is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">dataspace rename</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>} {<em class="replaceable"><code>new_dataspace</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>new_dataspace</code></em>}</p></div><p>
+		the new name of the dataspace
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-rename"></a><p class="title"><b>Example 5.12. <span class="command">eyedbadmin</span> dataspace rename</b></p><div class="example-contents"><pre class="screen">
+	    ## rename dataspace
+	    eyedbadmin dataspace rename test4 DSP1 NEWDSP1
+	    ## list renamed dataspace
+	    eyedbadmin dataspace list test4 NEWDSP1
+	    Dataspace #1
+	    Name NEWDSP1
+	    Datafile #3
+	    File     data3.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	    Datafile #4
+	    File     data4.dat
+	    Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize 16
+	    Oid Type Logical
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Getting and setting current datafile"><div class="titlepage"><div><div><h3 class="title"><a name="id584533"></a>Getting and setting current datafile</h3></div></div></div><p>
+	  A dataspace maintains an internal pointer to its <span class="emphasis"><em>current</em></span> datafile, i.e. the datafile in which new data will be stored when creating an object, an index that hits into this dataspace.
+	</p><p>
+	  When a datafile is full, the pointer to the current datafile is moved to the next datafile in the dataspace that has space left for insertion. If all datafiles in the dataspace are full, then the insertion ends with an error.
+	</p><p>
+	  Using <span class="command"><strong>eyedbadmin</strong></span>, it is possible to examine and set the pointer to the current datafile. 
+	</p><p>
+	  Examining the current datafile is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">dataspace getcurdat</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-getcurdat"></a><p class="title"><b>Example 5.13. <span class="command">eyedbadmin</span> dataspace getcurdat</b></p><div class="example-contents"><pre class="screen">
+	    <strong class="userinput"><code>eyedbadmin dataspace getcurdat test4 DSP1</code></strong>
+	    Datafile #1
+	    Name      &lt;unnamed&gt;
+	    Dataspace #1 DSP1
+	    File      data1.dat
+	    Maxsize   2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize  16
+	    Oid Type  Logical
+	  </pre></div></div><br class="example-break"><p>
+	  Setting the current datafile is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">dataspace setcurdat</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>} {[{<em class="replaceable"><code>datafile_id</code></em>} |  {<em class="replaceable"><code>datafile_name</code></em>}]...}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{[{<em class="replaceable"><code>datafile_id</code></em>} |  {<em class="replaceable"><code>datafile_name</code></em>}]...}</p></div><p>
+		the datafiles to be attached to the dataspace, that can be specified either by its id or by its name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-dataspace-setcurdat"></a><p class="title"><b>Example 5.14. <span class="command">eyedbadmin</span> dataspace setcurdat</b></p><div class="example-contents"><pre class="screen">
+	    <strong class="userinput"><code>eyedbadmin dataspace setcurdat test4 DSP1 3</code></strong>
+	    <strong class="userinput"><code>eyedbadmin dataspace getcurdat test4 DSP1</code></strong>
+	    Datafile #3
+	    Name      &lt;unnamed&gt;
+	    Dataspace #1 DSP1
+	    File      data3.dat
+	    Maxsize   2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+	    Slotsize  16
+	    Oid Type  Logical
+	    francois@revard$ 
+	  </pre></div></div><br class="example-break"><div class="section" title="Getting and setting default dataspace for a database"><div class="titlepage"><div><div><h4 class="title"><a name="id584851"></a>Getting and setting default dataspace for a database</h4></div></div></div><p>
+	    A database maintains an internal pointer to a <span class="emphasis"><em>default</em></span> dataspace; this default dataspace will be used when inserting data that do not have an associated dataspace <a class="xref" href="ch06s04.html" title="Managing locations">the section called “Managing locations”</a>.
+	  </p><p>
+	    Using <span class="command"><strong>eyedbadmin</strong></span>, it is possible to examine and set the pointer to the default dataspace for a database.
+	  </p><div class="note" title="Getting and setting default dataspace" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Getting and setting default dataspace</h3><p>
+	      Getting and setting default dataspace is done using the <span class="emphasis"><em>database</em></span> topic of the <span class="command"><strong>eyedbadmin</strong></span> command <a class="xref" href="ch01s02.html#eyedbadmin-command-syntax" title="eyedbadmin command syntax">the section called “<span class="command"><strong>eyedbadmin</strong></span> command syntax”</a>, because the default dataspace is a property of the <span class="emphasis"><em>database</em></span> and not of a particular dataspace.
+	    </p></div><p>
+	    Examining the default dataspace is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	    </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">database getdefdsp</code>  {<em class="replaceable"><code>database</code></em>}</p></div><p>
+	  </p><p>
+	    Command arguments are:
+	    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		  </p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		  the database
+		</p></li></ul></div><p>
+	  </p><div class="example"><a name="eyedbadmin-database-getdefdsp"></a><p class="title"><b>Example 5.15. <span class="command">eyedbadmin</span> database getdefdsp</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database getdefdsp test4</code></strong>
+Dataspace #0
+Name DEFAULT
+   Datafile #0
+     Name     DEFAULT
+     File     test4.dat
+     Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+     Slotsize 16
+     Oid Type Logical
+	    </pre></div></div><br class="example-break"><p>
+	    Setting the default dataspace is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	    </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">database setdefdsp</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+	  </p><p>
+	    Command arguments are:
+	    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		  </p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		  the database
+		</p></li><li class="listitem"><p>
+		  </p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		  the name of the dataspace that must become the default dataspace
+		</p></li></ul></div><p>
+	  </p><div class="example"><a name="eyedbadmin-database-setdefdsp"></a><p class="title"><b>Example 5.16. <span class="command">eyedbadmin</span> database setdefdsp</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database setdefdsp test4 DSP1</code></strong>
+<strong class="userinput"><code>eyedbadmin database getdefdsp test4</code></strong>
+Dataspace #1
+Name DSP1
+   Datafile #1
+     File     data1.dat
+     Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+     Slotsize 16
+     Oid Type Logical
+   Datafile #2
+     File     data2.dat
+     Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+     Slotsize 16
+     Oid Type Logical
+   Datafile #3
+     File     data3.dat
+     Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+     Slotsize 16
+     Oid Type Logical
+   Datafile #4
+     File     data4.dat
+     Maxsize  2147483648b, ~2097152Kb, ~2048Mb, ~2Gb
+     Slotsize 16
+     Oid Type Logical
+	    </pre></div></div><br class="example-break"></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Managing datafiles </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 6. Database tuning</td></tr></table></div></body></html>

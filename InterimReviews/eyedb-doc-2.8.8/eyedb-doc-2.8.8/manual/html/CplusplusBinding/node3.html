@@ -1,0 +1,1089 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Generic C++ API</TITLE>
+<META NAME="description" CONTENT="The Generic C++ API">
+<META NAME="keywords" CONTENT="CplusplusBinding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CplusplusBinding.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html166"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html162"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html156"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html164"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html167"
+  HREF="node4.html">The Schema-Oriented Generated C++</A>
+<B> Up:</B> <A NAME="tex2html163"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+<B> Previous:</B> <A NAME="tex2html157"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+ &nbsp; <B>  <A NAME="tex2html165"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html168"
+  HREF="node3.html#SECTION00211000000000000000">Initialization</A>
+<LI><A NAME="tex2html169"
+  HREF="node3.html#SECTION00212000000000000000">Connection Setting-up</A>
+<LI><A NAME="tex2html170"
+  HREF="node3.html#SECTION00213000000000000000">Database Opening</A>
+<LI><A NAME="tex2html171"
+  HREF="node3.html#SECTION00214000000000000000">Transaction Management</A>
+<LI><A NAME="tex2html172"
+  HREF="node3.html#SECTION00215000000000000000">Schema and Class Manipulation</A>
+<LI><A NAME="tex2html173"
+  HREF="node3.html#SECTION00216000000000000000">Object Manipulation</A>
+<LI><A NAME="tex2html174"
+  HREF="node3.html#SECTION00217000000000000000">Creating Runtime Objects</A>
+<LI><A NAME="tex2html175"
+  HREF="node3.html#SECTION00218000000000000000">Synchronizing Runtime Objects to Database Objects</A>
+<LI><A NAME="tex2html176"
+  HREF="node3.html#SECTION00219000000000000000">Setting Attribute Values to a Runtime Object</A>
+<LI><A NAME="tex2html177"
+  HREF="node3.html#SECTION002110000000000000000">Loading Database Objects</A>
+<LI><A NAME="tex2html178"
+  HREF="node3.html#SECTION002111000000000000000">Getting Attribute Values from a Runtime Object</A>
+<LI><A NAME="tex2html179"
+  HREF="node3.html#SECTION002112000000000000000">Loading Database Objects using OQL</A>
+<LI><A NAME="tex2html180"
+  HREF="node3.html#SECTION002113000000000000000">Releasing Runtime Objects</A>
+<LI><A NAME="tex2html181"
+  HREF="node3.html#SECTION002114000000000000000">Removing Database Objects</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00210000000000000000"></A> <A NAME="1090"></A>
+<BR>
+The Generic C++ API
+</H1>
+
+<H2><A NAME="SECTION00211000000000000000"></A> <A NAME="1092"></A>
+<BR>
+Initialization
+</H2>
+The minimal E<SMALL>YE</SMALL>DB C++ program is as follows:
+
+<PRE>
+#include &lt;eyedb/eyedb.h&gt;
+
+int
+main(int argc, char *argv[])
+{
+  eyedb::init(argc, argv);
+  // ...
+  eyedb::release();
+  return 0;
+}
+</PRE>
+A few remarks about this code:
+
+<OL>
+<LI>the file <TT>eyedb/eyedb.h</TT> contains the whole E<SMALL>YE</SMALL>DB C++ API; except
+for some specific administration or hacker tasks, it is not necessary
+to include any other eyedb files.
+</LI>
+<LI>the E<SMALL>YE</SMALL>DB C++ layer must be initialized using one of the static method
+<TT>init</TT> of the namespace <TT>eyedb</TT>:
+
+<OL>
+<LI>static void eyedb::init()
+</LI>
+<LI>static void eyedb::init(int &amp;argc, char *argv[])
+</LI>
+</OL>
+The first method only initializes the E<SMALL>YE</SMALL>DB layer while the second
+one performs also some command line option processing.
+For instance, the option <TT>-port=&lt;port&gt;</TT> allows you to use
+the port <TT>&lt;port&gt;</TT> as the default connection port to the E<SMALL>YE</SMALL>DB 
+server, while the option <TT>-logdev=stderr</TT> displays log information
+on the standard error.
+
+<BR>
+<BR>
+The option <TT>-help-eyedb-options</TT> displays a brief usage for each standard options:
+
+<PRE>
+  -U &lt;user&gt;|@, --user=&lt;user&gt;|@       User name
+  -P [&lt;passwd&gt;], --passwd[=&lt;passwd&gt;] Password
+  --host=&lt;host&gt;                      eyedbd host
+  --port=&lt;port&gt;                      eyedbd port
+  --inet                             Use the tcp_port variable if port is not set
+  --dbm=&lt;dbmfile&gt;                    EYEDBDBM database file
+  --conf=&lt;conffile&gt;                  Configuration file
+  --logdev=&lt;logfile&gt;                 Output log file
+  --logmask=&lt;mask&gt;                   Output log mask
+  --logdate=on|off                   Control date display in output log
+  --logtimer=on|off                  Control timer display in output log
+  --logpid=on|off                    Control pid display in output log
+  --logprog=on|off                   Control progname display in output log
+  --error-policy=&lt;value&gt;             Control error policy: status|exception|abort|stop|echo
+  --trans-def-mag=&lt;magorder&gt;         Default transaction magnitude order
+  --arch                             Display the client architecture
+  -v, --version                      Display the version
+  --help-eyedb-options               Display this message
+</PRE>
+Note that all the standard command line options recognized in the
+<TT>argc/argv</TT> array are suppressed from this array by
+<TT>eyedb::init(int &amp;argc, char *argv[])</TT>.
+</LI>
+<LI>the last statement <TT>eyedb::release()</TT> allows you to release all
+the E<SMALL>YE</SMALL>DB allocated resources and to close opened databases and connections.
+Note that this statement is optionnal as all E<SMALL>YE</SMALL>DB allocated resources,
+opened databases and connections will be automatically released or closed
+in the <TT>exit()</TT> function.
+</LI>
+</OL>
+<H2><A NAME="SECTION00212000000000000000"></A> <A NAME="1105"></A>
+<BR>
+Connection Setting-up
+</H2>
+To manage objects within a database we need to open this database.
+But before opening any database we need to establish a connection with
+the E<SMALL>YE</SMALL>DB server.
+
+<BR>
+The connection to the E<SMALL>YE</SMALL>DB server is realized through the
+<TT>eyedb::Connection</TT> class as follows:
+
+<PRE>
+  eyedb::Connection conn;
+  conn.open();
+</PRE>
+A few remarks about this code:
+
+<OL>
+<LI>the construction of an <TT>eyedb::Connection</TT> instance (first line of code)
+does not perform any actual actions: it only constructs a runtime instance.
+</LI>
+<LI>to establish the connection, one needs to use the
+<TT>eyedb::Connection::open(const char *host=0, const char *port=0)</TT> method.
+This method has two optionnal arguments: <TT>host</TT> and <TT>port</TT>.
+
+<BR>
+If these arguments are not specified, their values are taken from the
+configuration or
+from the command line options <TT>-host=&lt;host&gt;</TT> and
+<TT>-port=&lt;port&gt;</TT> if specified.
+</LI>
+<LI>in case of an error happened during the connection setting-up,
+a status is returned or an exception is raised depending on the
+chosen error policy. The default error policy is the <TT>status error
+policy</TT> which means that each E<SMALL>YE</SMALL>DB method returns a status
+implemented by the <TT>eyedb::Status</TT> class. The special status
+<TT>eyedb::Success</TT> (in fact a null pointer) means that the operation
+has been performed successfully:
+
+<UL>
+<LI><PRE>
+  eyedb::Status s;
+  eyedb::Connection conn;
+  s = conn.open();
+  if (s) {
+    cerr &lt;&lt; status;
+    return 1;
+  }
+</PRE>
+</LI>
+</UL>
+The <TT>exception error policy</TT> means that each E<SMALL>YE</SMALL>DB method throws
+an exception, implemented by the class <TT>eyedb::Exception</TT>, when an error
+happened:
+
+<UL>
+<LI><PRE>
+  try {
+    eyedb::Connection conn;
+    conn.open();
+  }
+  catch(eyedb::Exception &amp;e) {
+    cerr &lt;&lt; e;
+    return 1;
+  }
+</PRE>
+</LI>
+</UL>
+Note that <TT>eyedb::Status</TT> is an alias for <TT>const eyedb::Exception *</TT>.
+To use the <TT>exception error policy</TT>, one needs to call the following
+method before any operation:
+
+<PRE>
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode);
+</PRE>
+Although the exception error policy is not currently the default one in
+E<SMALL>YE</SMALL>DB, we recommend to use it: it makes code clearer and safer.
+
+<BR>
+In the following examples we use the <TT>exception error policy</TT>
+to avoid any error management noise in the introduced C++ code.
+</LI>
+</OL>
+<H2><A NAME="SECTION00213000000000000000"></A> <A NAME="1118"></A>
+<BR>
+Database Opening
+</H2>
+To open a database one uses the <TT>eyedb::Database</TT> class as follows:
+
+<PRE>
+  const char *dbname = argv[1];
+  eyedb::Database db(dbname);
+  db.open(&amp;conn, eyedb::Database::DBRW);
+</PRE>
+
+<OL>
+<LI>as the <TT>eyedb::Connection</TT> constructor, the <TT>eyedb::Database</TT>
+constructor does not perform any actual operation: it constructs
+a runtime instance.
+</LI>
+<LI>to open a database one uses the <TT>eyedb::Database::open</TT> methods
+which takes the following arguments:
+
+<OL>
+<LI>a pointer to an opened <TT>eyedb::Connection</TT> instance.
+</LI>
+<LI>the opening flag which can be either <TT>eyedb::Database::DBRead</TT> for
+read-only opening or <TT>eyedb::Database::DBRW</TT> for read-write opening.
+
+<BR>
+Note that there are a dozen of opening modes that are introduced in
+the reference manual.
+</LI>
+<LI>the user authentication
+</LI>
+<LI>the password authentication
+</LI>
+</OL>
+The two last arguments are optionnal: if not specified, their values
+are taken from the configuration file or from the command line options
+<TT>-user=&lt;user&gt;</TT> and <TT>-passwd=&lt;passwd&gt;</TT>, or from
+the standard input when using <TT>-passwd</TT> without given value.
+</LI>
+</OL>
+Note that an E<SMALL>YE</SMALL>DB client can manage several connections and
+several databases on each connection, for instance:
+
+<PRE>
+  eyedb::Connection conn_local;
+  conn_local.open();
+  eyedb::Connection conn_remote;
+  conn_remote.open("arzal.zoo.com", 7620);
+
+  eyedb::Database db_1("foo");
+  db_1.open(&amp;conn_local, eyedb::Database::DBRW);
+
+  eyedb::Database db_2("EYEDBDBM");
+  db_2.open(&amp;conn_local, eyedb::Database::DBRead, "guest", "guest");
+
+  eyedb::Database db_3("droopy");
+  db_2.open(&amp;conn_remote, eyedb::Database::DBRW, "droopy", "xyztu");
+</PRE>
+
+<H2><A NAME="SECTION00214000000000000000"></A> <A NAME="1125"></A>
+<BR>
+Transaction Management
+</H2>
+Any object operation - storing or loading for instance -
+within a database must be done in the scope of a transaction.
+
+<BR>
+<BR>
+A transaction is an unit with atomicity, coherency and integrity.
+
+<OL>
+<LI><B>Atomicity</B> means that the transaction modifications are either
+realized (commit) or not realized at all (rollback or abort).
+</LI>
+<LI><B>Coherency</B> means that a transaction starts from a coherent database
+state, and leaves the database in a coherent state.
+</LI>
+<LI><B>Integrity</B> means that a transaction modification is not lost, even
+in case of a process, operating system or hardware failure.
+</LI>
+</OL>
+A transaction scope is composed of a starting point, <TT>transactionBegin</TT>,
+and an ending point, <TT>transactionCommit</TT> or <TT>transactionAbort</TT>:
+
+<PRE>
+  eyedb::Database db(dbname);
+  db.open(&amp;conn, eyedb::Database::DBRW);
+
+  db.transactionBegin();
+  // ... object operations
+  db.transactionCommit();
+</PRE>
+A call to <TT>eyedb::Database::transactionCommit()</TT> means that all the
+operations performed in the transaction scope will be stored in
+the database, while a call to <TT>eyedb::Database::transactionAbort()</TT> means
+that all the operations will be forgotten.
+
+<BR>
+<BR>
+Currently, E<SMALL>YE</SMALL>DB does not support nested transactions but it allows you
+to write code such as:
+
+<PRE>
+  db.transactionBegin();     // level 0 begin
+  // ... object operations
+     db.transactionBegin();  // level 1 begin
+     // ... object operations
+     db.transactionAbort();  // level 1 abort
+  // ... object operations
+  db.transactionCommit();    // level 0 commit
+</PRE>
+But the abort at level 1 is without effect: it will
+not be performed; only the commit at level 0 will be performed.
+
+<BR>
+<BR>
+One can give parameters to the transaction that one begins by setting an
+optional argument of type <TT>eyedb::TransactionParams</TT> to the
+<TT>transactionBegin</TT> method. The <TT>TransactionParams</TT> type is
+composed of the following public attributes :
+
+<OL>
+<LI>the <TT>trsmode</TT> argument controls the transaction mode,
+</LI>
+<LI>the <TT>lockmode</TT> argument controls the object lock policy,
+</LI>
+<LI>the <TT>recovmode</TT> argument controls the recovery mode,
+</LI>
+<LI>the <TT>magorder</TT> argument controls the size of the allocated
+tables for the transaction,
+</LI>
+<LI>the <TT>ratioalrt</TT> argument controls the  error returned if
+ratioalrt != 0 and trans object number &gt; ratioalrt * magorder
+</LI>
+<LI>the <TT>wait_timeout</TT> argument controls 
+wait timeout value.
+</LI>
+</OL>
+For instance :
+<PRE>
+ TransactionParams params; // create params with default values
+ params.lockmode = eyedb::ReadNWriteX; // objects are not locked for reading
+                                       // and locked exclusive for writing
+ params.magorder = 100000000; // transaction can deal with about
+                              // 100 millions of objects
+ db.transactionBegin(params);
+</PRE>
+Refer to the reference manual to get more information about these arguments.
+
+<P>
+
+<H2><A NAME="SECTION00215000000000000000"></A> <A NAME="1132"></A>
+<BR>
+Schema and Class Manipulation
+</H2>
+The E<SMALL>YE</SMALL>DB C++ API provides runtime facilities to manipulate the E<SMALL>YE</SMALL>DB 
+classes. In fact, as the class <TT>class</TT> inherits from the
+class <TT>object</TT>, E<SMALL>YE</SMALL>DB classes can be manipulated as objects.
+
+<BR>
+<BR>
+A class is composed of a list of attributes, constraints,
+variables, methods, triggers and indexes.
+
+<BR>
+<BR>
+The classes are gathered through a schema instance tied to
+each database.
+
+<BR>
+<BR>
+A class can be a system class, for instance the class <TT>class</TT>, the
+class <TT>object</TT>, the class <TT>agregat</TT> or a user class, for
+instance the class <TT>Person</TT>, the class <TT>Employee</TT>.
+
+<BR>
+<BR>
+To illustrate this object model, we are going to show how to display the
+user classes of a given database:
+
+<PRE>
+  eyedb::Database db(dbname);
+  db.open(&amp;conn, eyedb::Database::DBRW);
+
+  db.transactionBegin();
+  eyedb::LinkedListCursor c(db.getSchema()-&gt;getClassList());
+  eyedb::Class *cls;
+  while (c.getNext((void*&amp;)cls))
+    if (!cls-&gt;isSystem())
+      cout &lt;&lt; cls;
+  db.transactionCommit();
+</PRE>
+As shown here, this code is very simple:
+
+<OL>
+<LI>database opening as we have seen before.
+</LI>
+<LI>linked list cursor creation on the database schema class list.
+</LI>
+<LI>display of each class in the list which is not a system class.
+</LI>
+</OL>
+For instance, to display all the classes of type <TT>struct</TT> which contains
+an attribute named <TT>age</TT>:
+
+<PRE>
+  eyedb::LinkedListCursor c(db.getSchema-&gt;getClassList());
+  eyedb::Class *cls;
+  while (c.getNext((void*&amp;)cls))
+    if (cls-&gt;asStructClass()) {
+      int attr_cnt;
+      const eyedb::Attribute **attrs = cls-&gt;getAttributes(attr_cnt);
+      for (int i = 0; i &lt; attr_cnt; i++)
+        if (!strcmp(attrs[i]-&gt;getName(), "age")) {
+          cout &lt;&lt; cls;
+          break;
+       }
+     }
+</PRE>
+
+<H2><A NAME="SECTION00216000000000000000"></A> <A NAME="1139"></A>
+<BR>
+Object Manipulation
+</H2>
+There are two types of objects: runtime objects and database objects.
+
+<BR>
+Runtime objects are the OML (Object Manipulation Language) objects,
+for instance C++ or Java objects, while the database objects are
+the objects stored in a database.
+
+<BR>
+<BR>
+There are two types of runtime objects: persistent runtime objects and
+transient runtime objects.
+
+<BR>
+A runtime object is persistent if it is tied to a database object.
+Otherwise, it is  transient.
+
+<BR>
+<BR>
+Contrary to some other OODBMS, E<SMALL>YE</SMALL>DB does not
+provide an automatic synchronisation between persistent runtime objects
+and database objects.
+
+<BR>
+When setting values on a persistent runtime object, we do not modify
+the tied database object.
+We must call the <TT>store</TT> method on the persistent runtime object
+to update the tied database object.
+
+<BR>
+<BR>
+Note that any persistent runtime object manipulation must be done
+in the scope of a transaction.
+
+<BR>
+<BR>
+To illustrate object manipulations, we introduce a simple concrete
+example.
+This example will be used in the whole continuation of this chapter.
+
+<BR>
+<BR>
+The example is as follows:
+
+<PRE>
+//
+// person.odl
+//
+
+enum CivilState {
+  Lady = 0x10,
+  Sir  = 0x20,
+  Miss = 0x40
+};
+
+class Address {
+  attribute string street;
+  attribute string&lt;32&gt; town;
+  attribute string country;
+};
+
+class Person {
+  attribute string name;
+  attribute int age;
+  attribute Address addr;
+  attribute Address other_addrs[];
+  attribute CivilState cstate;
+  attribute Person * spouse inverse Person::spouse;
+  attribute set&lt;Car *&gt; cars inverse owner;
+  attribute array&lt;Person *&gt; children;
+
+  int change_address(in string street, in string town,
+                     out string oldstreet, out string oldtown);
+
+  static int getPersonCount();
+  index on name;
+};
+
+class Car {
+  attribute string brand;
+  attribute int num;
+  Person *owner inverse cars;
+};
+
+class Employee extends Person {
+  attribute long salary;
+};
+</PRE>
+This file is located at <SPAN  CLASS="textit">prefix</SPAN>/<TT>share/doc/eyedb/examples/C++Binding/schema-oriented/share/schema.odl</TT>.
+
+<H2><A NAME="SECTION00217000000000000000"></A> <A NAME="1142"></A>
+<BR>
+Creating Runtime Objects
+</H2>
+Using the C++ API, we cannot create directly a database object.
+We must create first a runtime object.
+
+<BR>
+To create a runtime object we invoke the <TT>newObj</TT> method
+of the object class.
+
+<BR>
+For instance, to create a runtime <TT>Person</TT> object, we need
+to invoke the <TT>newObj</TT> method of the <TT>Person</TT> runtime class
+as follows:
+
+<PRE>
+  eyedb::Class *cls = db.getSchema()-&gt;getClass("Person");
+
+  eyedb::Object *p = cls-&gt;newObj(&amp;db);
+</PRE>
+The <TT>eyedb::Class::newObj(eyedb::Database * = 0)</TT> is the class instantiation
+method for both persistent and transient object.
+
+<BR>
+A transient object is created using the <TT>newObj</TT> without any argument,
+while a persistent object is created using the same method with
+a valid database runtime pointer.
+
+<BR>
+<BR>
+Note that as long as the <TT>store</TT> method has not been called,
+the persistent runtime object is not yet tied to a database object.
+
+<BR>
+So, if we follow strictly the definition of runtime objects,
+it is not yet a persistent runtime object; but as soon as a runtime
+object is created using the <TT>newObj</TT> method with a valid database
+pointer, we will say that it is persistent.
+
+<H2><A NAME="SECTION00218000000000000000"></A> <A NAME="1144"></A>
+<BR>
+Synchronizing Runtime Objects to Database Objects
+</H2>
+When a persistent object is stored in the database using the
+<TT>store</TT> method, an unique object identifier <TT>OID</TT> is allocated
+to this object.
+
+<BR>
+This <TT>OID</TT> can be acceded using the method <TT>eyedb::Object::getOid()</TT>,
+for instance to display the allocated <TT>OID</TT>:
+
+<PRE>
+  eyedb::Object *p = cls-&gt;newObj(&amp;db);
+  cout &lt;&lt; "before storing: " &lt;&lt; p-&gt;getOid() &lt;&lt; endl;
+  p-&gt;store();
+  cout &lt;&lt; "after storing: " &lt;&lt; p-&gt;getOid() &lt;&lt; endl;
+</PRE>
+The output displayed by the previous code is something as follows:
+
+<PRE>
+before storing: NULL
+after storing: 1456.3.38475637:oid
+</PRE>
+As shown here, before the first call of the <TT>store</TT> method, the <TT>OID</TT> is
+not set; a <TT>NULL</TT> is displayed.
+
+<BR>
+The created <TT>OID</TT> is composed of three fields:
+
+<OL>
+<LI>the object number : <TT>1456</TT>
+</LI>
+<LI>the database identifier : <TT>3</TT>
+</LI>
+<LI>a magic number : <TT>38475637</TT>
+</LI>
+</OL>
+The database identifier designates, in an unique way, a database while
+the object number designates, in an unique way, an object within a database.
+
+<BR>
+The magic number, which is a random generated number, ensures more security
+in the object identification process.
+
+<H2><A NAME="SECTION00219000000000000000"></A> <A NAME="1148"></A>
+<BR>
+Setting Attribute Values to a Runtime Object
+</H2>
+Assume that we want to set a name and a age values to a <TT>Person</TT> instance.
+Here is a way to do so:
+
+<PRE>
+  eyedb::Class *cls = db.getSchema()-&gt;getClass("Person");
+  eyedb::Object *p = cls-&gt;newObj(&amp;db);
+
+  // getting attributes from class
+  const eyedb::Attribute *attr_name = cls-&gt;getAttribute("name");
+  const eyedb::Attribute *attr_age = cls-&gt;getAttribute("age");
+
+  // setting name attribute value
+  attr_name-&gt;setSize(p, strlen("john")+1);
+  attr_name-&gt;setValue(p, (eyedb::Data)"john", strlen("john")+1, 0);
+
+  // setting age attribute value
+  eyedb::_int32 age = 27;
+  attr_age-&gt;setValue(p, (eyedb::Data)&amp;age, 1, 0);
+</PRE>
+We need to do a few remarks about this code:
+
+<OL>
+<LI>to get specific named attribute within a class,
+we use the method <TT>eyedb::Class::getAttribute(const char *)</TT>.
+
+<BR>
+This method returns a pointer to an <TT>eyedb::Attribute</TT> which contains
+a complete description of this attribute: type, name, size, position and
+so on.
+</LI>
+<LI>to set an attribute value for the instance <TT>p</TT>, we
+use the method <TT>eyedb::Attribute::setValue(eyedb::Object *o, eyedb::Data data,
+int nb, int from)</TT> whose arguments are as follows:
+
+<OL>
+<LI><TT>eyedb::Object *o</TT>: the runtime object pointer to modify.
+</LI>
+<LI><TT>eyedb::Data data</TT>: the pointer to the attribute value to set.
+</LI>
+<LI><TT>int nb</TT>: for an array, the number of values to set.
+</LI>
+<LI><TT>int from</TT>: for an array, the starting index of the values to set.
+</LI>
+</OL>
+</LI>
+<LI>the <TT>eyedb::Attribute::setSize(eyedb::Object *, eyedb::Size)</TT> method is
+used for the attribute <TT>name</TT> because this attribute is of variable
+size (remember the schema description : <TT>string name</TT>).
+
+<BR>
+So, before setting the attribute value, we must set the size of this
+attribute value.
+</LI>
+<LI>remember that the database object tied to this persistent object has not
+been changed in the database: only the transient values have been changed.
+
+<BR>
+To change the database object, one needs to use the method
+<TT>eyedb::Object::store()</TT> as follows:
+
+<PRE>
+  p-&gt;store();
+</PRE>
+The <TT>store</TT> method allows you to synchonize the transient values
+of a persistent object with the database.
+
+<BR>
+<BR>
+To avoid all this class and attribute manipulation and to deal with
+direct access attribute methods, one needs to use the <TT>eyedbodl</TT>
+tool which allows you to generate specific C++ code from a specific database
+schema.
+
+<BR>
+<BR>
+For instance, using this tool, the previous code becomes:
+
+<PRE>
+  Person *p = new Person(&amp;db);
+
+  p-&gt;setName("john");
+  p-&gt;setAge(27);
+
+  p-&gt;store();
+</PRE>
+The class <TT>Person</TT>, the methods <TT>setName</TT> and <TT>setAge</TT>
+have been generated by the <TT>eyedbodl</TT> tool in a very simple way.
+
+<BR>
+Refer to the second part of this chapter <TT>the Schema-Oriented
+Generated C++ API</TT>.
+</LI>
+</OL>
+<H2><A NAME="SECTION002110000000000000000"></A> <A NAME="1154"></A>
+<BR>
+Loading Database Objects
+</H2>
+To load an object from a database, one needs to give its <TT>OID</TT> to
+the <TT>eyedb::Database::loadObject</TT> method, for instance:
+
+<PRE>
+  eyedb::Oid oid("1456.3.38475637:oid");
+  eyedb::Object *o;
+  db.loadObject(oid, o);
+  cout &lt;&lt; "object " &lt;&lt; oid &lt;&lt; " is of class " &lt;&lt; o-&gt;getClass()-&gt;getName()
+       &lt;&lt; endl;
+  cout &lt;&lt; o;
+</PRE>
+The previous code loads the object from the database, displays its
+oid and class name and displays the whole object.
+
+<H2><A NAME="SECTION002111000000000000000"></A> <A NAME="1156"></A>
+<BR>
+Getting Attribute Values from a Runtime Object
+</H2>
+The process to get attribute values from a runtime object is very similar
+to the process to set attribute values.
+
+<BR>
+For instance to get the <TT>name</TT> and <TT>age</TT> attribute values of
+the previous loaded object, one can do as follows:
+
+<PRE>
+  eyedb::Oid oid("1456.3.38475637:oid");
+  eyedb::Object *o;
+  db.loadObject(oid, o);
+
+  // getting attributes from class
+  const eyedb::Attribute *attr_name = cls-&gt;getAttribute("name");
+  const eyedb::Attribute *attr_age = cls-&gt;getAttribute("age");
+
+  // getting name attribute size
+  eyedb::Size name_length;
+  attr_name-&gt;getSize(o, name_length);
+
+  // getting name attribute value
+  char *name = new char[name_length];
+  attr_name-&gt;getValue(o, (eyedb::Data *)name, name_length, 0);
+  cout &lt;&lt; "name is : " &lt;&lt; name &lt;&lt; endl;
+  delete [] name;
+
+  // getting age attribute value
+  eyedb::_int32 age;
+  attr_age-&gt;getValue(o, (eyedb::Data *)&amp;age, 1, 0);
+  cout &lt;&lt; "age is : " &lt;&lt; age &lt;&lt; endl;
+</PRE>
+To get an attribute value we use the method
+<TT>eyedb::Attribute::getValue(const eyedb::Object *o, eyedb::Data *data,
+int nb, int from, eyedb::Bool * isnull = 0)</TT> whose arguments are as follows:
+
+<OL>
+<LI><TT>eyedb::Object *o</TT>: the runtime object pointer.
+</LI>
+<LI><TT>eyedb::Data data</TT>: the pointer to the attribute value to get: this
+pointer must be allocated correctly according to the returned value type.
+It is why we get first the size of the <TT>name</TT> attribute value to allocate
+the returned buffer with a valid size.
+</LI>
+<LI><TT>int nb</TT>: for an array, the number of values to get.
+</LI>
+<LI><TT>int from</TT>: for an array, the starting index of the values to get.
+</LI>
+<LI><TT>eyedb::Bool *isnull</TT>: an optionnal boolean to check if the attribute
+value is null (i.e. not initialized).
+</LI>
+</OL>
+If we want to get the <TT>spouse</TT> value of the loaded person,
+we must do something a little bit more complicated:
+
+<PRE>
+  eyedb::Oid oid("1456.3.38475637:oid");
+  eyedb::Object *o;
+  db.loadObject(oid, o);
+
+  // getting spouse attribute from class
+  const eyedb::Attribute *attr_spouse = cls-&gt;getAttribute("spouse");
+
+  eyedb::Oid spouse_oid;
+  attr_spouse-&gt;getOid(o, &amp;spouse_oid);
+
+  if (spouse_oid.isValid()) {
+    eyedb::Object *spouse;
+    db.loadObject(spouse_oid, spouse);
+    cout &lt;&lt; "spouse is: " &lt;&lt; spouse;
+  }
+</PRE>
+To get the <TT>spouse</TT> attribute value, we need to get first the
+<TT>spouse OID</TT> using the <TT>eyedb::Attribute::getOid</TT> method on
+the <TT>spouse</TT> attribute.
+
+<BR>
+Then, if the <TT>OID</TT> is valid, we load the <TT>spouse</TT> from the
+found <TT>OID</TT>.
+
+<BR>
+<BR>
+Once again, using the <TT>eyedbodl</TT> tool, all the previous code
+becomes very simple:
+
+<PRE>
+  eyedb::Oid oid("1456.3.38475637:oid");
+  eyedb::Object *o;
+  db.loadObject(oid, o);
+  Person *p = Person_c(o);
+
+  cout &lt;&lt; "name is : " &lt;&lt; p-&gt;getName() &lt;&lt; endl;
+  cout &lt;&lt; "age is : " &lt;&lt; p-&gt;getAge() &lt;&lt; endl;
+
+  cout &lt;&lt; "spouse is: " &lt;&lt; p-&gt;getSpouse();
+</PRE>
+
+<H2><A NAME="SECTION002112000000000000000"></A> <A NAME="1160"></A>
+<BR>
+Loading Database Objects using OQL
+</H2>
+We have seen in the previous section how to load a database object from its
+<TT>OID</TT>. The problem is that the <TT>OID</TT> is a rather
+hidden concept and there are very few chances to know an object <TT>OID</TT>
+before having loaded it.
+
+<BR>
+<BR>
+To load database objects it seems more reasonnable to use a query language
+such as OQL.
+
+<BR>
+The E<SMALL>YE</SMALL>DB C++ API allows you to perform any OQL queries using the class
+<TT>eyedb::OQL</TT>.
+
+<BR>
+For instance to get all Person whose age is less than a given value:
+
+<PRE>
+  db.transactionBegin();
+  eyedb::OQL q(&amp;db, "select Person.age &lt; %d", given_age);
+
+  eyedb::ObjectArray obj_arr(eyedb::True);
+  q.execute(obj_arr);
+  for (int i = 0; i &lt; obj_arr.getCount(); i++)
+    cout &lt;&lt; obj_arr[i];
+</PRE>
+A few remarks about this code:
+
+<OL>
+<LI>remember that any persistent runtime object manipulation must be done
+in the scope of a transaction: it is why the first statement is a call
+to the <TT>transactionBegin</TT> method. In most of the previous code examples,
+we volontary omit this call.
+</LI>
+<LI>the class <TT>eyedb::OQL</TT> is used to perform
+any OQL query. The main constructor <TT>eyedb::OQL(eyedb::Database *db, const char *fmt, ...)</TT> allows you to make an OQL query in a simple way.
+The arguments are as follows:
+
+<OL>
+<LI>the database pointer within which to perform the query.
+</LI>
+<LI>the format of the query in a <TT>sprintf</TT> style.
+</LI>
+<LI>the other arguments are the arguments related to the previous
+format.
+</LI>
+</OL>
+</LI>
+<LI>to get all the objects returned by the query, we use the
+<TT>eyedb::OQL::execute(eyedb::ObjectArray &amp;)</TT> method. This method filled
+the object array reference given as input parameter.
+</LI>
+<LI>the method <TT>eyedb::ObjectArray::getCount()</TT> returned the number
+of objects contained in an object array.
+</LI>
+<LI>the <TT>[] eyedb::ObjectArray</TT> operator has been overloaded to
+allow you to perform direct access to the contained objects: <TT>obj_arr[i]</TT> is
+the object #<TT>i</TT> within the object array.
+</LI>
+<LI>the argument <TT>eyedb::True</TT> to the <TT>eyedb::ObjectArray</TT> constructor
+means that we want that all the contained objects to be deleted
+when this object array will be deleted.
+</LI>
+</OL>
+Sometimes we want to perform a query to get only a part of some objects.
+
+<BR>
+For instance, to get the name of all persons whose age is less than
+a given value, there are two ways:
+
+<OL>
+<LI>the first one is to get all the persons whose age is less
+than the given value using an OQL query, and then get their name value
+as follows:
+
+<PRE>
+  eyedb::OQL q(&amp;db, "select Person.age &lt; %d", given_age);
+  eyedb::ObjectArray obj_arr(eyedb::True);
+  q.execute(obj_arr);
+
+  const eyedb::Attribute *attr_name = cls-&gt;getAttribute("name");
+  for (int i = 0; i &lt; obj_arr.getCount(); i++) {
+     // getting name attribute size
+    eyedb::Size name_length;
+    attr_name-&gt;getSize(obj_arr[i], name_length);
+
+    // getting name attribute value
+    char *name = new char[name_length];
+    attr_name-&gt;getValue(obj_arr[i], (eyedb::Data *)name, name_length, 0);
+    cout &lt;&lt; "name of #" &lt;&lt; i &lt;&lt; " is : " &lt;&lt; name &lt;&lt; endl;
+    delete [] name;
+  }
+</PRE>
+</LI>
+<LI>the second one is to perform directly an appropriate query as follows:
+
+<PRE>
+  eyedb::OQL q(&amp;db, "(select Person.age &lt; %d).name", given_age);
+  eyedb::ValueArray val_arr;
+
+  q.execute(val_arr);
+  for (int i = 0; i &lt; val_arr.getCount(); i++)
+    cout &lt;&lt; "name of #" &lt;&lt; i &lt;&lt; " is : " &lt;&lt; val_arr[i].str &lt;&lt; endl;
+</PRE>
+In this case, the returned value are not object values but string values.
+So we cannot use the <TT>execute(eyedb::ObjectArray&amp;)</TT> method to get
+these values but the more general form <TT>execute(eyedb::ValueArray&amp;)</TT>
+
+<BR>
+<BR>
+An <TT>eyedb::ValueArray</TT> instance is an array of <TT>eyedb::Value</TT> instances.
+The <TT>eyedb::Value</TT> class is the most general form of an OQL returned value.
+It can take the form of a integer, a string, an <TT>OID</TT>, an object and
+so on.
+
+<BR>
+<BR>
+Note that this second way is more efficient as only the person
+name are returned from the server and not the full object.
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION002113000000000000000"></A> <A NAME="1169"></A>
+<BR>
+Releasing Runtime Objects
+</H2>
+All the runtime objects which have been allocated by the client code
+or by a load or query method must be released by the client code.
+
+<BR>
+<BR>
+To release an <TT>eyedb::Object</TT> or inherited class instance, we must use
+the <TT>eyedb::Object::release()</TT> method as follows:
+
+<PRE>
+  eyedb::Object *o1 = cls-&gt;newObj();
+  // ...
+  o1-&gt;release();
+
+  eyedb::Object *o2;
+  db.loadObject(oid, o2);
+  // ...
+  o2-&gt;release();
+</PRE>
+The C++ <TT>delete</TT> operator is forbiden: if you try to use this operator
+on any <TT>eyedb::Object</TT> instance, you will get an error message at runtime.
+
+<BR>
+<BR>
+Note that if you release a persistent runtime object you do not release
+the tied database object.
+
+<BR>
+<BR>
+Refer to the section <TT>Memory Management</TT> to understand the whole
+memory policy of the C++ API.
+
+<H2><A NAME="SECTION002114000000000000000"></A> <A NAME="1171"></A>
+<BR>
+Removing Database Objects
+</H2>
+To remove a database object, we need to use the
+<TT>eyedb::Object::remove()</TT> method or the <TT>eyedb::Database::removeObject(const eyedb::Oid &amp;oid)</TT> method, for instance:
+
+<PRE>
+  db.transactionBegin();
+
+  o-&gt;remove();
+  o-&gt;release();
+
+  db.transactionCommit();
+</PRE>
+or:
+
+<PRE>
+  db.transactionBegin();
+
+  db.removeObject(oid);
+
+  db.transactionCommit();
+</PRE>
+When calling one of the previous remove methods, it is not necessary
+to call the store method after.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html166"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html162"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html156"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html164"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html167"
+  HREF="node4.html">The Schema-Oriented Generated C++</A>
+<B> Up:</B> <A NAME="tex2html163"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+<B> Previous:</B> <A NAME="tex2html157"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+ &nbsp; <B>  <A NAME="tex2html165"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

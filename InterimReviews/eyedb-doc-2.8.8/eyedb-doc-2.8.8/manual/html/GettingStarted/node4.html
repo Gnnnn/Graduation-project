@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Creating a database</TITLE>
+<META NAME="description" CONTENT="Creating a database">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html100"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html96"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html90"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html98"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html101"
+  HREF="node5.html">Defining a simple schema</A>
+<B> Up:</B> <A NAME="tex2html97"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html91"
+  HREF="node3.html">Starting the server</A>
+ &nbsp; <B>  <A NAME="tex2html99"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00220000000000000000"></A> <A NAME="753"></A>
+<BR>
+Creating a database
+</H1>
+
+<P>
+The next step is to create a database to perform our tests.
+<BR>
+<BR>
+Before creating a database, you can check that you are authorized to perform this
+operation, using the <TT>eyedbadmin</TT> command, as in:
+<PRE>
+% eyedbadmin user list
+name      : "francois" [strict unix user]
+sysaccess : SUPERUSER_SYSACCESS_MODE
+</PRE>
+If you are running the <TT>eyedbadmin</TT> command under the same
+Unix user as the one used when installing E<SMALL>YE</SMALL>DB , the command output
+will be a message like the one above, showing that you have
+<TT>superuser</TT> priviledge and are thus allowed to create a
+database.
+<BR>
+<BR>
+Creating a database is performed using the <TT>eyedbadmin</TT> tool, as in:
+
+<PRE>
+% eyedbadmin database create foo
+</PRE>
+where <TT>foo</TT> is the name of the database.
+<BR>
+<BR>
+Similarly, deleting a database is performed using the <TT>eyedbadmin</TT> tool, as in:
+
+<PRE>
+% eyedbadmin database delete foo
+</PRE>
+where <TT>foo</TT> is the name of the database.
+<BR><HR>
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

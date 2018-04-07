@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The EyeDB C++ Binding</TITLE>
+<META NAME="description" CONTENT="The EyeDB C++ Binding">
+<META NAME="keywords" CONTENT="CplusplusBinding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CplusplusBinding.css">
+
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="CplusplusBinding.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html111"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html107"
+  HREF="CplusplusBinding.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html103"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html109"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html112"
+  HREF="node3.html">The Generic C++ API</A>
+<B> Up:</B> <A NAME="tex2html108"
+  HREF="CplusplusBinding.html">CplusplusBinding</A>
+<B> Previous:</B> <A NAME="tex2html104"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html110"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00200000000000000000">
+The EyeDB C++ Binding</A>
+</H1>
+
+<P>
+The C++ binding maps the E<SMALL>YE</SMALL>DB object model into C++ by introducing
+a generic API
+and a tool to generate a speficic C++ API from a given schema,
+built upon the generic API.
+
+<BR>
+<BR>
+The generic C++ API is made up of about one hundred of classes such
+as some abstract classes as the <TT>object</TT> and <TT>class</TT> classes
+and some more concrete classes such as the <TT>database</TT> and <TT>image</TT>
+classes.
+
+<BR>
+<BR>
+Each type in the E<SMALL>YE</SMALL>DB object model is implemented as a C++ class whithin
+the C++ API: there is a one for one mapping between the object model and
+the C++ API.
+
+<BR>
+This mapping follows a very simple naming scheme: each C++ class mapped from
+a type has the name of this type prefixed by the namespace <TT>eyedb</TT>.
+
+<BR>
+For instance, the <TT>object</TT> type in the E<SMALL>YE</SMALL>DB object model is
+mapped to the <TT>eyedb::Object</TT> C++ class and the <TT>agregat</TT>
+type is mapped to the <TT>eyedb::Agregat</TT> C++ class.
+
+<BR>
+<BR>
+To avoid writing each time the full qualified type name
+(i.e. <TT>eyedb::</TT><SPAN  CLASS="textit">type</SPAN>), you may use the C++ instruction
+<TT>using namespace eyedb</TT>.
+
+<BR>
+<BR>
+We are going to introduce the main classes and methods through some simple
+examples.
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html113"
+  HREF="node3.html">The Generic C++ API</A>
+<UL>
+<LI><A NAME="tex2html114"
+  HREF="node3.html#SECTION00211000000000000000">Initialization</A>
+<LI><A NAME="tex2html115"
+  HREF="node3.html#SECTION00212000000000000000">Connection Setting-up</A>
+<LI><A NAME="tex2html116"
+  HREF="node3.html#SECTION00213000000000000000">Database Opening</A>
+<LI><A NAME="tex2html117"
+  HREF="node3.html#SECTION00214000000000000000">Transaction Management</A>
+<LI><A NAME="tex2html118"
+  HREF="node3.html#SECTION00215000000000000000">Schema and Class Manipulation</A>
+<LI><A NAME="tex2html119"
+  HREF="node3.html#SECTION00216000000000000000">Object Manipulation</A>
+<LI><A NAME="tex2html120"
+  HREF="node3.html#SECTION00217000000000000000">Creating Runtime Objects</A>
+<LI><A NAME="tex2html121"
+  HREF="node3.html#SECTION00218000000000000000">Synchronizing Runtime Objects to Database Objects</A>
+<LI><A NAME="tex2html122"
+  HREF="node3.html#SECTION00219000000000000000">Setting Attribute Values to a Runtime Object</A>
+<LI><A NAME="tex2html123"
+  HREF="node3.html#SECTION002110000000000000000">Loading Database Objects</A>
+<LI><A NAME="tex2html124"
+  HREF="node3.html#SECTION002111000000000000000">Getting Attribute Values from a Runtime Object</A>
+<LI><A NAME="tex2html125"
+  HREF="node3.html#SECTION002112000000000000000">Loading Database Objects using OQL</A>
+<LI><A NAME="tex2html126"
+  HREF="node3.html#SECTION002113000000000000000">Releasing Runtime Objects</A>
+<LI><A NAME="tex2html127"
+  HREF="node3.html#SECTION002114000000000000000">Removing Database Objects</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html128"
+  HREF="node4.html">The Schema-Oriented Generated C++ API</A>
+<UL>
+<LI><A NAME="tex2html129"
+  HREF="node4.html#SECTION00221000000000000000">Generating a Schema-Oriented C++ API</A>
+<LI><A NAME="tex2html130"
+  HREF="node4.html#SECTION00222000000000000000">The Generated Code</A>
+<LI><A NAME="tex2html131"
+  HREF="node4.html#SECTION00223000000000000000">Constructors and Copy Operator</A>
+<LI><A NAME="tex2html132"
+  HREF="node4.html#SECTION00224000000000000000">Down Casting Methods and Functions</A>
+<LI><A NAME="tex2html133"
+  HREF="node4.html#SECTION00225000000000000000">Selector Methods</A>
+<UL>
+<LI><A NAME="tex2html134"
+  HREF="node4.html#SECTION00225100000000000000">Literal Basic or User Enum Type</A>
+<LI><A NAME="tex2html135"
+  HREF="node4.html#SECTION00225200000000000000">Literal String</A>
+<LI><A NAME="tex2html136"
+  HREF="node4.html#SECTION00225300000000000000">Literal User Type</A>
+<LI><A NAME="tex2html137"
+  HREF="node4.html#SECTION00225400000000000000">Object Basic, User or System Type</A>
+<LI><A NAME="tex2html138"
+  HREF="node4.html#SECTION00225500000000000000">Object Collection Type</A>
+<LI><A NAME="tex2html139"
+  HREF="node4.html#SECTION00225600000000000000">Array Modifier</A>
+</UL>
+<LI><A NAME="tex2html140"
+  HREF="node4.html#SECTION00226000000000000000">Modidier Methods</A>
+<UL>
+<LI><A NAME="tex2html141"
+  HREF="node4.html#SECTION00226100000000000000">Literal Basic or User Enum Type</A>
+<LI><A NAME="tex2html142"
+  HREF="node4.html#SECTION00226200000000000000">Literal String</A>
+<LI><A NAME="tex2html143"
+  HREF="node4.html#SECTION00226300000000000000">Literal User Type</A>
+<LI><A NAME="tex2html144"
+  HREF="node4.html#SECTION00226400000000000000">Object Basic, User or System Type</A>
+<LI><A NAME="tex2html145"
+  HREF="node4.html#SECTION00226500000000000000">Object Collection Type</A>
+<LI><A NAME="tex2html146"
+  HREF="node4.html#SECTION00226600000000000000">Array Modifier</A>
+<LI><A NAME="tex2html147"
+  HREF="node4.html#SECTION00226700000000000000">Methods mapped from ODL methods</A>
+</UL>
+<LI><A NAME="tex2html148"
+  HREF="node4.html#SECTION00227000000000000000">Initialization</A>
+<LI><A NAME="tex2html149"
+  HREF="node4.html#SECTION00228000000000000000">Database Opening</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html150"
+  HREF="node5.html">Examples</A>
+<UL>
+<LI><A NAME="tex2html151"
+  HREF="node5.html#SECTION00231000000000000000">Generic Query Example</A>
+<LI><A NAME="tex2html152"
+  HREF="node5.html#SECTION00232000000000000000">Generic Storing Example</A>
+<LI><A NAME="tex2html153"
+  HREF="node5.html#SECTION00233000000000000000">Schema-Oriented Query Example</A>
+<LI><A NAME="tex2html154"
+  HREF="node5.html#SECTION00234000000000000000">Schema-Oriented Storing Example</A>
+<LI><A NAME="tex2html155"
+  HREF="node5.html#SECTION00235000000000000000">Simple Administration Example</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html111"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html107"
+  HREF="CplusplusBinding.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html103"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html109"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html112"
+  HREF="node3.html">The Generic C++ API</A>
+<B> Up:</B> <A NAME="tex2html108"
+  HREF="CplusplusBinding.html">CplusplusBinding</A>
+<B> Previous:</B> <A NAME="tex2html104"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html110"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,27 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Manipulating objects using OQL</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Getting started"><link rel="up" href="ch03.html" title="Chapter 3. Databases"><link rel="prev" href="ch03s04.html" title="Querying objects using the OQL interpreter"><link rel="next" href="ch03s06.html" title="Updating the database schema"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Manipulating objects using OQL</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s04.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Databases</th><td width="20%" align="right"> <a accesskey="n" href="ch03s06.html">Next</a></td></tr></table><hr></div><div class="section" title="Manipulating objects using OQL"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id300702"></a>Manipulating objects using OQL</h2></div></div></div><p>
+	The OQL interpreter can be used to manipulate object, for instance updating the attributes of objects returned by a query.
+      </p><p>First, launch an <span class="command"><strong>eyedboql</strong></span> session as in:
+      </p><div class="informalexample"><pre class="screen">
+% <strong class="userinput"><code>eyedboql -d foo -w</code></strong>
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+	</pre></div><p>
+      </p><p>
+	The database must be opened in write mode, because we are going to modify the objects stored in the database.
+      </p><p>
+	To change the <code class="varname">lastname</code> attribute of the person whose firstname is <span class="command"><strong>mary</strong></span>:
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>(select Person.firstname = "mary").lastname := "stuart";</code></strong>
+= bag("stuart")
+	  </pre></div><p>
+      </p><p>
+	To increment the <code class="varname">age</code> attribute of all persons, we use a <span class="command"><strong>for</strong></span> loop to iterate on the result of a query:
+	</p><div class="informalexample"><pre class="screen">
+? <strong class="userinput"><code>select Person.age;</code></strong>
+= bag(4, 3, 2, 68, 72)
+? <strong class="userinput"><code>for (p in (select Person)) { p.age += 1 ; };</code></strong>
+? select Person.age;
+= bag(5, 4, 3, 69, 73)
+	  </pre></div><p>
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Querying objects using the OQL interpreter </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Updating the database schema</td></tr></table></div></body></html>

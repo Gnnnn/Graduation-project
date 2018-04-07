@@ -1,0 +1,395 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Contents</TITLE>
+<META NAME="description" CONTENT="Contents">
+<META NAME="keywords" CONTENT="OQL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="OQL.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="OQL.html">
+<LINK REL="up" HREF="OQL.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html159"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html157"
+  HREF="OQL.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html151"
+  HREF="OQL.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html160"
+  HREF="node2.html">The Object Query Language</A>
+<B> Up:</B> <A NAME="tex2html158"
+  HREF="OQL.html">OQL</A>
+<B> Previous:</B> <A NAME="tex2html152"
+  HREF="OQL.html">OQL</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<BR>
+
+<H2><A NAME="SECTION00100000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><UL>
+<LI><A NAME="tex2html161"
+  HREF="node3.html">Introduction</A>
+<LI><A NAME="tex2html162"
+  HREF="node4.html">Principles</A>
+<LI><A NAME="tex2html163"
+  HREF="node5.html">OQL vs. ODMG 3 OQL</A>
+<LI><A NAME="tex2html164"
+  HREF="node6.html">Language Concepts</A>
+<LI><A NAME="tex2html165"
+  HREF="node7.html">Language Syntax</A>
+<UL>
+<LI><A NAME="tex2html166"
+  HREF="node7.html#SECTION00251000000000000000">Terminal Atom Syntax</A>
+<UL>
+<LI><A NAME="tex2html167"
+  HREF="node7.html#SECTION00251100000000000000">Integer Atom</A>
+<LI><A NAME="tex2html168"
+  HREF="node7.html#SECTION00251200000000000000">Float Atom</A>
+<LI><A NAME="tex2html169"
+  HREF="node7.html#SECTION00251300000000000000">String Atom</A>
+<LI><A NAME="tex2html170"
+  HREF="node7.html#SECTION00251400000000000000">Char Atom</A>
+<LI><A NAME="tex2html171"
+  HREF="node7.html#SECTION00251500000000000000">Boolean Atom</A>
+<LI><A NAME="tex2html172"
+  HREF="node7.html#SECTION00251600000000000000">Identifier Atom</A>
+<LI><A NAME="tex2html173"
+  HREF="node7.html#SECTION00251700000000000000">Oid Atom</A>
+<LI><A NAME="tex2html174"
+  HREF="node7.html#SECTION00251800000000000000">Object Atom</A>
+<LI><A NAME="tex2html175"
+  HREF="node7.html#SECTION00251900000000000000">Null Atom</A>
+<LI><A NAME="tex2html176"
+  HREF="node7.html#SECTION002511000000000000000">Nil Atom</A>
+</UL>
+<LI><A NAME="tex2html177"
+  HREF="node7.html#SECTION00252000000000000000">Non Terminal Atom Production</A>
+<UL>
+<LI><A NAME="tex2html178"
+  HREF="node7.html#SECTION00252100000000000000">List, Set, Bag and Array Atoms</A>
+<LI><A NAME="tex2html179"
+  HREF="node7.html#SECTION00252200000000000000">Struct Atom</A>
+</UL>
+<LI><A NAME="tex2html180"
+  HREF="node7.html#SECTION00253000000000000000">Keywords</A>
+<LI><A NAME="tex2html181"
+  HREF="node7.html#SECTION00254000000000000000">Comments</A>
+<LI><A NAME="tex2html182"
+  HREF="node7.html#SECTION00255000000000000000">Statements</A>
+<LI><A NAME="tex2html183"
+  HREF="node7.html#SECTION00256000000000000000">Expression Statements</A>
+<LI><A NAME="tex2html184"
+  HREF="node7.html#SECTION00257000000000000000">Atomic Literal Expressions</A>
+<LI><A NAME="tex2html185"
+  HREF="node7.html#SECTION00258000000000000000">Arithmetic Expressions</A>
+<UL>
+<LI><A NAME="tex2html186"
+  HREF="node7.html#SECTION00258100000000000000">Additive Expression</A>
+<LI><A NAME="tex2html187"
+  HREF="node7.html#SECTION00258200000000000000">Multiplicative, Division and Minus Expressions</A>
+<LI><A NAME="tex2html188"
+  HREF="node7.html#SECTION00258300000000000000">Shift, Mod, And, Or, XOr Expressions</A>
+<LI><A NAME="tex2html189"
+  HREF="node7.html#SECTION00258400000000000000">Sign Expressions</A>
+<LI><A NAME="tex2html190"
+  HREF="node7.html#SECTION00258500000000000000">Complement Expressions</A>
+</UL>
+<LI><A NAME="tex2html191"
+  HREF="node7.html#SECTION00259000000000000000">Assignment Expressions</A>
+<LI><A NAME="tex2html192"
+  HREF="node7.html#SECTION002510000000000000000">Auto Increment &amp; Decrement Expressions</A>
+<LI><A NAME="tex2html193"
+  HREF="node7.html#SECTION002511000000000000000">Comparison Expressions</A>
+<UL>
+<LI><A NAME="tex2html194"
+  HREF="node7.html#SECTION002511100000000000000">Equal and NotEqual Expressions</A>
+<LI><A NAME="tex2html195"
+  HREF="node7.html#SECTION002511200000000000000">Less and Greater Expressions</A>
+<LI><A NAME="tex2html196"
+  HREF="node7.html#SECTION002511300000000000000">Regular Expression Operators</A>
+</UL>
+<LI><A NAME="tex2html197"
+  HREF="node7.html#SECTION002512000000000000000">Logical Expressions</A>
+<LI><A NAME="tex2html198"
+  HREF="node7.html#SECTION002513000000000000000">Conditional Expression</A>
+<LI><A NAME="tex2html199"
+  HREF="node7.html#SECTION002514000000000000000">Expression Sequences</A>
+<LI><A NAME="tex2html200"
+  HREF="node7.html#SECTION002515000000000000000">Array Deferencing</A>
+<UL>
+<LI><A NAME="tex2html201"
+  HREF="node7.html#SECTION002515100000000000000">Single Deferencing</A>
+<LI><A NAME="tex2html202"
+  HREF="node7.html#SECTION002515200000000000000">Range Deferencing</A>
+</UL>
+<LI><A NAME="tex2html203"
+  HREF="node7.html#SECTION002516000000000000000">Identifier Expressions</A>
+<UL>
+<LI><A NAME="tex2html204"
+  HREF="node7.html#SECTION002516100000000000000">:: Operator</A>
+<LI><A NAME="tex2html205"
+  HREF="node7.html#SECTION002516200000000000000">isset Operator</A>
+<LI><A NAME="tex2html206"
+  HREF="node7.html#SECTION002516300000000000000">unset Operator</A>
+<LI><A NAME="tex2html207"
+  HREF="node7.html#SECTION002516400000000000000">refof Operator</A>
+<LI><A NAME="tex2html208"
+  HREF="node7.html#SECTION002516500000000000000">valof Operator</A>
+<LI><A NAME="tex2html209"
+  HREF="node7.html#SECTION002516600000000000000">scopeof Operator</A>
+<LI><A NAME="tex2html210"
+  HREF="node7.html#SECTION002516700000000000000">push Operator</A>
+<LI><A NAME="tex2html211"
+  HREF="node7.html#SECTION002516800000000000000">pop Operator</A>
+</UL>
+<LI><A NAME="tex2html212"
+  HREF="node7.html#SECTION002517000000000000000">Path Expressions</A>
+<LI><A NAME="tex2html213"
+  HREF="node7.html#SECTION002518000000000000000">Function Call</A>
+<LI><A NAME="tex2html214"
+  HREF="node7.html#SECTION002519000000000000000">Method Invocation</A>
+<UL>
+<LI><A NAME="tex2html215"
+  HREF="node7.html#SECTION002519100000000000000">Instance Method Invocation</A>
+<LI><A NAME="tex2html216"
+  HREF="node7.html#SECTION002519200000000000000">Class Method Invocation</A>
+</UL>
+<LI><A NAME="tex2html217"
+  HREF="node7.html#SECTION002520000000000000000">Eval/Unval Operators</A>
+<UL>
+<LI><A NAME="tex2html218"
+  HREF="node7.html#SECTION002520100000000000000">eval Operator</A>
+<LI><A NAME="tex2html219"
+  HREF="node7.html#SECTION002520200000000000000">unval Operator</A>
+</UL>
+<LI><A NAME="tex2html220"
+  HREF="node7.html#SECTION002521000000000000000">Set Expressions</A>
+<UL>
+<LI><A NAME="tex2html221"
+  HREF="node7.html#SECTION002521100000000000000">union Operator</A>
+<LI><A NAME="tex2html222"
+  HREF="node7.html#SECTION002521200000000000000">intersect Operator</A>
+<LI><A NAME="tex2html223"
+  HREF="node7.html#SECTION002521300000000000000">except Operator</A>
+<LI><A NAME="tex2html224"
+  HREF="node7.html#SECTION002521400000000000000">Inclusion Operators</A>
+</UL>
+<LI><A NAME="tex2html225"
+  HREF="node7.html#SECTION002522000000000000000">Object Creation</A>
+<LI><A NAME="tex2html226"
+  HREF="node7.html#SECTION002523000000000000000">Object Deletion</A>
+<LI><A NAME="tex2html227"
+  HREF="node7.html#SECTION002524000000000000000">Collection Expressions</A>
+<UL>
+<LI><A NAME="tex2html228"
+  HREF="node7.html#SECTION002524100000000000000">contents Operator</A>
+<LI><A NAME="tex2html229"
+  HREF="node7.html#SECTION002524200000000000000">in Operator</A>
+<LI><A NAME="tex2html230"
+  HREF="node7.html#SECTION002524300000000000000">add/to Operator</A>
+<LI><A NAME="tex2html231"
+  HREF="node7.html#SECTION002524400000000000000">[] Operator</A>
+<LI><A NAME="tex2html232"
+  HREF="node7.html#SECTION002524500000000000000">[:] Operator</A>
+<LI><A NAME="tex2html233"
+  HREF="node7.html#SECTION002524600000000000000">[?] Operator</A>
+<LI><A NAME="tex2html234"
+  HREF="node7.html#SECTION002524700000000000000">append/to Operator</A>
+<LI><A NAME="tex2html235"
+  HREF="node7.html#SECTION002524800000000000000">suppress/from Operator</A>
+<LI><A NAME="tex2html236"
+  HREF="node7.html#SECTION002524900000000000000">empty Operator</A>
+<LI><A NAME="tex2html237"
+  HREF="node7.html#SECTION0025241000000000000000">in Operator</A>
+<LI><A NAME="tex2html238"
+  HREF="node7.html#SECTION0025241100000000000000">for Operator</A>
+</UL>
+<LI><A NAME="tex2html239"
+  HREF="node7.html#SECTION002525000000000000000">Exception Expressions</A>
+<LI><A NAME="tex2html240"
+  HREF="node7.html#SECTION002526000000000000000">Function Definition Expressions</A>
+<LI><A NAME="tex2html241"
+  HREF="node7.html#SECTION002527000000000000000">Conversion Expressions</A>
+<UL>
+<LI><A NAME="tex2html242"
+  HREF="node7.html#SECTION002527100000000000000">string operator</A>
+<LI><A NAME="tex2html243"
+  HREF="node7.html#SECTION002527200000000000000">int operator</A>
+<LI><A NAME="tex2html244"
+  HREF="node7.html#SECTION002527300000000000000">char operator</A>
+<LI><A NAME="tex2html245"
+  HREF="node7.html#SECTION002527400000000000000">float operator</A>
+<LI><A NAME="tex2html246"
+  HREF="node7.html#SECTION002527500000000000000">oid operator</A>
+<LI><A NAME="tex2html247"
+  HREF="node7.html#SECTION002527600000000000000">ident operator</A>
+</UL>
+<LI><A NAME="tex2html248"
+  HREF="node7.html#SECTION002528000000000000000">Type Information Expressions</A>
+<UL>
+<LI><A NAME="tex2html249"
+  HREF="node7.html#SECTION002528100000000000000">typeof operator</A>
+<LI><A NAME="tex2html250"
+  HREF="node7.html#SECTION002528200000000000000">classof operator</A>
+<LI><A NAME="tex2html251"
+  HREF="node7.html#SECTION002528300000000000000">typeof operator</A>
+</UL>
+<LI><A NAME="tex2html252"
+  HREF="node7.html#SECTION002529000000000000000">Query Expressions</A>
+<UL>
+<LI><A NAME="tex2html253"
+  HREF="node7.html#SECTION002529100000000000000">ODMG vs. EYEDB OQL Query Expressions</A>
+<LI><A NAME="tex2html254"
+  HREF="node7.html#SECTION002529200000000000000">The general select syntax</A>
+<LI><A NAME="tex2html255"
+  HREF="node7.html#SECTION002529300000000000000">Arrays and collections in query expressions</A>
+<LI><A NAME="tex2html256"
+  HREF="node7.html#SECTION002529400000000000000">The Implicit select syntax</A>
+<LI><A NAME="tex2html257"
+  HREF="node7.html#SECTION002529500000000000000">Querying the schema</A>
+<LI><A NAME="tex2html258"
+  HREF="node7.html#SECTION002529600000000000000">How queries are optimized?</A>
+</UL>
+<LI><A NAME="tex2html259"
+  HREF="node7.html#SECTION002530000000000000000">Miscellenaous Expressions</A>
+<UL>
+<LI><A NAME="tex2html260"
+  HREF="node7.html#SECTION002530100000000000000">bodyof operator</A>
+<LI><A NAME="tex2html261"
+  HREF="node7.html#SECTION002530200000000000000">structof operator</A>
+<LI><A NAME="tex2html262"
+  HREF="node7.html#SECTION002530300000000000000">[!] operator</A>
+<LI><A NAME="tex2html263"
+  HREF="node7.html#SECTION002530400000000000000">import operator</A>
+</UL>
+<LI><A NAME="tex2html264"
+  HREF="node7.html#SECTION002531000000000000000">Selection Statements</A>
+<LI><A NAME="tex2html265"
+  HREF="node7.html#SECTION002532000000000000000">Iteration Statements</A>
+<UL>
+<LI><A NAME="tex2html266"
+  HREF="node7.html#SECTION002532100000000000000">while statement</A>
+<LI><A NAME="tex2html267"
+  HREF="node7.html#SECTION002532200000000000000">do/while statement</A>
+<LI><A NAME="tex2html268"
+  HREF="node7.html#SECTION002532300000000000000">C-for statement</A>
+<LI><A NAME="tex2html269"
+  HREF="node7.html#SECTION002532400000000000000">collection-for statement</A>
+</UL>
+<LI><A NAME="tex2html270"
+  HREF="node7.html#SECTION002533000000000000000">Jump Statements</A>
+<UL>
+<LI><A NAME="tex2html271"
+  HREF="node7.html#SECTION002533100000000000000">break Statement</A>
+<LI><A NAME="tex2html272"
+  HREF="node7.html#SECTION002533200000000000000">return Statement</A>
+</UL>
+<LI><A NAME="tex2html273"
+  HREF="node7.html#SECTION002534000000000000000">Function Definition Statements</A>
+<UL>
+<LI><A NAME="tex2html274"
+  HREF="node7.html#SECTION002534100000000000000">Argument Types/Return Type</A>
+<LI><A NAME="tex2html275"
+  HREF="node7.html#SECTION002534200000000000000">Arguments in, out and inout</A>
+<LI><A NAME="tex2html276"
+  HREF="node7.html#SECTION002534300000000000000">Return Value</A>
+<LI><A NAME="tex2html277"
+  HREF="node7.html#SECTION002534400000000000000">Default Arguments</A>
+<LI><A NAME="tex2html278"
+  HREF="node7.html#SECTION002534500000000000000">Unval Arguments</A>
+<LI><A NAME="tex2html279"
+  HREF="node7.html#SECTION002534600000000000000">Scope of Variables</A>
+<LI><A NAME="tex2html280"
+  HREF="node7.html#SECTION002534700000000000000">Recursivity</A>
+<LI><A NAME="tex2html281"
+  HREF="node7.html#SECTION002534800000000000000">Particularity</A>
+<LI><A NAME="tex2html282"
+  HREF="node7.html#SECTION002534900000000000000">The oql$functions Variable</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html283"
+  HREF="node8.html">Quick Reference Manual</A>
+<UL>
+<LI><A NAME="tex2html284"
+  HREF="node8.html#SECTION00261000000000000000">Builtin and Library Functions and Methods</A>
+<UL>
+<LI><A NAME="tex2html285"
+  HREF="node8.html#SECTION00261100000000000000">Type Predicat Functions</A>
+<LI><A NAME="tex2html286"
+  HREF="node8.html#SECTION00261200000000000000">Collection Conversion Functions</A>
+<LI><A NAME="tex2html287"
+  HREF="node8.html#SECTION00261300000000000000">Sort Functions</A>
+<LI><A NAME="tex2html288"
+  HREF="node8.html#SECTION00261400000000000000">Collection Miscelleanous Functions</A>
+<LI><A NAME="tex2html289"
+  HREF="node8.html#SECTION00261500000000000000">String Function Functions</A>
+<LI><A NAME="tex2html290"
+  HREF="node8.html#SECTION00261600000000000000">Query Functions</A>
+<LI><A NAME="tex2html291"
+  HREF="node8.html#SECTION00261700000000000000">Useful Functions</A>
+<LI><A NAME="tex2html292"
+  HREF="node8.html#SECTION00261800000000000000">Native Methods of the Class object</A>
+<LI><A NAME="tex2html293"
+  HREF="node8.html#SECTION00261900000000000000">Native Methods of the Class connection</A>
+<LI><A NAME="tex2html294"
+  HREF="node8.html#SECTION002611000000000000000">Native Methods of the Class database</A>
+<LI><A NAME="tex2html295"
+  HREF="node8.html#SECTION002611100000000000000">Native Methods of the Class EyeDB</A>
+</UL>
+<LI><A NAME="tex2html296"
+  HREF="node8.html#SECTION00262000000000000000">Special Variables</A>
+<LI><A NAME="tex2html297"
+  HREF="node8.html#SECTION00263000000000000000">The eyedboql Tool</A>
+<UL>
+<LI><A NAME="tex2html298"
+  HREF="node8.html#SECTION00263100000000000000">Running eyedboql</A>
+<LI><A NAME="tex2html299"
+  HREF="node8.html#SECTION00263200000000000000">Executing Statements</A>
+<LI><A NAME="tex2html300"
+  HREF="node8.html#SECTION00263300000000000000">Execution Process</A>
+<LI><A NAME="tex2html301"
+  HREF="node8.html#SECTION00263400000000000000">Getting Started</A>
+<LI><A NAME="tex2html302"
+  HREF="node8.html#SECTION00263500000000000000">Command Line Options</A>
+</UL>
+<LI><A NAME="tex2html303"
+  HREF="node8.html#SECTION00264000000000000000">The Standard Library Package</A>
+<LI><A NAME="tex2html304"
+  HREF="node8.html#SECTION00265000000000000000">OQL Quick Reference Card</A>
+</UL></UL></UL>
+<!--End of Table of Contents-->
+<P>
+<BR><HR>
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

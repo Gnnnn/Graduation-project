@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Creating and updating objects with the OQL interpreter</TITLE>
+<META NAME="description" CONTENT="Creating and updating objects with the OQL interpreter">
+<META NAME="keywords" CONTENT="GettingStarted">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="GettingStarted.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html124"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html120"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html114"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html122"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html125"
+  HREF="node7.html">Querying objects using the</A>
+<B> Up:</B> <A NAME="tex2html121"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html115"
+  HREF="node5.html">Defining a simple schema</A>
+ &nbsp; <B>  <A NAME="tex2html123"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00240000000000000000"></A> <A NAME="760"></A>
+<BR>
+Creating and updating objects with the OQL interpreter
+</H1>
+
+<P>
+Once a schema has been created in the database, we can create and update
+<TT>Person</TT> and <TT>Employee</TT> instances.
+<BR>
+<BR>
+Using the <TT>eyedboql</TT> monitor, we are going to perform the following
+operations:
+
+<OL>
+<LI>create a person named ``john wayne''
+</LI>
+<LI>create a person named ``mary poppins''
+</LI>
+<LI>mary them
+</LI>
+<LI>create 3 ``john wayne'' children named ``baby1'', ``baby2'' and ``baby3''
+</LI>
+</OL>
+
+<P>
+Here is the way to perform the first three step:
+<PRE>
+% eyedboql -d foo -w
+Welcome to eyedboql.
+  Type `\help' to display the command list.
+  Type `\copyright' to display the copyright.
+? john := Person(firstname : "john", lastname : "wayne", age : 72);
+= 2585.2.196439:oid
+? mary := Person(firstname : "mary", lastname : "poppins", age : 68);
+= 2587.2.702511:oid
+? john.spouse := mary;
+= 2587.2.702511:oid
+</PRE>
+Note the <TT>-w</TT> option on the <TT>eyedboql</TT> command line, specifying that you open the <TT>foo</TT> database in write mode.
+<BR>
+<BR>
+A few comments:
+  - <TT>?</TT> is the <TT>eyedboql</TT> prompt: of course, do not type
+this string!
+  - <TT>:=</TT> is the affectation operator.
+  - each time you create an object, its identifier (<TT>oid</TT>) is displayed
+on your terminal.
+  - because of the relationship integrity constraint on the <TT>spouse</TT>
+attribute, the operation <TT>john.spouse := mary</TT> is equivalent to
+<TT>mary.spouse := john</TT>.
+<BR>
+<BR>
+To create the three ``john wayne'' children:
+<PRE>
+? add Person(firstname : "baby1", age : 2) to john-&gt;children;
+= 2589.2.36448:oid
+? add Person(firstname : "baby2", age : 3) to john-&gt;children;
+= 2595.2.683802:oid
+? add Person(firstname : "baby3", age : 4) to john-&gt;children;
+= 2597.2.134950:oid
+</PRE>
+
+<P>
+At this stage, it is interesting to perform the following operation:
+in another terminal, launch another <TT>eyedboql</TT> command on the same database <TT>foo</TT> and query all persons, as follows:
+<PRE>
+% eyedboql -d foo -w -c "select Person;"
+= bag()
+</PRE>
+It may seem surprising that no person instance is returned, but in fact it is not: each interaction with the database occurs within a <SPAN  CLASS="textit">transaction</SPAN>, and as long as this transaction has not been <SPAN  CLASS="textit">committed</SPAN>, the database is not modified by the operations that have been done since the beginning of the transaction. To perform effectively these operations, you must <SPAN  CLASS="textit">commit</SPAN> the transaction, by typing in the first <TT>eyedboql</TT> session:
+<PRE>
+? \commit
+</PRE>
+If you now query the person instances in your second <TT>eyedboql</TT>
+session, the five person instances will be returned:
+<PRE>
+eyedboql -d foo -w -c "select Person;"
+= bag(2597.2.134950:oid, 2595.2.683802:oid, 2589.2.36448:oid, 2587.2.702511:oid, 2585.2.196439:oid)
+</PRE>
+You can now quit the first <TT>eyedboql</TT> session with the following command:
+<PRE>
+? \quit
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html124"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html120"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html114"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html122"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html125"
+  HREF="node7.html">Querying objects using the</A>
+<B> Up:</B> <A NAME="tex2html121"
+  HREF="node2.html">Getting Started</A>
+<B> Previous:</B> <A NAME="tex2html115"
+  HREF="node5.html">Defining a simple schema</A>
+ &nbsp; <B>  <A NAME="tex2html123"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

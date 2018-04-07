@@ -1,0 +1,212 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Managing indexes</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch06.html" title="Chapter 6. Database tuning"><link rel="prev" href="ch06.html" title="Chapter 6. Database tuning"><link rel="next" href="ch06s03.html" title="Managing collections"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Managing indexes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Database tuning</th><td width="20%" align="right"> <a accesskey="n" href="ch06s03.html">Next</a></td></tr></table><hr></div><div class="section" title="Managing indexes"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id538551"></a>Managing indexes</h2></div></div></div><p>
+	As a relational database management system does, EyeDB provides indexes to improve drastically the time needed to retrieve an objet in a database and to improve therefore the performances of queries.
+      </p><p>
+	EyeDB supports two types of indexes, hash and b-trees. 
+      </p><p>
+	As the description of indexes management needs that the database has a <span class="emphasis"><em>schema</em></span>, the ODL database schema given in <a class="xref" href="ch06s02.html#eyedbadmin-index-odl-example" title="Example 6.2. The ODL database schema">Example 6.2, “The ODL database schema”</a> will be used in the index administration commands examples.
+      </p><div class="example"><a name="eyedbadmin-index-odl-example"></a><p class="title"><b>Example 6.2. The ODL database schema</b></p><div class="example-contents"><pre class="programlisting">
+class Address {
+  attribute int number;
+  attribute string street;
+  attribute string town;
+  attribute int code;
+};
+
+class Person {
+  attribute string firstName;
+  attribute string lastName;
+  attribute int age;
+  attribute Address addr;
+};
+</pre></div></div><br class="example-break"><div class="example"><a name="eyedbadmin-index-odl"></a><p class="title"><b>Example 6.3. Indexes: updating the schema</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin database create test_index</code></strong>
+<strong class="userinput"><code>eyedbodl -u -d test_index test_index.odl</code></strong>
+Updating 'test' schema in database test...
+Adding class Address
+Adding class Person
+
+Done
+	</pre></div></div><br class="example-break"><div class="section" title="Creating and deleting indexes"><div class="titlepage"><div><div><h3 class="title"><a name="id564424"></a>Creating and deleting indexes</h3></div></div></div><p>
+	  Creating an index is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">index create</code>  [options] {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>attribute_path</code></em>} [<em class="replaceable"><code>hints</code></em>]</p></div><p>
+	</p><p>
+	  Options are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --propagate=[ on  |   off ] </p></div><p>
+		propagation mode
+	      </p><p>
+		</p><div class="cmdsynopsis"><p> --type=<em class="replaceable"><code>type</code></em> </p></div><p>
+		index type (supported types are: hash, btree)
+	      </p></li></ul></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>attribute_path</code></em>}</p></div><p>
+		the path of the attribute on which the index is to be created
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>hints</code></em>}</p></div><p>
+		index hints, i.e. index configuration values that are implementation specific
+	      </p></li></ul></div><p>
+	</p><p>
+	  An attribute path is an expression built using the <span class="emphasis"><em>.</em></span> (dot) operator and class names or attribute names.
+	</p><div class="example"><a name="eyedbadmin-index-paths"></a><p class="title"><b>Example 6.4. Examples of attribute paths</b></p><div class="example-contents"><pre class="programlisting">
+Person.firstName
+Person.age
+Address.number
+Person.addr.town
+</pre></div></div><br class="example-break"><div class="example"><a name="eyedbadmin-index-create"></a><p class="title"><b>Example 6.5. <span class="command">eyedbadmin</span> index create</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin index create test_index Person.age</code></strong>
+Creating btree index on Person.age
+<strong class="userinput"><code>eyedbadmin index create test_index Person.addr.town</code></strong>
+Creating hash index on Person.addr.town
+<strong class="userinput"><code>eyedbadmin index create test_index Person.addr.number</code></strong>
+Creating btree index on Person.addr.number
+<strong class="userinput"><code>eyedbadmin index create --type=hash test_index Person.addr.code</code></strong>
+Creating hash index on Person.addr.code
+	  </pre></div></div><br class="example-break"><p>
+	  Deleting an index is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">index delete</code>  {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>attribute_path</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>attribute_path</code></em>}</p></div><p>
+		the path of the attribute on which the index is to be created
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-index-delete"></a><p class="title"><b>Example 6.6. <span class="command">eyedbadmin</span> index delete</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin index delete test_index Person.addr.number</code></strong>
+Deleting index Person.addr.number
+<strong class="userinput"><code>eyedbadmin index delete test_index Person.addr.street</code></strong>
+eyedbadmin: index 'Person.addr.street' not found
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Listing, updating and moving indexes"><div class="titlepage"><div><div><h3 class="title"><a name="id576694"></a>Listing, updating and moving indexes</h3></div></div></div><p>
+	  Listing indexes is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">index list</code>  [options] {<em class="replaceable"><code>database</code></em>} [[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]]</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]]</p></div><p>
+		the index to be listed, specified either as an attribute path or as a class name
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-index-list"></a><p class="title"><b>Example 6.7. <span class="command">eyedbadmin</span> index list</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin index list test_index</code></strong>
+btree index on Person.age
+hash index on Person.addr.town
+hash index on Person.addr.code
+<strong class="userinput"><code>eyedbadmin index list test_index Person</code></strong>
+btree index on Person.age
+hash index on Person.addr.town
+hash index on Person.addr.code
+<strong class="userinput"><code>eyedbadmin index list test_index Person.age</code></strong>
+btree index on Person.age
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Getting statistics on indexes"><div class="titlepage"><div><div><h3 class="title"><a name="id576889"></a>Getting statistics on indexes</h3></div></div></div><p>
+	  Getting statistics on indexes is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">index stats</code>  [options] {<em class="replaceable"><code>database</code></em>} [[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]]</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]]</p></div><p>
+		the index on which to print statistics, specified either as an attribute path or as a class name
+	      </p></li></ul></div><p>
+	</p><p>
+	  Options are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --full </p></div><p>
+		displays all index entries statistics
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p> --format=<em class="replaceable"><code>format</code></em> </p></div><p>
+		statistics format; <em class="replaceable"><code>format</code></em> is a printf-like string where:
+		</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>%n denotes the number of keys</p></li><li class="listitem"><p>%O denotes the count of object entries for this key</p></li><li class="listitem"><p>%o denotes the count of hash objects for this key</p></li><li class="listitem"><p>%s denotes the size of hash objects for this key</p></li><li class="listitem"><p>%b denotes the busy size of hash objects for this key</p></li><li class="listitem"><p>%f denotes the free size of hash objects for this key</p></li></ul></div><p>
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-index-stats"></a><p class="title"><b>Example 6.8. <span class="command">eyedbadmin</span> index statistics</b></p><div class="example-contents"><pre class="screen">
+<strong class="userinput"><code>eyedbadmin index stats --full test_index</code></strong>
+    Total hash object count: 1
+    Total hash object size: 98376B, ~96KB
+    Total hash object busy size: 0B
+    Total hash object free size: 98376B, ~96KB
+    Busy entry count: 0
+    Free entry count: 4096
+...
+<strong class="userinput"><code>eyedbadmin index stats '--format=%n %O\n' test_index Person.addr.code</code></strong>
+4090 0
+4091 0
+4092 0
+4093 0
+4094 0
+4095 0
+...
+<strong class="userinput"><code>eyedbadmin index stats '--format=%n -&gt; %O, %o, %s\n' test_index Person.addr.town</code></strong>
+4090 -&gt; 0, 0, 0
+4091 -&gt; 0, 0, 0
+4092 -&gt; 0, 0, 0
+4093 -&gt; 0, 0, 0
+4094 -&gt; 0, 0, 0
+4095 -&gt; 0, 0, 0
+...
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Getting and setting index default dataspace"><div class="titlepage"><div><div><h3 class="title"><a name="id577172"></a>Getting and setting index default dataspace</h3></div></div></div><p>
+	  An index has a <span class="emphasis"><em>default dataspace</em></span> (see <a class="xref" href="ch05.html" title="Chapter 5. Database advanced administration">Chapter 5, <i>Database advanced administration</i></a>). This default dataspace determines in which dataspace index data will be inserted when index is updated, for instance when objects are inserted into the database.
+	</p><p>
+	   Getting index default dataspace is done using command <span class="command"><strong>eyedbadmin index getdefdsp</strong></span>:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin index getdefdsp</code>  {<em class="replaceable"><code>database</code></em>} {[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]]</p></div><p>
+		the index on which to print statistics, specified either as an attribute path or as a class name
+	      </p></li></ul></div><p>
+	</p><p>
+	   Setting index default dataspace is done using command <span class="command"><strong>eyedbadmin index setdefdsp</strong></span>:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin index setdefdsp</code>  {<em class="replaceable"><code>database</code></em>} [[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]] {<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		the database
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>[[{<em class="replaceable"><code>attribute_path</code></em>} |  {<em class="replaceable"><code>class_name</code></em>}]]</p></div><p>
+		the index on which to print statistics, specified either as an attribute path or as a class name
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>dataspace</code></em>}</p></div><p>
+		the name of the dataspace to be created
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-index-getdefdsp-setdefdsp"></a><p class="title"><b>Example 6.9. <span class="command">eyedbadmin</span> index getdefdsp/setdefdsp</b></p><div class="example-contents"><pre class="screen">
+# get default dataspace for index on Person.age
+<strong class="userinput"><code>eyedbadmin index getdefdsp test_index Person.age</code></strong>
+Default dataspace for index 'Person.age':
+  Dataspace #0 (default)
+   Name DEFAULT
+   Composed of {
+     Datafile #0
+       Name DEFAULT
+       File test_index.dat
+   }
+# create a datafile
+<strong class="userinput"><code>eyedbadmin datafile create --name=DAT1 test_index test_index_data1.dat</code></strong>
+# create a dataspace containing this file
+<strong class="userinput"><code>eyedbadmin dataspace create test_index DSP1 DAT1</code></strong>
+# set default dataspace for index on Person.age
+<strong class="userinput"><code>eyedbadmin index setdefdsp test_index Person.age DSP1</code></strong>
+# get default dataspace for index on Person.age
+<strong class="userinput"><code>eyedbadmin index getdefdsp test_index Person.age</code></strong>
+Default dataspace for index 'Person.age':
+  Dataspace #1
+   Name DSP1
+   Composed of {
+     Datafile #1
+       Name DAT1
+       File test_index_data1.dat
+   }
+	  </pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. Database tuning </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Managing collections</td></tr></table></div></body></html>

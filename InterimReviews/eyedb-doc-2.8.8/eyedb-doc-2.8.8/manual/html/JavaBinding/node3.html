@@ -1,0 +1,920 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Getting Started</TITLE>
+<META NAME="description" CONTENT="Getting Started">
+<META NAME="keywords" CONTENT="JavaBinding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="JavaBinding.css">
+
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="node2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html64"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html62"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html66"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html65"
+  HREF="node2.html">The Java Binding</A>
+<B> Previous:</B> <A NAME="tex2html63"
+  HREF="node2.html">The Java Binding</A>
+ &nbsp; <B>  <A NAME="tex2html67"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html68"
+  HREF="node3.html#SECTION00211000000000000000">Programming Steps</A>
+<LI><A NAME="tex2html69"
+  HREF="node3.html#SECTION00212000000000000000">The ODL Schema</A>
+<LI><A NAME="tex2html70"
+  HREF="node3.html#SECTION00213000000000000000">Compiling the ODL Schema</A>
+<LI><A NAME="tex2html71"
+  HREF="node3.html#SECTION00214000000000000000">The Java produced</A>
+<LI><A NAME="tex2html72"
+  HREF="node3.html#SECTION00215000000000000000">Compiling the Java stubs</A>
+<LI><A NAME="tex2html73"
+  HREF="node3.html#SECTION00216000000000000000">Writing a Client</A>
+<LI><A NAME="tex2html74"
+  HREF="node3.html#SECTION00217000000000000000">Compiling the client</A>
+<LI><A NAME="tex2html75"
+  HREF="node3.html#SECTION00218000000000000000">Updating the schema</A>
+<LI><A NAME="tex2html76"
+  HREF="node3.html#SECTION00219000000000000000">Running the client</A>
+<LI><A NAME="tex2html77"
+  HREF="node3.html#SECTION002110000000000000000">An advanced example</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00210000000000000000"></A> <A NAME="650"></A>
+<BR>
+Getting Started
+</H1>
+We will introduce the Java binding through a simple example of
+defining an ODL schema, generating the java stubs and then writing
+a client program.
+We will explain only what is necessary to understand the example
+to avoid begin swamped by unnecessary details.
+
+<BR>
+<BR>
+The example that we will develop in this section is the same that
+has been developped in the C++ binding chapter, a couple of classes
+<TT>Person</TT> and <TT>Car</TT>.
+
+<H2><A NAME="SECTION00211000000000000000"></A> <A NAME="652"></A>
+<BR>
+Programming Steps
+</H2>
+The following programming steps are typically required to write a Java
+client program dealing with the given schema:
+
+<OL>
+<LI>Define the schema, using the E<SMALL>YE</SMALL>DB Object Definition Language.
+</LI>
+<LI>Generate the Java stubs, using the <B>eyedbodl</B> tool.
+</LI>
+<LI>Write a client program using the generated Java package.
+</LI>
+</OL>
+We will illustrate these steps in the remainder of this chapter.
+
+<H2><A NAME="SECTION00212000000000000000"></A> <A NAME="655"></A>
+<BR>
+The ODL Schema
+</H2>
+The ODL schema for our application can be described as follows:
+
+<P>
+<PRE>
+/* person.odl */
+
+class Person {
+  string name;
+  int age;
+  Person *spouse inverse Person::spouse;
+  Person *father;
+  set&lt;Person *&gt; children inverse Person::father;
+  set&lt;Car *&gt; cars inverse Car::owner;
+
+  index on name;
+  index on age;
+  constraint&lt;notnull&gt; on name;
+  constraint&lt;unique&gt; on name;
+};
+
+class Car {
+  string brand;
+  int num;
+  Person *owner inverse Person::cars;
+
+  index on brand;
+  index on num;
+};
+</PRE>
+This schema describes two classes <TT>Person</TT> and <TT>Car</TT>, one 1 to 1
+relationship (attribute <TT>spouse</TT> in class <TT>Person</TT>) and two 1 to many
+relationships (from <TT>Person::father</TT> to <TT>Person::children</TT>
+and from <TT>Car::owner</TT> to <TT>Person::cars</TT>).
+
+<P>
+
+<H2><A NAME="SECTION00213000000000000000"></A> <A NAME="657"></A>
+<BR>
+Compiling the ODL Schema
+</H2>
+The ODL schema must be compiled, both to check the schema and to bind
+it into some Java code so that it can be used in a client program.
+
+<BR>
+<BR>
+The <TT>person.odl</TT> file can be compiled using the following command:
+<PRE>
+eyedbodl --gencode=JAVA --package=person person.odl
+</PRE>
+or :
+<PRE>
+eyedbodl --gencode=JAVA --package=person -d person
+</PRE>
+The <TT>eyedbodl</TT> tool contains a lot of command line options to
+control the generated code.
+
+<BR>
+<BR>
+There are two mandatory options:
+<BR><PRE><TT>
+<SPAN  CLASS="textit">odlfile</SPAN><TT>|</TT>-<TT>|-d</TT> <SPAN  CLASS="textit">dbname</SPAN><TT>|-database=</TT><SPAN  CLASS="textit">dbname</SPAN> : Input ODL file (or - for standard input) or the database name
+<BR><TT>-package=</TT><SPAN  CLASS="textit">package</SPAN> 		 : 		 Package name
+<BR>
+</TT></PRE>
+and some optionnal options:
+<PRE><TT>
+<TT>-output-dir=</TT><SPAN  CLASS="textit">dirname</SPAN> 		 : 		 Output directory for generated files
+<BR><TT>-output-file-prefix=</TT><SPAN  CLASS="textit">prefix</SPAN>		 : 		 Ouput file prefix (default is the package name)
+<BR><TT>-class-prefix=</TT><SPAN  CLASS="textit">prefix</SPAN> 		 : 		  Prefix to be put at the begining of each runtime class
+<BR><TT>-db-class-prefix=</TT><SPAN  CLASS="textit">prefix</SPAN> 		 : 		  Prefix to be put at the begining of each database class
+<BR><TT>-attr-style=</TT>implicit 		 : 		  Attribute methods have the attribute name
+<BR><TT>-attr-style=</TT>explicit 		 : 		  Attribute methods have the attribute name prefixed by get/set (default)
+<BR><TT>-schema-name=</TT><SPAN  CLASS="textit">schname</SPAN> 		 : 		  Schema name (default is <SPAN  CLASS="textit">package</SPAN>)
+<BR><TT>-export</TT> 		 : 		  Export class instances in the .h file
+<BR><TT>-dynamic-attr</TT> 		 : 		  Uses a dynamic fetch for attributes in the get and set methods
+<BR><TT>-down-casting=yes</TT> 		 : 		  Generates the down casting methods (the default)
+<BR><TT>-down-casting=no</TT> 		 : 		  Does not generate the down casting methods
+<BR><TT>-attr-cache=yes</TT> 		 : 		  Use a second level cache for attribute value
+<BR><TT>-attr-cache=no</TT> 		 : 		  Does not use a second level cache for attribute value (the default)
+<BR><TT>-namespace=</TT><SPAN  CLASS="textit">namespace</SPAN> 		 : 		  Define classes with the namespace <SPAN  CLASS="textit">namespace</SPAN>
+<BR><TT>-c-suffix=</TT><SPAN  CLASS="textit">suffix</SPAN> 		 : 		  Use <SPAN  CLASS="textit">suffix</SPAN> as the C file suffix
+<BR><TT>-h-suffix=</TT><SPAN  CLASS="textit">suffix</SPAN> 		 : 		  Use <SPAN  CLASS="textit">suffix</SPAN> as the H file suffix
+<BR><TT>-gen-class-stubs</TT> 		 : 		  Generates a file class_stubs.h for each class
+<BR><TT>-class-enums=yes</TT> 		 : 		  Generates enums within a class
+<BR><TT>-class-enums=no</TT> 		 : 		  Do not generate enums within a class (default)
+<BR><TT>-gencode-error-policy=status</TT>		 : 		 Status oriented error policy (the default)
+<BR><TT>-gencode-error-policy=exception</TT> 		 : 		 Exception oriented error policy
+<BR><TT>-rootclass=</TT><SPAN  CLASS="textit">rootclass</SPAN> 		 : 		  Use <SPAN  CLASS="textit">rootclass</SPAN> name for the root class instead of the package name
+<BR><TT>-no-rootclass</TT> 		 : 		     Does not use any root class
+<BR>
+</TT></PRE>
+
+<P>
+
+<H2><A NAME="SECTION00214000000000000000"></A> <A NAME="659"></A>
+<BR>
+The Java produced
+</H2>
+The ODL compiler will then produce the following Java files in the <TT>person</TT> directory:
+
+<UL>
+<LI>Person.java
+</LI>
+<LI>Car.java
+</LI>
+<LI>Database.java
+</LI>
+<LI>set_class_Car_ref.java
+</LI>
+<LI>set_class_Person_ref.java
+</LI>
+</UL>
+The Person.java file produced by the ODL compiler contains the following
+(only the method interfaces are shown, not the body):
+<PRE>
+//
+// class Person
+//
+// package person
+//
+// Automatically Generated by eyedbodl at ...
+//
+
+package person;
+
+public class Person extends org.eyedb.Struct {
+
+  public Person(org.eyedb.Database db);
+  public Person(org.eyedb.Struct x, boolean share);
+  public Person(Person x, boolean share);
+
+  public void setName(String _name);
+  public void setName(int a0, char _name) throws org.eyedb.Exception;
+  public String getName();
+
+  public void setAge(int _age) throws org.eyedb.Exception;
+  public int getAge()  throws org.eyedb.Exception;
+
+  public void setSpouse(Person _spouse) throws org.eyedb.Exception;
+  public Person getSpouse() throws org.eyedb.Exception;
+  public void setSpouse_oid(org.eyedb.Oid _oid) throws org.eyedb.Exception;
+  public org.eyedb.Oid getSpouse_oid() throws org.eyedb.Exception;
+ 
+  public org.eyedb.CollSet getChildrenColl() throws org.eyedb.Exception;
+  public int getChildrenCount() throws org.eyedb.Exception;
+  public Person getChildrenAt(int ind) throws org.eyedb.Exception;
+  public void setChildrenColl(org.eyedb.CollSet _children) throws org.eyedb.Exception;
+  public void addToChildrenColl(Person _children) throws org.eyedb.Exception;
+  public void addToChildrenColl(org.eyedb.Oid _oid) throws org.eyedb.Exception;
+  public void rmvFromChildrenColl(Person _children) throws org.eyedb.Exception;nn
+  public void rmvFromChildrenColl(org.eyedb.Oid _oid) throws org.eyedb.Exception;nn
+
+  // and so on. father and cars set and get methods.
+  // ...
+
+  // protected and private parts
+  // ...
+};
+</PRE>
+eyedbodl has generated three constructors (including two copy constructors),
+and get and set methods for each attributes.
+
+<P>
+
+<H2><A NAME="SECTION00215000000000000000"></A> <A NAME="663"></A>
+<BR>
+Compiling the Java stubs
+</H2>
+The generated code must be compiled using the <TT>javac</TT> compiler.
+
+<BR>
+The Java CLASSPATH must include both the E<SMALL>YE</SMALL>DB Java class path and
+the current directory.
+The E<SMALL>YE</SMALL>DB Java class is generally installed at
+<SPAN  CLASS="textit">libdir</SPAN>/eyedb/java/eyedb.jar where <SPAN  CLASS="textit">libdir</SPAN> is
+the object code library directory, usualy <SPAN  CLASS="textit">prefix</SPAN>/lib.
+<PRE>
+export CLASSPATH=&lt;libdir&gt;/eyedb/java/eyedb.jar
+javac -depend -d. person/Database.java
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00216000000000000000"></A> <A NAME="667"></A>
+<BR>
+Writing a Client
+</H2>
+Here is a simple example of a Java client which opens a database,
+creates 2 person instances and mary them:
+<PRE>
+//
+// class TestP.java
+//
+
+import person.*;
+
+class TestP {
+  public static void main(String args[]) {
+
+    // Initialize the eyedb package and parse the default eyedb options
+    // on the command line
+    String[] outargs = org.eyedb.Root.init("TestP", args);
+     
+    // Check that a database name is given on the command line
+    int argc = outargs.length;
+    if (argc != 1) {
+        System.err.println("usage: java TestP dbname");
+        System.exit(1);
+    }
+
+    try {
+      // Initialize the person package
+      person.Database.init();
+
+      // Open the connection with the backend
+      org.eyedb.Connection conn = new org.eyedb.Connection();
+
+      // Open the database named outargs[0]
+      person.Database db = new person.Database(outargs[0]);
+      db.open(conn, org.eyedb.Database.DBRW);
+
+      db.transactionBegin();
+      // Create two persons john and mary
+      Person john = new Person(db);
+      john.setName("john");
+      john.setAge(32);
+     
+      Person mary = new Person(db);
+      mary.setName("mary");
+      mary.setAge(30);
+     
+      // Mary them :-)
+      john.setSpouse(mary);
+
+      // Store john and mary in the database
+      john.store(org.eyedb.RecMode.FullRecurs);
+
+      db.transactionCommit();
+    }
+    catch(org.eyedb.Exception e) { // Catch any eyedb exception
+       e.print();
+       System.exit(1);
+    }
+  }
+}
+</PRE>
+The client contains the followin line at the beginning of all
+its modules:
+<PRE>
+import person.*;
+</PRE>
+This line means that you are imported the generated <TT>person</TT> package.
+
+<BR>
+<BR>
+NOTE : those package importations are not essential, as you can refer to the
+generated classes using the <TT>person.</TT> prefix; and that you can refer
+to the standard E<SMALL>YE</SMALL>DB package using the <TT>org.eyedb.</TT> prefix.
+
+<BR>
+<BR>
+Before any E<SMALL>YE</SMALL>DB method call, you need to initialize the E<SMALL>YE</SMALL>DB 
+package by calling the <TT>org.eyedb.Root.init</TT> method, as follows:
+<PRE>
+      String[] outargs = org.eyedb.Root.init("TestP", args);
+</PRE>
+This method will take out from <TT>args</TT> all the E<SMALL>YE</SMALL>DB options
+such as <TT>-host=&lt;host&gt;, -port=&lt;port&gt;</TT>
+(refer to the environment chapter).
+
+<BR>
+<BR>
+The returned array <TT>outargs</TT> will contain the command line arguments
+except those that have been recognized as E<SMALL>YE</SMALL>DB options.
+
+<BR>
+<BR>
+If you do not call the <TT>org.eyedb.Root.init</TT> method, the E<SMALL>YE</SMALL>DB java binding
+will not work.
+
+<BR>
+<BR>
+Then, you need to initialiaze the person generated package, as follows:
+<PRE>
+      person.Database.init()
+</PRE>
+Once again, if you do not call this method, the E<SMALL>YE</SMALL>DB java binding will
+not work properly.
+
+<BR>
+<BR>
+Then, you need to open a connection with the E<SMALL>YE</SMALL>DB backend
+<PRE>
+      org.eyedb.Connection conn = new org.eyedb.Connection();
+</PRE>
+The constructor <TT>org.eyedb.Connection()</TT> will try to connect to the backend
+using the host and port given on the command line.
+
+<BR>
+In case of failure, an <TT>org.eyedb.Exception</TT> is thrown.
+
+<BR>
+<BR>
+To open the database whose name is <TT>outargs[0]</TT>, you must first
+create a <TT>person.Database</TT> object, then call the <TT>open</TT>
+method on this object as follows:
+<PRE>
+      person.Database db = new person.Database(outargs[0]);
+      db.open(conn, org.eyedb.Database.DBRW);
+</PRE>
+The <TT>org.eyedb.Database.DBRW</TT> flag indicates that we wants to open
+the database in the read/write mode.
+
+<BR>
+<BR>
+Once that the database has been opened, we begin a transaction as follows:
+<PRE>
+      db.transactionBegin();
+</PRE>
+This method call is necessary for any database access in read or write
+mode.
+
+<BR>
+<BR>
+To create two persons whose name are <TT>john</TT> and <TT>mary</TT> and
+to mary them, you need to use the generated constructors and methods
+as follows:
+<PRE>
+      Person john = new Person(db);
+      john.setName("john");
+      john.setAge(32);
+     
+      Person mary = new Person(db);
+      mary.setName("mary");
+      mary.setAge(30);
+     
+      john.setSpouse(mary);
+</PRE>
+Note that at this step, the persons <TT>john</TT> and <TT>mary</TT> have
+<B>not</B> been stored in the database.
+
+<BR>
+Those person references are runtime references, not persistant references.
+
+<BR>
+<BR>
+To store them permanently in the database:
+<PRE>
+      john.store(org.eyedb.RecMode.FullRecurs);
+</PRE>
+The <TT>org.eyedb.RecMode.FullRecurs</TT> argument means that all the object
+references included in the <TT>john</TT> object will be stored too ; so
+the <TT>mary</TT> reference which is the <TT>john</TT> spouse, will be stored too.
+
+<BR>
+<BR>
+At this step, if you exit the program, the current transaction will
+be automatically aborted (rolled back).
+
+<BR>
+So the <TT>john</TT> and <TT>mary</TT> persons will not be effectively stored
+in the database.
+
+<BR>
+<BR>
+To commit the transaction, you must do the following:
+<PRE>
+      db.transactionCommit();
+</PRE>
+Note that all the constructors and methods previously called, may
+throw an <TT>org.eyedb.Exception</TT> in case of failure.
+
+<BR>
+The following code catches the exceptions, print them and exit the program:
+<PRE>
+    catch(org.eyedb.Exception e) {
+       e.print();
+       System.exit(1);
+    }
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00217000000000000000"></A> <A NAME="677"></A>
+<BR>
+Compiling the client
+</H2>
+The client must be compiled as follows:
+<PRE>
+javac -d . TestP.java
+</PRE>
+
+<H2><A NAME="SECTION00218000000000000000"></A> <A NAME="679"></A>
+<BR>
+Updating the schema
+</H2>
+Before running the client for the first time, we need to create a test database
+and to update its schema according to the ODL description.
+
+<BR>
+<BR>
+Note that to create a database, the E<SMALL>YE</SMALL>DB user under which you are working,
+must has the <TT>dbcreate</TT> system mode (refer to the administration
+section).
+
+<BR>
+<BR>
+To create a database <TT>foo</TT>:
+<PRE>
+eyedbdbcreate foo
+user authentication : &lt;user name&gt;
+password authentication : &lt;user passwd&gt;
+</PRE>
+To update the schema person.odl in the database <TT>foo</TT>:
+<PRE>
+eyedbodl --u -d foo person.odl
+Updating &lt;unnamed&gt; Schema in database foo...
+Done
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00219000000000000000"></A> <A NAME="682"></A>
+<BR>
+Running the client
+</H2>
+To run properly, an E<SMALL>YE</SMALL>DB program needs some environment information such
+as the E<SMALL>YE</SMALL>DB host and port, the E<SMALL>YE</SMALL>DB user and password.
+
+<BR>
+<BR>
+When we run a C++ program, the E<SMALL>YE</SMALL>DB runtime takes this environment
+from the UNIX environment variables.
+
+<BR>
+<BR>
+There is not such mechanisms for a Java program: the <TT>getenv()</TT> function
+does not exist in Java.
+
+<BR>
+<BR>
+So, we need to give all the environment using the command line arguments
+as follows:
+<PRE>
+eyedbjrun foo
+</PRE>
+After the program has run, let's verify that the objects have really been
+created in the <TT>foo</TT> database, using the <TT>eyedboql</TT> tool:
+<PRE>
+eyedboql
+Welcome to eyedboql. Type `!help' to display the command list.
+? \open foo
+? select Person;
+47886.20.803967:oid, 47887.20.2361599:oid
+? \print full
+47886.20.803967:oid Person = { 
+        name = "john";
+        age = 32;
+        *spouse 47887.20.2361599:oid Person = { 
+                name = "mary";
+                age = 30;
+                *spouse 47886.20.803967:oid Person = { 
+                        &lt;trace cycle&gt;
+                };
+                *father NULL;
+                *children NULL;
+                *cars NULL;
+        };
+        *father NULL;
+        *children NULL;
+        *cars NULL;
+};
+47887.20.2361599:oid Person = { 
+        name = "mary";
+        age = 30;
+        *spouse 47886.20.803967:oid Person = { 
+                name = "john";
+                age = 32;
+                *spouse 47887.20.2361599:oid Person = { 
+                        &lt;trace cycle&gt;
+                };
+                *father NULL;
+                *children NULL;
+                *cars NULL;
+        };
+        *father NULL;
+        *children NULL;
+        *cars NULL;
+};
+? \quit
+</PRE>
+As there is a unique constraint on the Person <TT>name</TT> attribute,
+if you run the program again, you will catch the following exception:
+<PRE>
+TestP.run foo
+org.eyedb.StoreException: unique[] constraint error : attribute
+`name' in the agregat class `Person'
+</PRE>
+
+<H2><A NAME="SECTION002110000000000000000"></A> <A NAME="688"></A>
+<BR>
+An advanced example
+</H2>
+You can use E<SMALL>YE</SMALL>DB OQL withing the Java Binding, using the <TT>org.eyedb.OQL</TT>
+class.
+
+<BR>
+<BR>
+For instance, the following program looks for the <TT>Person</TT> instance whose
+name is given on the command line.
+
+<BR>
+Then, it looks for the <TT>Person</TT> instances whose age is
+less than 3 years old, adds them to the children collection of the previous
+<TT>Person</TT> instance, and increments their age.
+<PRE>
+//
+// class TestPC.java
+//
+
+import person.*;
+
+class TestPC {
+  public static void main(String args[]) {
+
+    // Initialize the eyedb package and parse the default eyedb options
+    // on the command line
+    String[] outargs = org.eyedb.Root.init("TestPC", args);
+     
+    // Check that a database name is given on the command line
+    int argc = outargs.length;
+    if (argc != 2) {
+        System.err.println("usage: java TestPC dbname person-name");
+        System.exit(1);
+    }
+
+    try {
+      // Initialize the person package
+      person.Database.init();
+
+      // Open the connection with the backend
+      org.eyedb.Connection conn = new org.eyedb.Connection();
+
+      // Open the database named outargs[0]
+      person.Database db = new person.Database(outargs[0]);
+      db.open(conn, org.eyedb.Database.DBRW);
+
+      db.transactionBegin();
+      // Looks for the Person john
+
+      String pname = outargs[1];
+      org.eyedb.OQL q = new org.eyedb.OQL(db, "select Person.name = \"" + pname + "\"");
+
+      org.eyedb.ObjectArray obj_array = new org.eyedb.ObjectArray();
+
+      q.execute(obj_array);
+
+      if (obj_array.getCount() == 0) {
+          System.err.println("TestPC: cannot find person `" + pname + "'");
+          System.exit(1);
+      }
+
+      Person john = (Person)obj_array.getObjects()[0];
+
+      // Looks for Person whose age is less than 3
+      // and add them to the john children collection
+
+      q = new org.eyedb.OQL(db, "select Person.age &lt; 3");
+
+      obj_array = new org.eyedb.ObjectArray();
+
+      q.execute(obj_array);
+
+      for (int i = 0; i &lt; obj_array.getCount(); i++) {
+          Person child = (Person)obj_array.getObjects()[i];
+          child.setAge(child.getAge() + 1);
+          john.addToChildrenColl(child);
+      }
+
+      // Update john and its children in the database
+      john.store(org.eyedb.RecMode.FullRecurs);
+
+      db.transactionCommit();
+    }
+    catch(org.eyedb.Exception e) { // Catch any eyedb exception
+       e.print();
+       System.exit(1);
+    }
+  }
+}
+</PRE>
+The following steps (and code) are identical to the previous example:
+
+<UL>
+<LI>importing package <TT>person</TT>
+</LI>
+<LI>initializing E<SMALL>YE</SMALL>DB package and <TT>person</TT> packages
+</LI>
+<LI>opening the connection
+</LI>
+<LI>opening the database
+</LI>
+<LI>beginning a transaction
+</LI>
+</UL>
+The first difference comes using the <TT>org.eyedb.OQL</TT> constructor call:
+<PRE>
+      String pname = outargs[1];
+      org.eyedb.OQL q = new org.eyedb.OQL(db, "select Person.name = \"" + pname + "\"");
+</PRE>
+This constructor makes a E<SMALL>YE</SMALL>DB OQL query in the opened database.
+
+<BR>
+<BR>
+Nothing is returned from this query, but an exception is thrown if the query
+is invalid.
+
+<BR>
+<BR>
+To get back the result of this query (i.e. the Person whose <TT>name</TT>
+is <TT>pname</TT>), one needs to scan the query.
+
+<BR>
+<BR>
+Several <TT>org.eyedb.OQL</TT> methods allows us to scan the query:
+<PRE>
+  public void scan(org.eyedb.ValueArray value_array)
+    throws org.eyedb.TransactionException;
+
+  public void scan(org.eyedb.OidArray oid_array)
+    throws org.eyedb.TransactionException;
+
+  public void scan(org.eyedb.ObjectArray obj_array)
+    throws org.eyedb.TransactionException, org.eyedb.LoadObjectException;
+
+  public void scan(org.eyedb.ObjectArray obj_array, org.eyedb.RecMode rcm)
+    throws org.eyedb.TransactionException, org.eyedb.LoadObjectException;
+
+  public void scan(org.eyedb.ValueArray value_array, int count, int start)
+    throws org.eyedb.TransactionException;
+
+  public void scan(org.eyedb.OidArray oid_array, int count, int start)
+    throws org.eyedb.TransactionException;
+
+  public void scan(org.eyedb.ObjectArray obj_array, int count, int start)
+    throws org.eyedb.TransactionException, org.eyedb.LoadObjectException;
+
+  public void scan(org.eyedb.ObjectArray obj_array, int count, int start,
+                   org.eyedb.RecMode rcm)
+    throws org.eyedb.TransactionException, org.eyedb.LoadObjectException;
+</PRE>
+The <TT>scan</TT> methods which deals with a <TT>org.eyedb.ValueArray</TT> are
+the most general.
+
+<BR>
+<BR>
+These methods allows us to get back anything: integer, float, string, char,
+oid.
+
+<BR>
+For instance, if you make a query such as:
+<PRE>
+     org.eyedb.OQL q = new org.eyedb.OQL(db, \"list(1, 2, 3, "hello world",
+                               3.45, 'c', (select Person.age &lt; 3));
+</PRE>
+the returned values will be:
+
+<UL>
+<LI>3 integers
+</LI>
+<LI>1 string
+</LI>
+<LI>1 float
+</LI>
+<LI>1 character
+</LI>
+<LI>some Person oids
+</LI>
+</UL>
+In this case, it seems raisonnable to use a <TT>scan</TT> method which
+deals with a <TT>org.eyedb.ValueArray</TT>, as follows:
+<PRE>
+     org.eyedb.ValueArray valarr = new org.eyedb.ValueArray();
+     q.execute(valarr);   
+
+     for (int i = 0; i &lt; valarr.getCount(); i++) {
+         org.eyedb.Value value = valarr.getValues()[i];
+         if (value.type == org.eyedb.Value.INT)
+           // ...
+         else if (value.type == org.eyedb.Value.FLOAT)
+           // ...
+         else if (value.type == org.eyedb.Value.OID)
+           // ...
+         else if (value.type == org.eyedb.Value.CHAR)
+           // ...
+     }
+</PRE>
+In the <TT>TestPC.java</TT> example, as we know that only objects could
+be returned, a more simple <TT>scan</TT> method may be used, as follows:
+<PRE>
+      org.eyedb.OQL q = new org.eyedb.OQL(db, "select Person.name = \"" + pname + "\"");
+
+      org.eyedb.ObjectArray obj_array = new org.eyedb.ObjectArray();
+
+      q.execute(obj_array);
+
+      if (obj_array.getCount() == 0) {
+          System.err.println("TestPC: cannot find person `" + pname + "'");
+          System.exit(1);
+      }
+</PRE>
+In the case of no objects has been found, we display an error message and
+then leaves the program.
+
+<BR>
+<BR>
+In the case of, at least, one object has been found, we cast the <TT>org.eyedb.Object</TT> instance in a Person instance, as follows:
+<PRE>
+      Person john = (Person)obj_array.getObjects()[0];
+</PRE>
+This cast is a reasonnable cast for several reasons:
+
+<OL>
+<LI>As the query is <TT>"Person.name = 
+<BR>"" + pname + "
+<BR>""</TT>, the expected
+returned values are <TT>Person</TT> instances.
+</LI>
+<LI>As the database has been opened using an instance
+of the <TT>person.Database</TT> class, a <TT>Person</TT> instance has been
+actually constructed using the generated stubs.
+
+<BR>
+If we had used an instance of the generic <TT>org.eyedb.Database</TT> class, this
+cast would has been illegal, as the <TT>Person</TT> class is unknown from
+the generic E<SMALL>YE</SMALL>DB package!
+</LI>
+<LI>Contrary to C++, Java performs secure dynamic casting, so if the
+returned object is not a <TT>Person</TT> instance, an invalid cast exception
+will be thrown.
+</LI>
+</OL>
+Then:
+
+<UL>
+<LI>we look for the <TT>Person</TT> instances whose <TT>age</TT> is less
+than <TT>3</TT>:
+<PRE>
+      q = new org.eyedb.OQL(db, "select Person.age &lt; 3");
+
+      obj_array = new org.eyedb.ObjectArray();
+
+      q.execute(obj_array);
+</PRE>
+</LI>
+<LI>one increments their <TT>age</TT>.
+<PRE>
+      for (int i = 0; i &lt; obj_array.getCount(); i++) {
+          Person child = (Person)obj_array.getObjects()[i];
+          child.setAge(child.getAge() + 1);
+</PRE>
+</LI>
+<LI>one adds them to the <TT>children</TT> collection of the previous
+<TT>Person</TT> instance found.
+<PRE>
+          john.addToChildrenColl(child);
+      }
+</PRE>
+</LI>
+<LI>one stores all in the database.
+<PRE>
+      john.store(org.eyedb.RecMode.FullRecurs);
+</PRE>
+</LI>
+<LI>one commits the transaction.
+<PRE>
+      db.transactionCommit();
+</PRE>
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html64"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html62"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html66"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html65"
+  HREF="node2.html">The Java Binding</A>
+<B> Previous:</B> <A NAME="tex2html63"
+  HREF="node2.html">The Java Binding</A>
+ &nbsp; <B>  <A NAME="tex2html67"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

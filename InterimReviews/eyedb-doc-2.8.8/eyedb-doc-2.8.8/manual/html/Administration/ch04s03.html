@@ -1,0 +1,135 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Managing user access rights</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Administration Guide"><link rel="up" href="ch04.html" title="Chapter 4. User administration"><link rel="prev" href="ch04s02.html" title="Managing users"><link rel="next" href="ch05.html" title="Chapter 5. Database advanced administration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Managing user access rights</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><th width="60%" align="center">Chapter 4. User administration</th><td width="20%" align="right"> <a accesskey="n" href="ch05.html">Next</a></td></tr></table><hr></div><div class="section" title="Managing user access rights"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id572288"></a>Managing user access rights</h2></div></div></div><div class="section" title="The different access rights"><div class="titlepage"><div><div><h3 class="title"><a name="id572294"></a>The different access rights</h3></div></div></div><p>
+	  EyeDB access rights are managed at two levels:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>system level, for global operations (for instance, adding a user, creating a database...)</p></li><li class="listitem"><p>database level, for database specific operations (for instance, reading objects with a query, inserting objects...)</p></li></ul></div><p>
+	</p><p>
+	  Each EyeDB user has therefore:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		a set of system access rights, controling the authorization to perform the following system operations:
+		</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>creating a database</p></li><li class="listitem"><p>adding a user</p></li><li class="listitem"><p>deleting any user</p></li><li class="listitem"><p>setting password for any user</p></li></ul></div><p>
+	      </p></li><li class="listitem"><p>
+		a set of database access rights, controling the authorization to perform the following operations on a given database:
+		</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>read from this database</p></li><li class="listitem"><p>write to this database</p></li><li class="listitem"><p>execute any method in this database</p></li><li class="listitem"><p>delete this database</p></li></ul></div><p>
+	      </p></li></ul></div><p>
+	</p><p>
+	  Note that a system access right is not attached to a particular database, whilst a database access right is attached to a particular database.
+	</p><p>
+	  <a class="xref" href="ch04s03.html#system-access-rights" title="Table 4.1. System access rights and corresponding authorized operations">Table 4.1, “System access rights and corresponding authorized operations”</a> presents the different system access rights defined by EyeDB and the corresponding authorized operations.
+	</p><div class="table"><a name="system-access-rights"></a><p class="title"><b>Table 4.1. System access rights and corresponding authorized operations</b></p><div class="table-contents"><table summary="System access rights and corresponding authorized operations" border="1"><colgroup><col><col></colgroup><thead><tr><th>
+		  System Access Right
+		</th><th>
+		  Authorized operation
+		</th></tr></thead><tbody><tr><td>
+		  no
+		</td><td>
+		  no authorized system operation 
+		</td></tr><tr><td>
+		  dbcreate
+		</td><td>
+		  can create a database 
+		</td></tr><tr><td>
+		  adduser
+		</td><td>
+		  can add any user 
+		</td></tr><tr><td>
+		  deleteuser
+		</td><td>
+		  can delete any user 
+		</td></tr><tr><td>
+		  setuserpasswd
+		</td><td>
+		  can set the password of any user
+		</td></tr><tr><td>
+		  admin
+		</td><td>
+		  can create a database and add a user
+		</td></tr><tr><td>
+		  superuser
+		</td><td>
+		  all operations
+		</td></tr></tbody></table></div></div><br class="table-break"><p>
+	  <a class="xref" href="ch04s03.html#database-access-rights" title="Table 4.2. Database access rights and corresponding authorized operations">Table 4.2, “Database access rights and corresponding authorized operations”</a> presents the different database access rights defined by EyeDB and the corresponding authorized operations.
+	</p><div class="table"><a name="database-access-rights"></a><p class="title"><b>Table 4.2. Database access rights and corresponding authorized operations</b></p><div class="table-contents"><table summary="Database access rights and corresponding authorized operations" border="1"><colgroup><col><col></colgroup><thead><tr><th>
+		  Database Access Right
+		</th><th>
+		  Authorized operation
+		</th></tr></thead><tbody><tr><td>
+		  no 
+		</td><td>
+		  no database access 
+		</td></tr><tr><td>
+		  read 
+		</td><td>
+		  have read access on this database 
+		</td></tr><tr><td>
+		  write 
+		</td><td>
+		  have write access on this database 
+		</td></tr><tr><td>
+		  exec 
+		</td><td>
+		  have execute access on this database 
+		</td></tr><tr><td>
+		  admin 
+		</td><td>
+		  have read/write/execute access on this database and can delete this database 
+		</td></tr></tbody></table></div></div><br class="table-break"></div><div class="section" title="Setting system access rights"><div class="titlepage"><div><div><h3 class="title"><a name="id572617"></a>Setting system access rights</h3></div></div></div><p>
+	  Setting system access rights for a EyeDB user is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">user sysaccess</code>  {<em class="replaceable"><code>user</code></em>} {
+	      [ dbcreate  |   adduser  |   deleteuser  |   setuserpasswd  |   admin  |   superuser  |   no ]
+	    }</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>user</code></em>}</p></div><p>
+		EyeDB user name
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{
+		    [ dbcreate  |   adduser  |   deleteuser  |   setuserpasswd  |   admin  |   superuser  |   no ]
+		  }</p></div><p>
+		system access right
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-user-sysaccess"></a><p class="title"><b>Example 4.5. <span class="command">eyedbadmin</span> user sysaccess</b></p><div class="example-contents"><pre class="screen">
+## List user system access rights
+<strong class="userinput"><code>eyedbadmin user list eric</code></strong>
+name      : "eric" [unix user]
+sysaccess : NO_SYSACCESS_MODE
+## Set user system access rights
+<strong class="userinput"><code>eyedbadmin user sysaccess eric dbcreate</code></strong>
+<strong class="userinput"><code>eyedbadmin user list eric</code></strong>
+name      : "eric" [unix user]
+sysaccess : DB_CREATE_SYSACCESS_MODE
+	  </pre></div></div><br class="example-break"></div><div class="section" title="Setting database access rights"><div class="titlepage"><div><div><h3 class="title"><a name="id572894"></a>Setting database access rights</h3></div></div></div><p>
+	  Setting database access rights for a EyeDB user is done using the <span class="command"><strong>eyedbadmin</strong></span> command:
+	  </p><div class="cmdsynopsis"><p><code class="command">eyedbadmin</code> <br><code class="command">user dbaccess</code>  {<em class="replaceable"><code>user</code></em>} {<em class="replaceable"><code>database</code></em>} {<em class="replaceable"><code>access</code></em>}</p></div><p>
+	</p><p>
+	  Command arguments are:
+	  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>user</code></em>}</p></div><p>
+		EyeDB user name
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>database</code></em>}</p></div><p>
+		database name
+	      </p></li><li class="listitem"><p>
+		</p><div class="cmdsynopsis"><p>{<em class="replaceable"><code>access</code></em>}</p></div><p>
+		database access right, that can be one of the following values:
+		</p><div class="cmdsynopsis"><p>[ r  |   rw  |   rx  |   rwx  |   admin  |   no ]</p></div><p>
+	      </p></li></ul></div><p>
+	</p><div class="example"><a name="eyedbadmin-user-dbaccess"></a><p class="title"><b>Example 4.6. <span class="command">eyedbadmin</span> user dbaccess</b></p><div class="example-contents"><pre class="screen">
+## List user database access rights
+<strong class="userinput"><code>eyedbadmin user list eric</code></strong>
+name      : "eric" [unix user]
+sysaccess : NO_SYSACCESS_MODE
+## Set user database access rights for database test2
+<strong class="userinput"><code>eyedbadmin user dbaccess eric test2 rw</code></strong>
+<strong class="userinput"><code>eyedbadmin user list eric</code></strong>
+name      : "eric" [unix user]
+sysaccess : DB_CREATE_SYSACCESS_MODE
+dbaccess  : (dbname : "test2", access : READ_WRITE_DBACCESS_MODE)
+## Set user database access rights for database test3
+<strong class="userinput"><code>eyedbadmin user dbaccess eric test3 admin</code></strong>
+<strong class="userinput"><code>eyedbadmin user list eric</code></strong>
+name      : "eric" [unix user]
+sysaccess : DB_CREATE_SYSACCESS_MODE
+dbaccess  : (dbname : "test2", access : READ_WRITE_DBACCESS_MODE)
+            (dbname : "test3", access : ADMIN_DBACCESS_MODE)
+	  </pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Managing users </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 5. Database advanced administration</td></tr></table></div></body></html>

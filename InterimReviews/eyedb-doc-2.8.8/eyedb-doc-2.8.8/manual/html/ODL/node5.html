@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Annexes</TITLE>
+<META NAME="description" CONTENT="Annexes">
+<META NAME="keywords" CONTENT="ODL">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ODL.css">
+
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html166"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html164"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html168"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html167"
+  HREF="node2.html">The Object Definition Language</A>
+<B> Previous:</B> <A NAME="tex2html165"
+  HREF="node4.html">The eyedbodl tool</A>
+ &nbsp; <B>  <A NAME="tex2html169"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html170"
+  HREF="node5.html#SECTION00231000000000000000">A simple example</A>
+<LI><A NAME="tex2html171"
+  HREF="node5.html#SECTION00232000000000000000">A more complex example</A>
+<LI><A NAME="tex2html172"
+  HREF="node5.html#SECTION00233000000000000000">The eyedbodl usage</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00230000000000000000"></A> <A NAME="818"></A>
+<BR>
+Annexes
+</H1>
+
+<H2><A NAME="SECTION00231000000000000000"></A> <A NAME="820"></A>
+<BR>
+A simple example
+</H2>
+Here is a simple example that can be found
+in examples/C++Binding/schema-oriented/share/schema.odl:
+<PRE>
+enum CivilState {
+  Lady = 0x10,
+  Sir  = 0x20,
+  Miss = 0x40
+};
+
+class Address {
+  attribute string street;
+  attribute string&lt;32&gt; town;
+  attribute string country;
+
+  index on street;
+};
+
+class Person {
+  attribute string name;
+  attribute int age;
+  attribute Address addr;
+  attribute Address other_addrs[];
+  attribute CivilState cstate;
+  attribute Person * spouse inverse Person::spouse;
+  attribute set&lt;Car *&gt; cars inverse owner;
+  attribute array&lt;Person *&gt; children;
+  int change_address(in string street, in string town,
+                     out string oldstreet, out string oldtown);
+  index on  name;
+};
+
+class Car {
+  attribute string brand;
+  attribute int num;
+  Person *owner inverse cars;
+};
+
+class Employee extends Person {
+  attribute long salary;
+};
+</PRE>
+
+<H2><A NAME="SECTION00232000000000000000"></A> <A NAME="822"></A>
+<BR>
+A more complex example
+</H2>
+Here is a more complex example used for the management of biological
+databases:
+<PRE>
+enum StatusType {
+  running = 0,
+  done = 1
+};
+
+class File {
+  attribute string path;
+  attribute string name;
+  attribute string desc;
+  attribute set&lt;Import_ctx *&gt; imported_in inverse Import_ctx::file;
+
+  constraint&lt;notnull, propagate=on&gt; on name;
+};
+
+class Import_ctx {
+  attribute File * file inverse File::imported_in;
+  attribute Import * import inverse Import::contexts;
+  attribute StatusType status;
+  attribute string comment;
+  attribute int32 count;
+  attribute int32 elapsed;
+  attribute float average;
+  attribute string start_date;
+  attribute string last_update;
+
+  constraint&lt;notnull, propagate=on&gt; on file;
+  constraint&lt;notnull, propagate=on&gt; on import;
+};
+
+class Import {
+  attribute Db * related_db inverse Db::imports;
+  attribute string database_name;
+  attribute string cvs_tag;
+  attribute set&lt;Import_ctx *&gt; contexts inverse Import_ctx::import;
+  attribute string comment;
+  attribute bool deletable;
+
+  instance_method &lt;client, called_from=OQL&gt; time_interval getElapsed()
+
+  constraint&lt;unique, propagate=on&gt; on database_name;
+  constraint&lt;notnull, propagate=on&gt; on database_name;
+  constraint&lt;unique, propagate=on&gt; on cvs_tag;
+  constraint&lt;notnull, propagate=on&gt; on related_db;
+
+  index&lt; propagate=on&gt; on database_name;
+  index&lt; propagate=on&gt; on cvs_tag;
+};
+
+class Db {
+  attribute string name;
+  attribute string title;
+  attribute int32 version;
+  attribute set&lt;Import *&gt; imports inverse Import::related_db;
+  attribute array&lt;File *&gt; files;
+  attribute set&lt;Db *&gt; divisions;
+  attribute Import * official;
+
+  instance_method &lt;client, called_from=OQL&gt; string [] get_db_names();
+
+  constraint&lt;unique, propagate=on&gt; on name;
+  constraint&lt;notnull, propagate=on&gt; on name;
+
+  index&lt; propagate=on&gt; on name;
+};
+</PRE>
+
+<H2><A NAME="SECTION00233000000000000000"></A> <A NAME="824"></A>
+<BR>
+The eyedbodl usage
+</H2>
+The usage of the eyedbodl is as follows:
+<PRE>
+eyedbodl --gencode=C++ [--package=&lt;package&gt;] [--output-dir=&lt;dirname&gt;] [--output-file-prefix=&lt;prefix&gt;]
+         [--schema-name=&lt;schname&gt;] [--namespace=&lt;namespace&gt;] [--class-prefix=&lt;prefix&gt;]
+         [--db-class-prefix=&lt;dbprefix&gt;] [--attr-style=implicit|explicit] [--dynamic-attr]
+         [--gen-class-stubs] [--class-enums=yes|no] [--c-suffix=&lt;suffix&gt;] [--h-suffix=&lt;suffix&gt;]
+         [--export] [--down-casting=yes|no] [--gencode-error-policy=status|exception] [--attr-cache=yes|no]
+         [--rootclass=&lt;rootclass&gt;] [--no-rootclass] [--cpp=&lt;cpp&gt;] [--cpp-flags=&lt;flags&gt;]
+         [--no-cpp] &lt;odlfile&gt;|-|-d &lt;dbname&gt;|--database=&lt;dbname&gt; [&lt;openflags&gt;]
+
+eyedbodl --gencode=Java --package=&lt;package&gt; [--output-dir=&lt;dirname&gt;] [--output-file-prefix=&lt;prefix&gt;]
+         [--schema-name=&lt;schname&gt;] [--class-prefix=&lt;prefix&gt;] [--db-class-prefix=&lt;dbprefix&gt;]
+         [--attr-style=implicit|explicit] [--dynamic-attr] [--down-casting=yes|no]
+         [--gencode-error-policy=status|exception] [--cpp=&lt;cpp&gt;] [--cpp-flags=&lt;flags&gt;]
+         [--no-cpp] &lt;odlfile&gt;|-|-d &lt;dbname&gt;|--database=&lt;dbname&gt; [&lt;openflags&gt;]
+
+eyedbodl --gencode=ODL -d &lt;dbname&gt;|--database=&lt;dbname&gt; [--system-class]
+         [-o &lt;odlfile&gt;] [&lt;openflags&gt;]
+eyedbodl --diff -d &lt;dbname&gt;|--database=&lt;dbname&gt; [--system-class] [&lt;openflags&gt;] [--cpp=&lt;cpp&gt;]
+         [--cpp-flags=&lt;flags&gt;] [--no-cpp] &lt;odlfile&gt;|-
+
+eyedbodl -u|-update -d &lt;dbname&gt;|--database=&lt;dbname&gt; [--db-class-prefix=&lt;dbprefix&gt;] [&lt;openflags&gt;]
+         [--schema-name=&lt;schname&gt;] [--rmv-undef-attrcomp=yes|no] [--update-index=yes|no]
+         [--cpp=&lt;cpp&gt;] [--cpp-flags=&lt;flags&gt;] [--no-cpp] [--rmcls={&lt;class&gt;}] [--rmsch] [&lt;odlfile&gt;|-]
+
+eyedbodl --checkfile &lt;odlfile&gt;|-
+
+eyedbodl --help
+
+One must specify one and only one of the following major options:
+--gencode=C++                 Generates C++ code
+--gencode=Java                Generates Java code
+--gencode=ODL                 Generates ODL
+--update|-u                   Updates schema in database &lt;dbname&gt;
+--diff                        Displays the differences between a database schema and an odl file
+--checkfile                   Check input ODL file
+--help                        Displays the current information
+
+The following options must be added to the --gencode=C++ or Java option:
+&lt;odlfile&gt;|-|-d &lt;dbname&gt;|--database=&lt;dbname&gt; Input ODL file (or - for standard input) or the database name
+
+The following options can be added to the --gencode=C++ or Java option:
+--package=&lt;package&gt;           Package name
+--output-dir=&lt;dirname&gt;        Output directory for generated files
+--output-file-prefix=&lt;prefix&gt; Ouput file prefix (default is the package name)
+--class-prefix=&lt;prefix&gt;       Prefix to be put at the begining of each runtime class
+--db-class-prefix=&lt;prefix&gt;    Prefix to be put at the begining of each database class
+--attr-style=implicit         Attribute methods have the attribute name
+--attr-style=explicit         Attribute methods have the attribute name prefixed by get/set (default)
+--schema-name=&lt;schname&gt;       Schema name (default is &lt;package&gt;)
+--export                      Export class instances in the .h file
+--dynamic-attr                Uses a dynamic fetch for attributes in the get and set methods
+--down-casting=yes            Generates the down casting methods (the default)
+--down-casting=no             Does not generate the down casting methods
+--attr-cache=yes              Use a second level cache for attribute value
+--attr-cache=no               Does not use a second level cache for attribute value (the default)
+
+For the --gencode=C++ option only
+--namespace=&lt;namespace&gt;       Define classes with the namespace &lt;namespace&gt;
+--c-suffix=&lt;suffix&gt;           Use &lt;suffix&gt; as the C file suffix
+--h-suffix=&lt;suffix&gt;           Use &lt;suffix&gt; as the H file suffix
+--gen-class-stubs             Generates a file class_stubs.h for each class
+--class-enums=yes             Generates enums within a class
+--class-enums=no              Do not generate enums within a class (default)
+--gencode-error-policy=status Status oriented error policy (the default)
+--gencode-error-policy=exception Exception oriented error policy
+--rootclass=&lt;rootclass&gt;       Use &lt;rootclass&gt; name for the root class instead of the package name
+--no-rootclass                Does not use any root class
+
+The following options can be added to the --gencode=ODL option:
+--system-class                Generates system class ODL
+
+The following option must be added to the --update|-u option:
+-d &lt;dbname&gt;|--database=&lt;dbname&gt; Database for which operation is performed
+
+The following options can be added to the --update|-u option:
+&lt;odlfile&gt;|-                   Input ODL file or '-' (standard input)
+--schema-name=&lt;schname&gt;       Schema name (default is package)
+--db-class-prefix=&lt;prefix&gt;    Prefix to be put at the begining of each database class
+--rmv-undef-attrcomp=yes|no   Removes (yes) or not (no) the undefined attribute components
+                              (constraint, index and implementation). Default is no
+--update-index=yes|no         Updates (yes) or not (no) the index with a different
+                              implementation in the DB. Default is no
+--rmcls={&lt;class&gt;}             Removes the given class list
+--rmsch                       Removes the entire schema
+
+The following options must be added to the --diff option:
+-d &lt;dbname&gt;|--database=&lt;dbname&gt; Database for which the schema difference is performed
+&lt;odlfile&gt;                       The input ODL file for which the schema difference is performed
+
+The following options can be added to the --diff option:
+--system-class                Performs difference on system classes also
+
+The following option must be added to the --checkfile option:
+&lt;odlfile&gt;|-                   Input ODL file or '-' (standard input)
+
+The following options can be added when an &lt;odlfile&gt; is set:
+--cpp=&lt;cpp&gt;                   Uses &lt;cpp&gt; preprocessor instead of the default one
+--cpp-flags=&lt;cpp-flags&gt;       Adds &lt;cpp-flags&gt; to the preprocessing command
+--no-cpp                      Does not use any preprocessor
+
+Common Options:
+  -U &lt;user&gt;|@, --user=&lt;user&gt;|@       User name
+  -P [&lt;passwd&gt;], --passwd[=&lt;passwd&gt;] Password
+  --host=&lt;host&gt;                      eyedbd host
+  --port=&lt;port&gt;                      eyedbd port
+  --inet                             Use the tcp_port variable if port is not set
+  --dbm=&lt;dbmfile&gt;                    EYEDBDBM database file
+  --conf=&lt;conffile&gt;                  Configuration file
+  --logdev=&lt;logfile&gt;                 Output log file
+  --logmask=&lt;mask&gt;                   Output log mask
+  --logdate=on|off                   Control date display in output log
+  --logtimer=on|off                  Control timer display in output log
+  --logpid=on|off                    Control pid display in output log
+  --logprog=on|off                   Control progname display in output log
+  --error-policy=&lt;value&gt;             Control error policy: status|exception|abort|stop|echo
+  --trans-def-mag=&lt;magorder&gt;         Default transaction magnitude order
+  --arch                             Display the client architecture
+  -v, --version                      Display the version
+  --help-eyedb-options               Display this message
+</PRE>
+<BR><HR>
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,714 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Examples</TITLE>
+<META NAME="description" CONTENT="Examples">
+<META NAME="keywords" CONTENT="CplusplusBinding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CplusplusBinding.css">
+
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html219"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html217"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html221"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html220"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+<B> Previous:</B> <A NAME="tex2html218"
+  HREF="node4.html">The Schema-Oriented Generated C++</A>
+ &nbsp; <B>  <A NAME="tex2html222"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html223"
+  HREF="node5.html#SECTION00231000000000000000">Generic Query Example</A>
+<LI><A NAME="tex2html224"
+  HREF="node5.html#SECTION00232000000000000000">Generic Storing Example</A>
+<LI><A NAME="tex2html225"
+  HREF="node5.html#SECTION00233000000000000000">Schema-Oriented Query Example</A>
+<LI><A NAME="tex2html226"
+  HREF="node5.html#SECTION00234000000000000000">Schema-Oriented Storing Example</A>
+<LI><A NAME="tex2html227"
+  HREF="node5.html#SECTION00235000000000000000">Simple Administration Example</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00230000000000000000"></A> <A NAME="1272"></A>
+<BR>
+Examples
+</H1>
+This section introduces a few complete simple examples that can be found
+in the directory
+<SPAN  CLASS="textit">prefix</SPAN><TT>/share/doc/eyedb/examples</TT>.
+The <TT>README</TT> file describes the way to compile and run these examples.
+
+<BR>
+The first two programs listed here introduce the generic C++ API of
+E<SMALL>YE</SMALL>DB while the two following programs presents the
+generated schema-oriented C++ API through the simple schema example introduced
+in this chapter. The last example shows <TT>EYEDBDBM</TT> instance
+manipulation.
+
+<H2><A NAME="SECTION00231000000000000000"></A> <A NAME="1275"></A>
+<BR>
+Generic Query Example
+</H2>
+This example introduces a simple query program which takes
+two arguments: the database name and an OQL construct. It executes
+the OQL construct and displays on its standard output the returned
+atoms.
+
+<PRE>
+// examples/C++Binding/generic/query/query.cc
+
+#include &lt;eyedb/eyedb.h&gt;
+
+using namespace std;
+
+int
+main(int argc, char *argv[])
+{
+  eyedb::init(argc, argv);
+
+  if (argc != 3) {
+    fprintf(stderr, "usage: %s &lt;dbname&gt; &lt;query&gt;\n", argv[0]);
+    return 1;
+  }
+
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode);
+
+  try {
+    eyedb::Connection conn;
+    // connecting to the eyedb server
+    conn.open();
+
+    eyedb::Database db(argv[1]);
+
+    // opening database argv[1]
+    db.open(&amp;conn, eyedb::Database::DBRW);
+
+    // beginning a transaction
+    db.transactionBegin();
+
+    // performing the OQL query argv[2] using the eyedb::OQL interface
+    eyedb::OQL q(&amp;db, argv[2]);
+
+    eyedb::ValueArray arr;
+    q.execute(arr);
+
+    cout &lt;&lt; "###### Performing the OQL query " &lt;&lt; argv[2] &lt;&lt;
+      " using the eyedb::OQL interface" &lt;&lt; endl;
+
+    // for each value returned in the query, display it:
+    for (int i = 0; i &lt; arr.getCount(); i++) {
+      // in case of the returned value is an oid, load it first:
+      if (arr[i].type == eyedb::Value::OID) {
+        eyedb::Object *o;
+        db.loadObject(arr[i].oid, &amp;o);
+        cout &lt;&lt; o;
+        o-&gt;release();
+      }
+      else
+        cout &lt;&lt; arr[i] &lt;&lt; endl;
+    }
+
+    // performing the same query using eyedb::OQLIterator interface
+    // [1]: getting all returned values
+
+    cout &lt;&lt; "\n###### Performing the same query using eyedb::OQLIterator "
+      "interface: getting all returned values" &lt;&lt; endl;
+
+    eyedb::OQLIterator iter(&amp;db, argv[2]);
+    eyedb::Value val;
+
+    while (iter.next(val)) {
+      // in case of the returned value is an oid, load it first:
+      if (val.getType() == eyedb::Value::OID) {
+        eyedb::Object *o;
+        db.loadObject(val.oid, &amp;o);
+        cout &lt;&lt; o;
+
+        // in case of the returned object is a collection, display its
+        // contents
+        if (o-&gt;asCollection()) {
+          eyedb::CollectionIterator citer(o-&gt;asCollection());
+          cout &lt;&lt; "contents BEGIN\n";
+          eyedb::Object *co;
+          while(citer.next(co)) {
+            cout &lt;&lt; co;
+            co-&gt;release();
+          }
+          cout &lt;&lt; "contents END\n\n";
+        }
+        // in case of the returned object is a class, display its
+        // extent
+        else if (o-&gt;asClass()) {
+          eyedb::ClassIterator citer(o-&gt;asClass());
+          cout &lt;&lt; "extent BEGIN\n";
+          eyedb::Object *co;
+          while(citer.next(co)) {
+            cout &lt;&lt; co;
+            co-&gt;release();
+          }
+          cout &lt;&lt; "extent END\n\n";
+        }
+
+        o-&gt;release();
+      }
+      else
+        cout &lt;&lt; val &lt;&lt; endl;
+    }
+
+    // [2]: getting only returned objects
+
+    cout &lt;&lt; "\n###### Performing the same query using eyedb::OQLIterator "
+      "interface: getting only returned objects" &lt;&lt; endl;
+
+    eyedb::OQLIterator iter2(&amp;db, argv[2]);
+    eyedb::Object *o;
+
+    while (iter2.next(o)) {
+      cout &lt;&lt; o;
+      o-&gt;release();
+    }
+
+    // committing the transaction
+    db.transactionCommit();
+  }
+
+  catch(eyedb::Exception &amp;e) {
+    cerr &lt;&lt; argv[0] &lt;&lt; ": " &lt;&lt; e;
+    eyedb::release();
+    return 1;
+  }
+
+  eyedb::release();
+
+  return 0;
+}
+</PRE>
+For instance:
+<PRE>
+./query person "select Person"
+./query EYEDBDBM "select class"
+</PRE>
+
+<H2><A NAME="SECTION00232000000000000000"></A> <A NAME="1277"></A>
+<BR>
+Generic Storing Example
+</H2>
+This example introduces a simple store program which takes
+three arguments: the database name, a person name and a person age. It
+creates a new instance of person using the given name and age.
+
+<PRE>
+// examples/C++Binding/generic/store/store.cc
+
+#include &lt;eyedb/eyedb.h&gt;
+
+using namespace std;
+
+int
+main(int argc, char *argv[])
+{
+  eyedb::init(argc, argv);
+
+  if (argc != 4) {
+    fprintf(stderr, "usage: %s &lt;dbname&gt; &lt;person_name&gt; &lt;person_age&gt;\n",
+            argv[0]);
+    return 1;
+  }
+
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode);
+
+  try {
+    eyedb::Connection conn;
+    // connecting to the eyedb server
+    conn.open();
+
+    eyedb::Database db(argv[1]);
+
+    // opening database argv[1]
+    db.open(&amp;conn, eyedb::Database::DBRW);
+
+    // beginning a transaction
+    db.transactionBegin();
+
+    // looking for class 'Person'
+    eyedb::Class *personClass = db.getSchema()-&gt;getClass("Person");
+
+    // looking for the attribute 'name' and 'age' in the class 'Person'
+    const eyedb::Attribute *name_attr = personClass-&gt;getAttribute("name");
+    if (!name_attr) {
+      fprintf(stderr, "cannot find name attribute in database\n");
+      return 1;
+    }
+
+    const eyedb::Attribute *age_attr = personClass-&gt;getAttribute("age");
+
+    if (!age_attr) {
+      fprintf(stderr, "cannot find age attribute in database\n");
+      return 1;
+    }
+
+    // instanciating a 'Person' object
+    eyedb::Object *p = personClass-&gt;newObj(&amp;db);
+
+    // setting the name argv[2] to the new Person instance
+    name_attr-&gt;setSize(p, strlen(argv[2])+1);
+    name_attr-&gt;setValue(p, (eyedb::Data)argv[2], strlen(argv[2])+1, 0);
+
+    // setting the age argv[3] to the new Person instance
+    int age = atoi(argv[3]);
+    age_attr-&gt;setValue(p, (eyedb::Data)&amp;age, 1, 0);
+    p-&gt;store();
+
+    // committing the transaction
+    db.transactionCommit();
+  }
+
+  catch(eyedb::Exception &amp;e) {
+    cerr &lt;&lt; e;
+    eyedb::release();
+    return 1;
+  }
+
+  eyedb::release();
+
+  return 0;
+}
+</PRE>
+For instance:
+<PRE>
+./store person john 32
+./store person mary 28
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00233000000000000000"></A> <A NAME="1279"></A>
+<BR>
+Schema-Oriented Query Example
+</H2>
+This example introduces a simple schema-oriented query program which takes
+two arguments: the database name and an OQL construct. It executes
+the OQL construct and displays on its standard output the returned
+atoms.
+
+<PRE>
+// examples/C++Binding/schema-oriented/query/query.cc
+
+#include "person.h"
+
+using namespace std;
+
+int
+main(int argc, char *argv[])
+{
+  eyedb::init(argc, argv);
+  person::init();
+
+  if (argc != 3) {
+    fprintf(stderr, "usage: %s &lt;dbname&gt; &lt;query&gt;\n", argv[0]);
+    return 1;
+  }
+
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode);
+
+  try {
+    eyedb::Connection conn;
+    // connecting to the eyedb server
+    conn.open();
+
+    // opening database argv[1] using 'personDatabase' class
+    personDatabase db(argv[1]);
+    db.open(&amp;conn, eyedb::Database::DBRW);
+
+    // beginning a transaction
+    db.transactionBegin();
+
+    // performing the OQL query argv[2]
+    eyedb::OQL q(&amp;db, argv[2]);
+
+    eyedb::ObjectArray arr;
+    q.execute(arr);
+
+    // for each Person returned in the query, display its name and age,
+    // its address, its spouse name and age and its cars
+    for (int i = 0; i &lt; arr.getCount(); i++) {
+      Person *p = Person_c(arr[i]);
+      if (p) {
+        cout &lt;&lt; "name:    " &lt;&lt; p-&gt;getName() &lt;&lt; endl;
+        cout &lt;&lt; "age:     " &lt;&lt; p-&gt;getAge() &lt;&lt; endl;
+
+        if (p-&gt;getAddr()-&gt;getStreet().size())
+          cout &lt;&lt; "street:  " &lt;&lt; p-&gt;getAddr()-&gt;getStreet() &lt;&lt; endl;
+
+        if (p-&gt;getAddr()-&gt;getTown().size())
+          cout &lt;&lt; "town:    " &lt;&lt; p-&gt;getAddr()-&gt;getTown() &lt;&lt; endl;
+
+        if (p-&gt;getSpouse()) {
+          cout &lt;&lt; "spouse_name: " &lt;&lt; p-&gt;getSpouse()-&gt;getName() &lt;&lt; endl;
+          cout &lt;&lt; "spouse_age:  " &lt;&lt; p-&gt;getSpouse()-&gt;getAge() &lt;&lt; endl;
+        }
+
+        eyedb::CollectionIterator iter(p-&gt;getCarsColl());
+        Car *car;
+        while (iter.next((eyedb::Object *&amp;)car)) {
+          cout &lt;&lt; "car: #" &lt;&lt; i &lt;&lt; ": " &lt;&lt;
+            car-&gt;getBrand() &lt;&lt; ";" &lt;&lt;
+            car-&gt;getNum() &lt;&lt; endl;
+        }
+      }
+    }
+
+    // committing the transaction
+    db.transactionCommit();
+  }
+
+  catch(eyedb::Exception &amp;e) {
+    cerr &lt;&lt; argv[0] &lt;&lt; ": " &lt;&lt; e;
+    eyedb::release();
+    return 1;
+  }
+
+  eyedb::release();
+
+  return 0;
+}
+</PRE>
+For instance:
+<PRE>
+./query person "select Person"
+</PRE>
+
+<H2><A NAME="SECTION00234000000000000000"></A> <A NAME="1281"></A>
+<BR>
+Schema-Oriented Storing Example
+</H2>
+This example introduces a simple schema-oriented store program which takes
+four arguments: the database name, a person name, a person age and the
+name of its spouse. It
+creates a new instance of person using the given name and age and mary
+this person to the spouse whose name is given.
+
+<PRE>
+// examples/C++Binding/schema-oriented/store/store.cc
+
+#include "person.h"
+
+int
+main(int argc, char *argv[])
+{
+  // initializing the EyeDB layer
+  eyedb::init(argc, argv);
+
+  // initializing the person package
+  person::init();
+
+  if (argc != 5) {
+    fprintf(stderr, "usage: %s &lt;dbname&gt; &lt;person name&gt; &lt;person age&gt; "
+            "&lt;spouse name&gt;\n", argv[0]);
+    return 1;
+  }
+
+  const char *dbname = argv[1];
+  const char *name = argv[2];
+  int age = atoi(argv[3]);
+  const char *spouse_name = argv[4];
+
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode);
+
+  try {
+    eyedb::Connection conn;
+
+    // connecting to the EyeDB server
+    conn.open();
+
+    // opening database dbname using 'personDatabase' class
+    personDatabase db(dbname);
+    db.open(&amp;conn, eyedb::Database::DBRW);
+
+    // beginning a transaction
+    db.transactionBegin();
+
+    // first looking for spouse
+    eyedb::OQL q(&amp;db, "select Person.name = \"%s\"", spouse_name);
+
+    eyedb::ObjectArray arr;
+    q.execute(arr);
+
+    // if not found, returns an error
+    if (!arr.getCount()) {
+      fprintf(stderr, "cannot find spouse '%s'\n", spouse_name);
+      return 1;
+    }
+
+    // (safe!) casting returned object
+    Person *spouse = Person_c(arr[0]);
+
+    // creating a Person
+    Person *p = new Person(&amp;db);
+
+    p-&gt;setCstate(Sir);
+    p-&gt;setName(name);
+    p-&gt;setAge(age);
+
+    p-&gt;setSpouse(spouse);
+
+    // spouse is no more necessary: releasing it
+    spouse-&gt;release();
+
+    p-&gt;getAddr()-&gt;setStreet("voltaire");
+    p-&gt;getAddr()-&gt;setTown("paris");
+
+    // creating two cars
+    Car *car1 = new Car(&amp;db);
+    car1-&gt;setBrand("renault");
+    car1-&gt;setNum(18374);
+
+    Car *car2 = new Car(&amp;db);
+    car2-&gt;setBrand("ford");
+    car2-&gt;setNum(233491);
+
+    // adding the cars to the created person
+    p-&gt;addToCarsColl(car1);
+    p-&gt;addToCarsColl(car2);
+
+    // car pointers are no more necessary: releasing them
+    car1-&gt;release();
+    car2-&gt;release();
+
+    // creating ten children
+    for (int i = 0; i &lt; 10; i++) {
+      Person *c = new Person(&amp;db);
+      char tmp[64];
+
+      c-&gt;setAge(i);
+      sprintf( tmp, "%d", i);
+      c-&gt;setName( (std::string(name) + std::string("_") + std::string(tmp)).c_str() );
+      p-&gt;setInChildrenCollAt(i, c);
+      c-&gt;release();
+    }
+
+    // storing all in database
+    p-&gt;store(eyedb::RecMode::FullRecurs);
+
+    // committing the transaction
+    db.transactionCommit();
+
+    // releasing p
+    p-&gt;release();
+  }
+
+  catch(eyedb::Exception &amp;e) {
+    std::cerr &lt;&lt; argv[0] &lt;&lt; ": " &lt;&lt; e;
+    eyedb::release();
+    return 1;
+  }
+
+  // releasing the EyeDB layer: this is not mandatory
+  eyedb::release();
+
+  return 0;
+}
+</PRE>
+<PRE>
+./store person wayne 34
+./store person poppins 51
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00235000000000000000"></A> <A NAME="1283"></A>
+<BR>
+Simple Administration Example
+</H2>
+This simple example introduces the way to manipulate objects in the
+<TT>EYEDBDBM</TT> database. This program:
+
+<OL>
+<LI>displays the schema of the <TT>EYEDBDBM</TT> database,
+</LI>
+<LI>displays the E<SMALL>YE</SMALL>DB user names,
+</LI>
+<LI>for each database, it displays the name, the database file and
+the user access information.
+</LI>
+</OL>
+
+<PRE>
+// examples/C++Binding/schema-oriented/admin/admin.cc
+
+#include &lt;eyedb/eyedb.h&gt;
+
+using namespace std;
+
+static const char *
+get_string_mode(eyedb::DBAccessMode mode)
+{
+  if (mode == eyedb::NoDBAccessMode)
+    return "eyedb::NoDBAccessMode";
+  if (mode == eyedb::ReadDBAccessMode)
+    return "eyedb::ReadDBAccessMode";
+  if (mode == eyedb::WriteDBAccessMode)
+    return "eyedb::WriteDBAccessMode";
+  if (mode == eyedb::ExecDBAccessMode)
+    return "eyedb::ExecDBAccessMode";
+  if (mode == eyedb::ReadWriteDBAccessMode)
+    return "eyedb::ReadWriteDBAccessMode";
+  if (mode == eyedb::ReadExecDBAccessMode)
+    return "eyedb::ReadExecDBAccessMode";
+  if (mode == eyedb::ReadWriteExecDBAccessMode)
+    return "eyedb::ReadWriteExecDBAccessMode";
+  if (mode == eyedb::AdminDBAccessMode)
+    return "eyedb::AdminDBAccessMode";
+
+  return NULL;
+}
+
+int
+main(int argc, char *argv[])
+{
+  // initializing the eyedb layer
+  eyedb::init(argc, argv);
+
+  eyedb::Exception::setMode(eyedb::Exception::ExceptionMode);
+
+  try {
+    eyedb::Connection conn;
+
+    // connecting to the eyedb server
+    conn.open();
+
+    // opening the database EYEDBDBM using 'dbmDataBase' class
+    eyedb::DBMDatabase db("EYEDBDBM");
+    db.open(&amp;conn, eyedb::Database::DBRead);
+
+    // beginning a transaction
+    db.transactionBegin();
+
+    // display the scheme on stdout
+    cout &lt;&lt; db.getSchema() &lt;&lt; endl;
+
+    // looking for all user
+    eyedb::OQL q_user(&amp;db, "select User");
+
+    eyedb::ObjectArray user_arr;
+    q_user.execute(user_arr);
+
+    cout &lt;&lt; "User List {" &lt;&lt; endl;
+    for (int i = 0; i &lt; user_arr.getCount(); i++) {
+      eyedb::UserEntry *user = (eyedb::UserEntry *)user_arr[i];
+      cout &lt;&lt; "\t" &lt;&lt; user-&gt;name() &lt;&lt; endl;
+    }
+    cout &lt;&lt; "}\n" &lt;&lt; endl;
+
+    // looking for all database entry
+    eyedb::OQL q_db(&amp;db, "select eyedb::DBEntry");
+
+    eyedb::ObjectArray db_arr;
+    q_db.execute(db_arr);
+
+    cout &lt;&lt; "Database List {" &lt;&lt; endl;
+
+    for (int i = 0; i &lt; db_arr.getCount(); i++) {
+      eyedb::DBEntry *dbentry = (eyedb::DBEntry *)db_arr[i];
+      cout &lt;&lt; "\t" &lt;&lt; dbentry-&gt;dbname() &lt;&lt; " -&gt; " &lt;&lt; dbentry-&gt;dbfile() &lt;&lt; endl;
+      // looking for all user which has any permission on this
+      // database
+      eyedb::OQL q_useraccess(&amp;db,
+                              "select eyedb::DBUserAccess-&gt;dbentry-&gt;dbname = \"%s\"",
+                              dbentry-&gt;dbname().c_str());
+      eyedb::ObjectArray useraccess_arr;
+      q_useraccess.execute(useraccess_arr);
+      if (useraccess_arr.getCount()) {
+        cout &lt;&lt; "\tUser Access {" &lt;&lt; endl;
+        for (int j = 0; j &lt; useraccess_arr.getCount(); j++) {
+          eyedb::DBUserAccess *ua = (eyedb::DBUserAccess *)useraccess_arr[j];
+          cout &lt;&lt; "\t\t" &lt;&lt; ua-&gt;user()-&gt;name() &lt;&lt; " -&gt; " &lt;&lt;
+            get_string_mode(ua-&gt;mode()) &lt;&lt; endl;
+        }
+        cout &lt;&lt; "\t}" &lt;&lt; endl;
+      }
+      cout &lt;&lt; endl;
+      useraccess_arr.garbage();
+    }
+
+    cout &lt;&lt; "}" &lt;&lt; endl;
+
+    // releasing runtime pointers
+    db_arr.garbage();
+    user_arr.garbage();
+  }
+
+  catch(eyedb::Exception &amp;e) {
+    cerr &lt;&lt; argv[0] &lt;&lt; ": " &lt;&lt; e;
+    eyedb::release();
+    return 1;
+  }
+
+  // releasing the eyedb layer: this is not mandatory
+  eyedb::release();
+
+  return 0;
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png"> 
+<A NAME="tex2html219"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html217"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html221"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Up:</B> <A NAME="tex2html220"
+  HREF="node2.html">The EyeDB C++ Binding</A>
+<B> Previous:</B> <A NAME="tex2html218"
+  HREF="node4.html">The Schema-Oriented Generated C++</A>
+ &nbsp; <B>  <A NAME="tex2html222"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+EyeDB manual
+</ADDRESS>
+</BODY>
+</HTML>

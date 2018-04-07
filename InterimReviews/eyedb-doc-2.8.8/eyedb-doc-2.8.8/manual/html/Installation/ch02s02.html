@@ -1,0 +1,30 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>The single user installation</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"><link rel="home" href="index.html" title="EyeDB Installation Guide"><link rel="up" href="ch02.html" title="Chapter 2. Installing EyeDB"><link rel="prev" href="ch02.html" title="Chapter 2. Installing EyeDB"><link rel="next" href="ch02s03.html" title="The shared installation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The single user installation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Installing EyeDB</th><td width="20%" align="right"> <a accesskey="n" href="ch02s03.html">Next</a></td></tr></table><hr></div><div class="section" title="The single user installation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="single-user-installation"></a>The single user installation</h2></div></div></div><p>
+	This type of installation is the simplest one and does not require superuser rights; it can be done immediately after compiling EyeDB and require no extra steps. However, it cannot support multiple users accessing EyeDb databases and automaticaly starting EyeDB on machine boot is less easy to seup.
+      </p><p>
+	This installation is done by selecting, when configuring EyeDB, a <span class="emphasis"><em>prefix</em></span> directory where the user compiling EyeDB has write permission, for instance:
+	</p><div class="informalexample"><pre class="screen">
+	    <strong class="userinput"><code>./configure --prefix=$HOME/eyedb</code></strong>
+	  </pre></div><p>
+      </p><div class="section" title="Installing EyeDB"><div class="titlepage"><div><div><h3 class="title"><a name="single-user-installation-install"></a>Installing EyeDB</h3></div></div></div><p>
+	  After building, install EyeDB by running <span class="command"><strong>make install</strong></span>. This will install the files in the directories specified when <a class="link" href="ch01s03.html" title="Configuring EyeDB">configuring</a> EyeDB.
+	</p><p>
+	  Installing requires having write permission in the specified directory.
+	</p><p>
+	  Uninstalling can be done by running <span class="command"><strong>make uninstall</strong></span>. Note that this command will not remove created directories.
+	</p></div><div class="section" title="Post-installation setup"><div class="titlepage"><div><div><h3 class="title"><a name="single-user-installation-post-install"></a>Post-installation setup</h3></div></div></div><p>
+	  After installing EyeDB, a post-installation setup script must be run <span class="emphasis"><em>once</em></span>, to initialize the system. This script is located in subdirectory <code class="filename">share/eyedb/tools</code> under the <code class="filename">prefix</code> directory and is named <code class="filename">eyedb-postinstall.sh</code>.
+	</p><p>
+	  The script must be run under the user compiling EyeDB, as in:
+	  </p><div class="informalexample"><pre class="screen">
+	      <strong class="userinput"><code>./eyedb-postinstall.sh</code></strong>
+==== Starting EyeDB server
+Starting EyeDB Server
+Version      V2.8.8
+Compiled     Aug 13 2009 20:24:11
+Architecture x86_64-unknown-linux-gnu
+Program Pid  9388
+==== Creating EYEDBDBM database
+==== Stopping EyeDB server
+Killing EyeDB Server Pid 9388
+	    </pre></div><p>
+	</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 2. Installing EyeDB </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The shared installation</td></tr></table></div></body></html>
