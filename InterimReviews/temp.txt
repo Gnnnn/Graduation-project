@@ -1,0 +1,1 @@
+如何打开sql server 配置服务：SQLServerManager10.msc

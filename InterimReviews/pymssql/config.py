@@ -1,0 +1,1 @@
+DatabaseInfo = {'DatabaseUrl':'localhost','UserName':'xiaokexiao','Password':'test','Database':'GraduationPro'}
