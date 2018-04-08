@@ -5,45 +5,45 @@ import pymssql
 import json
 import config
 
-def open_excel(file):
-    try:
-        data = xlrd.open_workbook(file)
-        return data
-    except Exception as e:
-        print(str(e))
+# def open_excel(file):
+#     try:
+#         data = xlrd.open_workbook(file)
+#         return data
+#     except Exception as e:
+#         print(str(e))
 
 
-def excel_table_byindex(file,colnameindex,by_index):
-    data = open_excel(file)
-    table = data.sheets()[by_index]
-    nrows = table.nrows #行数
-    ncols = table.ncols #列数
-    colnames =  table.row_values(colnameindex) #某一行数据 
-    list =[]
-    for rownum in range(1,nrows):
-         row = table.row_values(rownum)
-         if row:
-             app = {}
-             for i in range(len(colnames)):
-                app[colnames[i]] = row[i] 
-             list.append(app)
-    return list
+# def excel_table_byindex(file,colnameindex,by_index):
+#     data = open_excel(file)
+#     table = data.sheets()[by_index]
+#     nrows = table.nrows #行数
+#     ncols = table.ncols #列数
+#     colnames =  table.row_values(colnameindex) #某一行数据 
+#     list =[]
+#     for rownum in range(1,nrows):
+#          row = table.row_values(rownum)
+#          if row:
+#              app = {}
+#              for i in range(len(colnames)):
+#                 app[colnames[i]] = row[i] 
+#              list.append(app)
+#     return list
 
-#根据名称获取Excel表格中的数据   参数:file：Excel文件路径     colnameindex：表头列名所在行的所以  ，by_name：Sheet1名称
-def excel_table_byname(file,colnameindex,by_name):
-    data = open_excel(file)
-    table = data.sheet_by_name(by_name)
-    nrows = table.nrows #行数 
-    colnames =  table.row_values(colnameindex) #某一行数据 
-    list =[]
-    for rownum in range(1,nrows):
-         row = table.row_values(rownum)
-         if row:
-             app = {}
-             for i in range(len(colnames)):
-                app[colnames[i]] = row[i]
-             list.append(app)
-    return list
+# #根据名称获取Excel表格中的数据   参数:file：Excel文件路径     colnameindex：表头列名所在行的所以  ，by_name：Sheet1名称
+# def excel_table_byname(file,colnameindex,by_name):
+#     data = open_excel(file)
+#     table = data.sheet_by_name(by_name)
+#     nrows = table.nrows #行数 
+#     colnames =  table.row_values(colnameindex) #某一行数据 
+#     list =[]
+#     for rownum in range(1,nrows):
+#          row = table.row_values(rownum)
+#          if row:
+#              app = {}
+#              for i in range(len(colnames)):
+#                 app[colnames[i]] = row[i]
+#              list.append(app)
+#     return list
 
 #连接数据库-查询
 def database(conn,sql):
@@ -116,24 +116,26 @@ def excel(fileName):
 
 
 def main():
+    excel(file)
+    
     conn = pymssql.connect(config.DatabaseInfo['DatabaseUrl'],config.DatabaseInfo['UserName'],config.DatabaseInfo['Password'],config.DatabaseInfo['Database'],charset="UTF-8")  
     sql = 'select * from GraduationPro.dbo.test'
     database(conn,sql)
     conn.close()
 
     file = '泡面品评version2.xls'
-    colnameindex = 0
-    by_name = u'sheet1'
-    by_index = 0
-    tables = excel_table_byindex(file,colnameindex,by_index)
-    for row in tables:
-        print(row)
+    # colnameindex = 0
+    # by_name = u'sheet1'
+    # by_index = 0
+    # tables = excel_table_byindex(file,colnameindex,by_index)
+    # for row in tables:
+    #     print(row)
 
-    tables = excel_table_byname(file,colnameindex,by_name)
-    for row in tables:
-        print(row)
-        
-    excel(file)
+    # tables = excel_table_byname(file,colnameindex,by_name)
+    # for row in tables:
+    #     print(row)
+
+    
 
 if __name__=="__main__":
     main()
