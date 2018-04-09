@@ -1,0 +1,206 @@
+/* eyedbconfig.h.in.  Generated from configure.in by autoheader.  */
+
+/* Define to 1 if you have the <crypt.h> header file. */
+#undef HAVE_CRYPT_H
+
+/* Define to 1 if you have the `ctime_r' function. */
+#undef HAVE_CTIME_R
+
+/* Define if you have ctime_r(time_t*,char *buf,size_t s) */
+#undef HAVE_CTIME_R_3
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if we must use eyedbsmd */
+#undef HAVE_EYEDBSMD
+
+/* Define to 1 if you have the `fattach' function. */
+#undef HAVE_FATTACH
+
+/* Define to 1 if the system has the type `flock_t'. */
+#undef HAVE_FLOCK_T
+
+/* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
+#undef HAVE_FSEEKO
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `crypt' library (-lcrypt). */
+#undef HAVE_LIBCRYPT
+
+/* Define to 1 if you have the `dl' library (-ldl). */
+#undef HAVE_LIBDL
+
+/* Define if you have BSD editline library */
+#undef HAVE_LIBEDITLINE
+
+/* Define to 1 if you have the <libgen.h> header file. */
+#undef HAVE_LIBGEN_H
+
+/* Define to 1 if you have the `nsl' library (-lnsl). */
+#undef HAVE_LIBNSL
+
+/* Define if you have GNU readline library */
+#undef HAVE_LIBREADLINE
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have POSIX threads libraries and header files. */
+#undef HAVE_PTHREAD
+
+/* Defined if function pthread_mutexattr_setpshared exists */
+#undef HAVE_PTHREAD_MUTEXATTR_SETPSHARED
+
+/* Define if Posix threads implementation supports PTHREAD_PROCESS_SHARED */
+#undef HAVE_PTHREAD_PROCESS_SHARED
+
+/* Define to 1 if you have the <pwd.h> header file. */
+#undef HAVE_PWD_H
+
+/* Defined if function regcmp exists */
+#undef HAVE_REGCMP
+
+/* Defined if function regcomp exists */
+#undef HAVE_REGCOMP
+
+/* Defined if function regex exists */
+#undef HAVE_REGEX
+
+/* Defined if function regexec exists */
+#undef HAVE_REGEXEC
+
+/* Define to 1 if you have the <regex.h> header file. */
+#undef HAVE_REGEX_H
+
+/* Define if semaphore policy is Posix (must support PTHREAD_PROCESS_SHARED)
+   */
+#undef HAVE_SEMAPHORE_POLICY_POSIX
+
+/* Define if semaphore policy is Sys V IPC */
+#undef HAVE_SEMAPHORE_POLICY_SYSV_IPC
+
+/* Defined if pseudo-filesystem /proc exists */
+#undef HAVE_SLASH_PROC
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <stropts.h> header file. */
+#undef HAVE_STROPTS_H
+
+/* Define to 1 if you have the `strsignal' function. */
+#undef HAVE_STRSIGNAL
+
+/* Define to 1 if `s_addr' is member of `struct in_addr'. */
+#undef HAVE_STRUCT_IN_ADDR_S_ADDR
+
+/* Define to 1 if `_S_un' is member of `struct in_addr'. */
+#undef HAVE_STRUCT_IN_ADDR__S_UN
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <time.h> header file. */
+#undef HAVE_TIME_H
+
+/* Defined if function tzset exists */
+#undef HAVE_TZSET
+
+/* Define to 1 if `val' is member of `union semun'. */
+#undef HAVE_UNION_SEMUN_VAL
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if the system has the type `unsigned long long'. */
+#undef HAVE_UNSIGNED_LONG_LONG
+
+/* Define if you have long timezone */
+#undef HAVE_VAR_LONG_TIMEZONE
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to the absolute path of the more command */
+#undef PATH_TO_MORE
+
+/* Define to the integer type of same size as void * */
+#undef POINTER_INT_TYPE
+
+/* Define to necessary symbol if this constant uses a non-standard name on
+   your system. */
+#undef PTHREAD_CREATE_JOINABLE
+
+/* The size of `unsigned int', as computed by sizeof. */
+#undef SIZEOF_UNSIGNED_INT
+
+/* The size of `unsigned long', as computed by sizeof. */
+#undef SIZEOF_UNSIGNED_LONG
+
+/* The size of `unsigned long long', as computed by sizeof. */
+#undef SIZEOF_UNSIGNED_LONG_LONG
+
+/* The size of `void *', as computed by sizeof. */
+#undef SIZEOF_VOID_P
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to 1 if your processor stores words with the most significant byte
+   first (like Motorola and SPARC, unlike Intel and VAX). */
+#undef WORDS_BIGENDIAN
+
+/* Define to 1 if the X Window System is missing or not being used. */
+#undef X_DISPLAY_MISSING
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#undef YYTEXT_POINTER
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#undef _FILE_OFFSET_BITS
+
+/* Define to 1 to make fseeko visible on some hosts (e.g. glibc 2.2). */
+#undef _LARGEFILE_SOURCE
+
+/* Define for large files, on AIX-style hosts. */
+#undef _LARGE_FILES
