@@ -43,3 +43,648 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2018-04-10 17:09:15.782 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data file:/F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/ -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-10 17:09:25.745
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.help.base 2 0 2018-04-10 17:11:17.622
+!MESSAGE Unable to consume Lucene index from bundle 'org.eclipse.jdt.doc.user_3.13.51.v20171124-0639 [226]'. The index should be rebuilt with Lucene 6.1.
+
+!ENTRY org.eclipse.help.base 2 0 2018-04-10 17:11:17.624
+!MESSAGE Unable to consume Lucene index from bundle 'org.eclipse.wst.dtdeditor.doc.user_1.0.700.v201208081537 [461]'. The index should be rebuilt with Lucene 6.1.
+
+!ENTRY org.eclipse.help.base 2 0 2018-04-10 17:11:17.626
+!MESSAGE Unable to consume Lucene index from bundle 'org.eclipse.platform.doc.user_4.7.3.v20171222-0602 [375]'. The index should be rebuilt with Lucene 6.1.
+
+!ENTRY org.eclipse.help.base 2 0 2018-04-10 17:11:17.628
+!MESSAGE Unable to consume Lucene index from bundle 'org.eclipse.wst.xmleditor.doc.user_1.0.700.v201707252002 [474]'. The index should be rebuilt with Lucene 6.1.
+
+!ENTRY org.eclipse.help.base 2 0 2018-04-10 17:11:17.630
+!MESSAGE Unable to consume Lucene index from bundle 'org.eclipse.wst.xsdeditor.doc.user_1.0.800.v201707252002 [477]'. The index should be rebuilt with Lucene 6.1.
+
+!ENTRY org.eclipse.help.base 2 0 2018-04-10 17:11:17.632
+!MESSAGE Unable to consume Lucene index from bundle 'org.eclipse.wst.sse.doc.user_1.1.100.v201208081537 [464]'. The index should be rebuilt with Lucene 6.1.
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 17:11:57.355
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 17:12:03.406
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 17:12:11.995
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+!SESSION 2018-04-10 17:33:47.632 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-04-10 17:33:51.665
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-10 17:33:58.039
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2018-04-10 17:45:17.620 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data file:/F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/ -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-10 17:45:26.296
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 17:52:17.142
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 17:52:21.743
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Exception in com.db4o.omplus.Activator.stop() of bundle com.db4o.ome.
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:855)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:947)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:314)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1675)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1594)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:270)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:147)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:202)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:165)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.NullPointerException
+	at com.db4o.omplus.connection.ConnectionStatus.isConnected(ConnectionStatus.java:8)
+	at com.db4o.omplus.Activator.stop(Activator.java:166)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:835)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:828)
+	... 13 more
+Root exception:
+java.lang.NullPointerException
+	at com.db4o.omplus.connection.ConnectionStatus.isConnected(ConnectionStatus.java:8)
+	at com.db4o.omplus.Activator.stop(Activator.java:166)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:835)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:828)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:947)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:314)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1675)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1594)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:270)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:147)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:202)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:165)
+	at java.lang.Thread.run(Unknown Source)
+!SESSION 2018-04-10 17:53:56.196 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-10 17:54:07.260
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2018-04-10 18:10:16.927 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2018-04-10 18:10:26.067
+!MESSAGE Removing part descriptor with the 'com.db4o.omplus.ui.ClassViewer' id and the 'db4o Browser' description. Points to the invalid 'bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView' class.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-10 18:10:26.698
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2018-04-10 18:10:26.868
+!MESSAGE Removing part descriptor with the 'com.db4o.omplus.ui.QueryBuilder' id and the 'Build Query' description. Points to the invalid 'bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView' class.
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2018-04-10 18:10:26.914
+!MESSAGE Removing part descriptor with the 'com.db4o.omplus.ui.QueryResults' id and the 'Query Results' description. Points to the invalid 'bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView' class.
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2018-04-10 18:10:26.916
+!MESSAGE Removing part descriptor with the 'com.db4o.omplus.ui.PropertyViewer' id and the 'Property Viewer' description. Points to the invalid 'bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView' class.
+!SESSION 2018-04-10 18:11:40.005 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data file:/F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/ -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-10 18:11:49.497
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 18:11:55.756
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 18:13:50.164
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 18:23:12.173
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 18:23:16.824
+!MESSAGE Could not open database.
+!STACK 0
+com.db4o.omplus.connection.DBConnectException: Could not open database.
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:76)
+	at com.db4o.omplus.ui.actions.DbConnectUtil.connect(DbConnectUtil.java:16)
+	at com.db4o.omplus.ui.actions.OpenDb4oAction.run(OpenDb4oAction.java:49)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:247)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:565)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:397)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+Caused by: com.db4o.ext.Db4oException: File format incompatible: 'F:/GitHub/Graduation-project/InterimReviews/db4o/db4oDemo/db4oDemo/people.yap'
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:36)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:26)
+	at com.db4o.internal.Exceptions4.throwRuntimeException(Exceptions4.java:22)
+	at com.db4o.internal.fileheader.FileHeader.read(FileHeader.java:39)
+	at com.db4o.internal.LocalObjectContainer.readThis(LocalObjectContainer.java:471)
+	at com.db4o.internal.IoAdaptedObjectContainer.openImpl(IoAdaptedObjectContainer.java:71)
+	at com.db4o.internal.ObjectContainerBase$1.run(ObjectContainerBase.java:140)
+	at com.db4o.foundation.DynamicVariable.with(DynamicVariable.java:54)
+	at com.db4o.foundation.Environments.runWith(Environments.java:28)
+	at com.db4o.internal.ObjectContainerBase.withEnvironment(ObjectContainerBase.java:161)
+	at com.db4o.internal.ObjectContainerBase.open(ObjectContainerBase.java:131)
+	at com.db4o.internal.IoAdaptedObjectContainer.<init>(IoAdaptedObjectContainer.java:35)
+	at com.db4o.internal.ObjectContainerFactory.openObjectContainer(ObjectContainerFactory.java:18)
+	at com.db4o.Db4oEmbedded.openFile(Db4oEmbedded.java:65)
+	at com.db4o.omplus.connection.FileConnectionParams.connect(FileConnectionParams.java:57)
+	... 31 more
+
+!ENTRY com.db4o.ome 4 0 2018-04-10 18:23:19.030
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Exception in com.db4o.omplus.Activator.stop() of bundle com.db4o.ome.
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:855)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:947)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:314)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1675)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1594)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:270)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:147)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:202)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:165)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.NullPointerException
+	at com.db4o.omplus.connection.ConnectionStatus.isConnected(ConnectionStatus.java:8)
+	at com.db4o.omplus.Activator.stop(Activator.java:166)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:835)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:828)
+	... 13 more
+Root exception:
+java.lang.NullPointerException
+	at com.db4o.omplus.connection.ConnectionStatus.isConnected(ConnectionStatus.java:8)
+	at com.db4o.omplus.Activator.stop(Activator.java:166)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:835)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:828)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:947)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:314)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1675)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1594)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:270)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:147)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:202)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:165)
+	at java.lang.Thread.run(Unknown Source)
