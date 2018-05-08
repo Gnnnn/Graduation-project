@@ -116,14 +116,13 @@ def excel(fileName):
 
 
 def main():
-    excel(file)
-    
     conn = pymssql.connect(config.DatabaseInfo['DatabaseUrl'],config.DatabaseInfo['UserName'],config.DatabaseInfo['Password'],config.DatabaseInfo['Database'],charset="UTF-8")  
     sql = 'select * from GraduationPro.dbo.test'
     database(conn,sql)
     conn.close()
 
     file = '泡面品评version2.xls'
+    excel(file)
     # colnameindex = 0
     # by_name = u'sheet1'
     # by_index = 0

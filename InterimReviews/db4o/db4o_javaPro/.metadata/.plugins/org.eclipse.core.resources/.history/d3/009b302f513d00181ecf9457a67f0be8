@@ -1,0 +1,5 @@
+package db4o_people;
+
+public class People {
+
+}
