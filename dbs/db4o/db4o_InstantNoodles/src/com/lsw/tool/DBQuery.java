@@ -35,7 +35,8 @@ public class DBQuery {
 
     public static void main(String[] args) {
         ObjectContainer db = Db4oEmbedded.openFile(Constants.DB4O_FILENAME);
-        ObjectSet<InstantNoodles> set = db.queryByExample(new InstantNoodles(1001));
+        int searchNum = 1001;
+        ObjectSet<InstantNoodles> set = db.queryByExample(new InstantNoodles(searchNum));
         ObjectSet<InstantNoodles> setall = db.queryByExample(new InstantNoodles());
         
         System.out.println("È«¾ÖËÑË÷£º");

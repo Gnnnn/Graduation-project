@@ -1,0 +1,56 @@
+package com.lsw.tool;
+
+import java.util.List;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.lsw.bean.InstantNoodles;
+import com.lsw.util.Constants;
+
+public class DBDelete {
+    public static void deletePart(ObjectContainer db,int n) {
+        System.out.println("É¾³ýÇ°£º");
+        DBQuery.queryAll(db);
+        ObjectSet<InstantNoodles> result = db.queryByExample(new InstantNoodles(n));
+        int i = 0;
+        while(i <= result.size()){
+        	i ++;
+        	InstantNoodles p = result.next();
+            System.out.println("É¾³ýµÄÄÚÈÝ£º " + p);
+            if (p != null) { 
+                db.delete(p);
+            }
+        }
+        System.out.println("É¾³ýºó£º");
+        DBQuery.queryAll(db);
+    }
+    
+    
+    public static void deleteAll(ObjectContainer db) {
+        System.out.println("É¾³ýÇ°£º");
+        DBQuery.queryAll(db);
+    	ObjectSet<InstantNoodles> setall = db.queryByExample(new InstantNoodles());
+        int j = 0;
+        while(j < setall.size()){
+        	j ++;
+        	InstantNoodles p = setall.next();
+            System.out.println("É¾³ýµÄÄÚÈÝ£º " + p);
+            if (p != null) { 
+                db.delete(p);
+            }
+        }
+        System.out.println("É¾³ýºó£º");
+        DBQuery.queryAll(db);
+    }
+    
+    
+    public static void main(String[] args) {
+        ObjectContainer db = Db4oEmbedded.openFile(Constants.DB4O_FILENAME);
+        int n = 1002;
+        deletePart(db,n);
+//        deleteAll(db);
+        db.close();
+
+    }
+}

@@ -32,8 +32,8 @@ public class DBNQQuery {
      */
     public static void testNQQuery(ObjectContainer db) {
         List<InstantNoodles> result = db.query(new Predicate<InstantNoodles>() {
-            public boolean match(InstantNoodles people) {
-                return people.getId() > 2 && people.getId() < 4 || people.getName().equals("杜甫");
+            public boolean match(InstantNoodles istn) {
+                return istn.getId() > 2 && istn.getId() < 4 || istn.getName().equals("杜甫");
             }
         });
         DBQuery.listResult(result);
@@ -47,13 +47,13 @@ public class DBNQQuery {
     public static void testNQQuery2(ObjectContainer db) {
         final int[] points = { 1, 2, 5, 6 };
         List<InstantNoodles> result = db.query(new Predicate<InstantNoodles>() {
-            public boolean match(InstantNoodles people) {
+            public boolean match(InstantNoodles istn) {
                 for (int point : points) {
-                    if (people.getId() == point) {
+                    if (istn.getId() == point) {
                         return true;
                     }
                 }
-                return people.getName().startsWith("王");
+                return istn.getName().startsWith("王");
             }
         });
         DBQuery.listResult(result);
@@ -61,12 +61,6 @@ public class DBNQQuery {
 
     public static void main(String[] args) {
         ObjectContainer db = Db4oEmbedded.openFile(Constants.DB4O_FILENAME);
-//        People p1 = new People(4, "王五", "上海");
-//        People p2 = new People(5, "杜甫", "苏州");
-//        People p3 = new People(6, "赵六", "南京");
-//        db.store(p1);
-//        db.store(p2);
-//        db.store(p3);
         System.out.println("数据库中的全部实例：");
         DBQuery.queryAll(db);
         System.out.println("查询出来的实例：");
