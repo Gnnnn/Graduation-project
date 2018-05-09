@@ -1,0 +1,1 @@
+INDEX VERSION 1.130+G:\GITHUB\Graduation-project\dbs\db4o\db4o_InstantNoodles\.metadata\.plugins\org.eclipse.jdt.core
