@@ -1,0 +1,8 @@
+TY  - BOOK
+AU  - Cook, William
+AU  - Rosenberger, Carl
+PY  - 2005/09/23
+SP  - 
+N2  - Most persistence architectures for Java and .NET provide interfaces to execute queries written in an architecture-specific query language. These interfaces are string based : queries are defined in strings that are passed to the persistence engine for interpretation. String-based query interfaces have significant negative impact on programmer pro-ductivity. The queries are not accessible to development environment features like compile-time type checking, auto-completion, and refac-toring. Programmers must work in two languages: the implementa-tion language and the query language. This paper introduces Native Queries, a concise and type-safe way to express queries directly as Java and C# methods. We describe the design of Native Queries and provide an overview of implementation and optimization issues. The paper also includes a discussion of the advantages and disadvantages of the current design of Native Queries.
+T1  - Native Queries for Persistent Objects A Design White Paper
+ER  - 
