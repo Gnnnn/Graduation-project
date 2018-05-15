@@ -20,7 +20,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<h1><a class="navbar-brand" href="index.html">SU<span>F</span>EP<span>A</span>TN<span>E</span>R</a></h1>
+					<h1><a class="navbar-brand" href="index.html">XI<span>AO</span>XI<span>AO</span>K<span>E</span>.</a></h1>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
@@ -46,10 +46,10 @@
 			<div style="margin-bottom: 0px" class="single-grids">
 				<div class="col-md-8 single-grid-left">
 			 <h3 class="head-top">数据信息</h3>
-					<form action="re/publish2.php?request=myinfo1" method="post" enctype="multipart/form-data">
+					<form action="re/publish2.php?request=myinfo" method="post" enctype="multipart/form-data">
 					<div class="input-group ">
 						<span class="input-group-addon" id="basic-addon2">标签</span>
-						<input type="text" class="form-control usermail"  name="usermail" aria-describedby="basic-addon1">
+						<input type="text" class="form-control usermail"  name="usertag" aria-describedby="basic-addon1">
 					</div>
 					<!-- <form action="re/publish2.php?request=myinfo" method="post" enctype="multipart/form-data"> -->
 					<div  class="input-group ">
@@ -57,7 +57,11 @@
 						<!-- <label for="file">选择图片：</label> -->
 						<input type="file" name="file" id="file">
 					</div>
-              			<input class="abb" type="submit" value="submit">
+					<div  class="input-group ">
+						<span class="input-group-addon" id="basic-addon4">文件夹</span> 
+						<input id="dialog" type="file" webkitdirectory="">
+					</div>
+              		<input class="abb" type="submit" value="submit">
 				    </form>
 					</div>
 				</div>
@@ -71,6 +75,25 @@
 <!-- for bootstrap working -->
 	<script src="js/bootstrap.js"></script>
 	<script src="js/my.js"></script>
+	<script>
+    dialog.onchange = function(e) {
+        var files = this.files;
+        var table = {};
+
+        for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            var dt = new Date(f.lastModified);
+
+            table[i] = {
+                path: f.webkitRelativePath,
+                size: f.size,
+                modified: dt.toLocaleString()
+            };
+        }
+
+        console.table(table);
+    };
+</script>
 <!-- //for bootstrap working -->
 </body>
 </html>
