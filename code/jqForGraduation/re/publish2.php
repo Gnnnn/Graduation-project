@@ -2,10 +2,10 @@
  session_start();
 $request=$_GET["request"];
 
-$GLOBALS['dbip'] = '****';
-$GLOBALS['usn'] = '****';
-$GLOBALS['psw'] = '****';
-$GLOBALS['dbname'] = 'xcxcketest_com';
+$GLOBALS['dbip'] = '18.221.16.127';
+$GLOBALS['usn'] = 'root';
+$GLOBALS['psw'] = 'test';
+$GLOBALS['dbname'] = 'Gra';
 
 if($request=="viewmyinfo"){
   $username=$_SESSION["username"];
@@ -26,52 +26,53 @@ if($request=="viewmyinfo"){
 if($request=="myinfo"){
     $usertag = $_POST["usertag"];
     //file start
-    $allowedExts = array("gif", "jpeg", "jpg", "png","doc","txt","docx","elxs","els");
+    // $allowedExts = array("gif", "jpeg", "jpg", "png","doc","txt","docx","elxs","els");
     echo $_FILES["file"]["name"];
+    echo $_FILES["file"]["type"];
       $temp = explode(".", $_FILES["file"]["name"]);
       $extension = end($temp);     // 获取文件后缀名
       // echo $_FILES["file"]["type"]."  ".$_FILES["file"]["size"];
-      if ((($_FILES["file"]["type"] == "image/gif")
-      || ($_FILES["file"]["type"] == "image/jpeg")
-      || ($_FILES["file"]["type"] == "image/jpg")
-      || ($_FILES["file"]["type"] == "image/pjpeg")
-      || ($_FILES["file"]["type"] == "image/x-png")
-      || ($_FILES["file"]["type"] == "image/png"))
-      && ($_FILES["file"]["size"] < 2048000)   
-      && in_array($extension, $allowedExts))
-      {
-        if ($_FILES["file"]["error"] > 0)
-        {
-            $picurl = null;
-          echo "错误：: " . $_FILES["file"]["error"] . "<br>";
-        }
-        else
-        {
-          if (file_exists("../upload/" . $_FILES["file"]["name"]))
-          {
-            $picurl = "upload/" . $_FILES["file"]["name"];
-          }
-          else
-          {
-            move_uploaded_file($_FILES["file"]["tmp_name"], "../upload/" . $_FILES["file"]["name"]);
-            $picurl = "upload/" . $_FILES["file"]["name"];
-          }
-        }
-      }
-      else{
-        $picurl = null;
-      }
+      // if ((($_FILES["file"]["type"] == "image/gif")
+      // || ($_FILES["file"]["type"] == "image/jpeg")
+      // || ($_FILES["file"]["type"] == "image/jpg")
+      // || ($_FILES["file"]["type"] == "image/pjpeg")
+      // || ($_FILES["file"]["type"] == "image/x-png")
+      // || ($_FILES["file"]["type"] == "image/png"))
+      // && ($_FILES["file"]["size"] < 2048000)   
+      // && in_array($extension, $allowedExts))
+      // {
+      //   if ($_FILES["file"]["error"] > 0)
+      //   {
+      //       $fileUrl = null;
+      //     echo "错误：: " . $_FILES["file"]["error"] . "<br>";
+      //   }
+      //   else
+      //   {
+      //     if (file_exists("../upload/" . $_FILES["file"]["name"]))
+      //     {
+      //       $fileUrl = "upload/" . $_FILES["file"]["name"];
+      //     }
+      //     else
+      //     {
+      //       move_uploaded_file($_FILES["file"]["tmp_name"], "../upload/" . $_FILES["file"]["name"]);
+      //       $fileUrl = "upload/" . $_FILES["file"]["name"];
+      //     }
+      //   }
+      // }
+      // else{
+      //   $fileUrl = null;
+      // }
     //file end
 
     // fileFolder start
     if (file_exists("../uploadFileFolder/" . $_FILES["file"]["name"]))
     {
-      $picurl = "uploadFileFolder/" . $_FILES["file"]["name"];
+      $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
     }
     else
     {
       move_uploaded_file($_FILES["file"]["tmp_name"], "../uploadFileFolder/" . $_FILES["file"]["name"]);
-      $picurl = "uploadFileFolder/" . $_FILES["file"]["name"];
+      $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
     }
     // fileFolder end
 
