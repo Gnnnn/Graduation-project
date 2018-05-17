@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DevExtreme Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="js/bootstrap.js"></script>
+    <script src="js/my.js"></script>
+    <script>document.write(decodeURIComponent('%3Cscript src="js/jquery-2.2.0.min.js"%3E%3C/script%3E'))</script>
+
+    <script src="js/cldr.min.js"></script>
+    <script src="js/event.min.js"></script>
+    <script src="js/supplemental.min.js"></script>
+    <script src="js/unresolved.min.js"></script>
+    <script type="text/javascript" src="js/globalize.min.js"></script>
+    <script type="text/javascript" src="js/message.min.js"></script>
+    <script type="text/javascript" src="js/number.min.js"></script>
+    <script type="text/javascript" src="js/currency.min.js"></script>
+    <script type="text/javascript" src="js/date.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/dx.spa.css" />
+    <link rel="stylesheet" type="text/css" href="css/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="css/dx.light.css" />
+    <script src="js/dx.all.js"></script>
+    <script src="js/data.js"></script>
+    <link rel="stylesheet" type ="text/css" href ="css/datastyles.css" />
+    <script src="js/data2.js"></script>
+</head>
+<body class="dx-viewport">
+    <!-- banner -->
+    <div class="banner two">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header navbar-left">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h1><a class="navbar-brand" href="index.html">XI<span>AO</span>XI<span>AO</span>K<span>E</span>.</a></h1>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="dataupload.html"></i>数据上传</a></li>
+                            <li><a class="active" href="data.html">数据显示</a></li>
+                                <li><a href="data.html">数据操作</a></li> 
+                                <li><a href="contact.html">联系我们</a></li> 
+                                 </ul>
+                             </div>
+                        <!-- /.navbar-collapse -->
+                         </nav>     
+                </div>
+                <div class="clearfix"></div>
+            
+               <div class="w3l-sub-head">
+                       <h2 class="tittle">数据操作</h2>
+               </div>           
+        </div>
+<!-- //banner -->
+    <div class="bs-callout bs-callout-warning">
+        <h4>Datagrid - JS API 示例说明</h4>
+        <p>这是一个满屏的datagrid示例，通过JS API调用。数据文件位置： <code>/json/datagrid/datagrid.json</code> 。</p>
+    </div>
+</div>
+<div class="bjui-pageContent">
+    <table id="j_datagrid" class="table table-bordered">
+    </table>
+</div>
+
+    <div class="bt" style="margin-bottom: 150px;"> </div>
+</body>
+<script type="text/javascript">
+$('#j_datagrid').datagrid({
+    height: '100%',
+    gridTitle : 'datagrid 完整示例 - JS API',
+    showToolbar: true,
+    toolbarItem: 'all',
+    local: 'local',
+    dataUrl: '../../json/datagrid/datagrid.json',
+    columns: [
+        {
+            name: 'code',
+            label: '门诊号',
+            align: 'center',
+            width: 70
+        },
+        {
+            label: '挂号信息',
+            columns: [{
+                name: 'regdate',
+                label: '挂号日期',
+                align: 'center',
+                type: 'date',
+                pattern: 'yyyy-MM-dd HH:mm',
+                render: function(value) {
+                    return value ? value.substr(0, 16) : value
+                }
+            },
+            {
+                name: 'order',
+                label: '当日序号',
+                align: 'center',
+                width: 50
+            },
+            {
+                name: 'regname',
+                label: '挂号类别'
+            },
+            {
+                name: 'deptname',
+                label: '科室名称'
+            },
+            {
+                name: 'regfee',
+                label: '挂号费',
+                align: 'center',
+                width: 60
+            }]
+        },
+        {
+            label: '病人信息',
+            columns: [{
+                name: 'name',
+                label: '姓名',
+                align: 'center',
+                width: 70
+            },
+            {
+                name: 'sex',
+                label: '性别',
+                align: 'center',
+                width: 45,
+                render: function(value) {
+                    return String(value) == 'true' ? '男' : '女'
+                }
+            },
+            {
+                name: 'age',
+                label: '年龄',
+                align: 'center',
+                type: 'number',
+                width: 45,
+                render: function(value) {
+                    return 2015 - parseInt(value)
+                }
+            }]
+        },
+        {
+            label: '就诊信息',
+            columns: [{
+                name: 'fr',
+                label: '是否初诊',
+                align: 'center',
+                width: 70
+            },
+            {
+                name: 'see',
+                label: '已就诊',
+                align: 'center',
+                width: 55
+            },
+            {
+                name: 'seedate',
+                label: '就诊时间',
+                align: 'center',
+                type: 'date',
+                pattern: 'yyyy-MM-dd HH:mm:ss'
+            }]
+        },
+        {
+            name: 'opercode',
+            label: '操作员编号',
+            align: 'center'
+        },
+        {
+            name: 'operdate',
+            label: '操作时间',
+            align: 'center',
+            type: 'date',
+            pattern: 'yyyy-MM-dd HH:mm:ss'
+        }
+    ],
+    editUrl: 'json/ajaxDone.json',
+    paging: {pageSize:50, pageCurrent:10},
+    linenumberAll: true,
+    tableWidth:'100%',
+    noremove: false
+})
+</script>
+</html>
