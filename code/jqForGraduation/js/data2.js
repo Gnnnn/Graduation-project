@@ -13,30 +13,22 @@ $(function() {
         },
         dataSource: {
             fields: [{
-                caption: "Region",
+                caption: "manufacturer",
                 width: 120,
-                dataField: "region",
-                area: "row",
+                dataField: "manufacturer",
+                area: "column",
                 sortBySummaryField: "Total"
             }, {
-                caption: "City",
-                dataField: "city",
-                width: 150,
+                caption: "id",
+                dataField: "id",
+                dataType: "number",
+                width: 130,
                 area: "row"
             }, {
-                dataField: "date",
-                dataType: "date",
-                area: "column"
-            }, {
-                groupName: "date",
-                groupInterval: "month",
-                visible: false
-            }, {
                 caption: "Total",
-                dataField: "amount",
+                dataField: "sampleId",
                 dataType: "number",
                 summaryType: "sum",
-                format: "currency",
                 area: "data"
             }],
             store: sales

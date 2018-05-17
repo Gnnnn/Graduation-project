@@ -26,7 +26,7 @@ if($request=="viewmyinfo"){
 if($request=="myinfo"){
     $usertag = $_POST["usertag"];
     //file start
-    $allowedExts = array("gif", "jpeg", "jpg", "png");
+    $allowedExts = array("gif", "jpeg", "jpg", "png","doc","txt","docx","elxs","els");
     echo $_FILES["file"]["name"];
       $temp = explode(".", $_FILES["file"]["name"]);
       $extension = end($temp);     // 获取文件后缀名
