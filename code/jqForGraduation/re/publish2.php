@@ -2,9 +2,9 @@
  session_start();
 $request=$_GET["request"];
 
-$GLOBALS['dbip'] = '18.221.16.127';
+$GLOBALS['dbip'] = '';
 $GLOBALS['usn'] = 'root';
-$GLOBALS['psw'] = 'test';
+$GLOBALS['psw'] = '';
 $GLOBALS['dbname'] = 'Gra';
 
 if($request=="viewmyinfo"){
