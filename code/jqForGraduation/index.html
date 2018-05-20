@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <title>Single Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
@@ -61,10 +62,6 @@
 						<span class="input-group-addon" id="basic-addon4">文件夹</span> 
 						<input id="dialog" type="file" webkitdirectory="">
 					</div>
-              		<input class="abb" type="submit" value="submit">
-				    </form>
-				    <hr>
-				    <form action="re/publish2.php?request=dbstore" method="post">
 					<div class="input-group ">
 						<span class="input-group-addon"  style="height:40px;height: 34px" id="basic-addon5">存储数据库</span>
                    		<span class="form-control" >    
@@ -72,11 +69,13 @@
                         <input type ="checkbox" name="inst[]" value="neo4j">neo4j
 					    <input type ="checkbox" name="inst[]" value="db4o">db4o
 						<input type ="checkbox" name="inst[]" value="MongoDB">MongoDB
-						<input type ="checkbox" name="inst[]" value="其他">其他　
+						<input type ="checkbox" name="inst[]" value="No">暂且不存
 					    </span> 
 					</div>
               		<input class="abb" type="submit" value="submit">
 				    </form>
+				    <hr>
+				   
 					</div>
 				</div>
 					</div>
