@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_hFULMFNdEei9Xq1hKrX4Ug" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_hFULMVNdEei9Xq1hKrX4Ug" bindingContexts="_hFd-rlNdEei9Xq1hKrX4Ug">
-  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBNQQuery.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBNQQuery.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBNQQuery.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBUpdate.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBUpdate.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBUpdate.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;InstantNoodles.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBInsert.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBInsert.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBInsert.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBQuery.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBQuery.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBQuery.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBDelete.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBDelete.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBDelete.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;ObjectContainer.class&quot; tooltip=&quot;com.db4o.ObjectContainer&quot;>&#xD;&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=db4o_InstantNoodles/lib\/db4o-8.0.249.16098-core-java5.jar&amp;lt;com.db4o(ObjectContainer.class&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Constants.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/util/Constants.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/util/Constants.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;People.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/bean/People.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/bean/People.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
+  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Constants.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/util/Constants.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/util/Constants.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;InstantNoodles.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBNQQuery.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBNQQuery.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBNQQuery.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBUpdate.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBUpdate.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBUpdate.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBInsert.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBInsert.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBInsert.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBQuery.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBQuery.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBQuery.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBDelete.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBDelete.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBDelete.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;ObjectContainer.class&quot; tooltip=&quot;com.db4o.ObjectContainer&quot;>&#xD;&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=db4o_InstantNoodles/lib\/db4o-8.0.249.16098-core-java5.jar&amp;lt;com.db4o(ObjectContainer.class&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;People.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/bean/People.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/db4o_InstantNoodles/src/com/lsw/bean/People.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_hFULMVNdEei9Xq1hKrX4Ug" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_hFULMlNdEei9Xq1hKrX4Ug" label="%trimmedwindow.label.eclipseSDK" x="676" y="0" width="697" height="745">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_hFULMVNdEei9Xq1hKrX4Ug" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_hFULMlNdEei9Xq1hKrX4Ug" label="%trimmedwindow.label.eclipseSDK" x="421" y="1068" width="697" height="745">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -124,6 +124,7 @@
                 <children xsi:type="advanced:Placeholder" xmi:id="_1ILYZFNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.ClassViewer" ref="_1IGf4FNkEeiMauAv-1CYzQ"/>
               </children>
               <children xsi:type="basic:PartStack" xmi:id="_1ILYZVNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.PropertyViewerMStack" containerData="4397" selectedElement="_1ILYZlNkEeiMauAv-1CYzQ">
+                <tags>noFocus</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_1ILYZlNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.PropertyViewer" ref="_1II8IlNkEeiMauAv-1CYzQ"/>
               </children>
             </children>
@@ -168,74 +169,18 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_hFUMhFNdEei9Xq1hKrX4Ug" elementId="org.eclipse.ui.editorss" selectedElement="_hFUMhVNdEei9Xq1hKrX4Ug">
-      <children xsi:type="basic:PartStack" xmi:id="_hFUMhVNdEei9Xq1hKrX4Ug" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_nxbZsFNkEeiMauAv-1CYzQ">
+      <children xsi:type="basic:PartStack" xmi:id="_hFUMhVNdEei9Xq1hKrX4Ug" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_PLoMsFw4EeixXtZ6Yd0dSQ">
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
         <tags>active</tags>
-        <children xsi:type="basic:Part" xmi:id="_hFUMhlNdEei9Xq1hKrX4Ug" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="InstantNoodles.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;InstantNoodles.java&quot; partName=&quot;InstantNoodles.java&quot; title=&quot;InstantNoodles.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;84&quot; selectionOffset=&quot;122&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_hFUMh1NdEei9Xq1hKrX4Ug" elementId="#CompilationUnitEditorContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitEditorContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext</tags>
-            <tags>popup:#AbstractTextEditorContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_hFUM1lNdEei9Xq1hKrX4Ug" elementId="#CompilationUnitRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitRulerContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext</tags>
-            <tags>popup:#AbstractTextEditorRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_hFUM11NdEei9Xq1hKrX4Ug" elementId="#OverviewRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#OverviewRulerContext</tags>
-          </menus>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_hFUM4FNdEei9Xq1hKrX4Ug" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="DBDelete.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBDelete.java&quot; partName=&quot;DBDelete.java&quot; title=&quot;DBDelete.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBDelete.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBDelete.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;475&quot; selectionTopPixel=&quot;45&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_hFUM4VNdEei9Xq1hKrX4Ug" elementId="#CompilationUnitEditorContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitEditorContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext</tags>
-            <tags>popup:#AbstractTextEditorContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_hFUM4lNdEei9Xq1hKrX4Ug" elementId="#CompilationUnitRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitRulerContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext</tags>
-            <tags>popup:#AbstractTextEditorRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_hFUM41NdEei9Xq1hKrX4Ug" elementId="#OverviewRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#OverviewRulerContext</tags>
-          </menus>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_wWngIFNfEeiMauAv-1CYzQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="DBQuery.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBQuery.java&quot; partName=&quot;DBQuery.java&quot; title=&quot;DBQuery.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBQuery.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBQuery.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;611&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+        <children xsi:type="basic:Part" xmi:id="_2JaFYFw3EeixXtZ6Yd0dSQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="InstantNoodles.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;InstantNoodles.java&quot; partName=&quot;InstantNoodles.java&quot; title=&quot;InstantNoodles.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/bean/InstantNoodles.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;468&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
         </children>
-        <children xsi:type="basic:Part" xmi:id="_NKfpQFNiEeiMauAv-1CYzQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="DBInsert.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBInsert.java&quot; partName=&quot;DBInsert.java&quot; title=&quot;DBInsert.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBInsert.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBInsert.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1511&quot; selectionTopPixel=&quot;120&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_x77wwFNiEeiMauAv-1CYzQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="DBUpdate.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBUpdate.java&quot; partName=&quot;DBUpdate.java&quot; title=&quot;DBUpdate.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBUpdate.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBUpdate.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1549&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_nxbZsFNkEeiMauAv-1CYzQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="DBNQQuery.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DBNQQuery.java&quot; partName=&quot;DBNQQuery.java&quot; title=&quot;DBNQQuery.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/tool/DBNQQuery.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/tool/DBNQQuery.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+        <children xsi:type="basic:Part" xmi:id="_PLoMsFw4EeixXtZ6Yd0dSQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Constants.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Constants.java&quot; partName=&quot;Constants.java&quot; title=&quot;Constants.java&quot; tooltip=&quot;db4o_InstantNoodles/src/com/lsw/util/Constants.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/db4o_InstantNoodles/src/com/lsw/util/Constants.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;120&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
@@ -391,6 +336,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_1IGf4FNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.ClassViewer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="db4o Browser" iconURI="platform:/plugin/com.db4o.ome/icons/db4oicon.bmp" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewBundle" value="com.db4o.ome"/>
       <persistedState key="originalCompatibilityViewClass" value="com.db4o.omplus.ui.ClassViewer"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:Other</tags>
       <menus xmi:id="_1JK24FNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.ClassViewer">
@@ -402,6 +348,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_1II8IFNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.QueryBuilder" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Build Query" iconURI="platform:/plugin/com.db4o.ome/icons/db4oicon.bmp" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewBundle" value="com.db4o.ome"/>
       <persistedState key="originalCompatibilityViewClass" value="com.db4o.omplus.ui.QueryBuilder"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:Other</tags>
       <menus xmi:id="_1Tsr4FNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.QueryBuilder">
@@ -424,6 +371,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_1II8IlNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.PropertyViewer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Property Viewer" iconURI="platform:/plugin/com.db4o.ome/icons/db4oicon.bmp" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewBundle" value="com.db4o.ome"/>
       <persistedState key="originalCompatibilityViewClass" value="com.db4o.omplus.ui.PropertyViewer"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:Other</tags>
       <menus xmi:id="_1TKgYFNkEeiMauAv-1CYzQ" elementId="com.db4o.omplus.ui.PropertyViewer">
@@ -439,7 +387,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_hFUNelNdEei9Xq1hKrX4Ug" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_X1EmYFnVEei0zIkqfSm0aw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_hFeHQVNdEei9Xq1hKrX4Ug"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_5S0i0Fw2EeixXtZ6Yd0dSQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_hFeHQVNdEei9Xq1hKrX4Ug"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_hFd8MlNdEei9Xq1hKrX4Ug" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -472,7 +420,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_hFd8jVNdEei9Xq1hKrX4Ug" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_X1I30FnVEei0zIkqfSm0aw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_hFeG5lNdEei9Xq1hKrX4Ug"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_5TAwEFw2EeixXtZ6Yd0dSQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_hFeG5lNdEei9Xq1hKrX4Ug"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_hFd8mVNdEei9Xq1hKrX4Ug" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -3046,7 +2994,7 @@
   <addons xmi:id="_hFeIr1NdEei9Xq1hKrX4Ug" elementId="MinMax Addon" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon"/>
   <addons xmi:id="_hFeIsFNdEei9Xq1hKrX4Ug" elementId="org.eclipse.ui.workbench.addon.0" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
   <addons xmi:id="_hFeIsVNdEei9Xq1hKrX4Ug" elementId="SplitterAddon" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.splitteraddon.SplitterAddon"/>
-  <addons xmi:id="_XKZRsVnVEei0zIkqfSm0aw" elementId="org.eclipse.ui.ide.addon.0" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
+  <addons xmi:id="_IYS0IKimEeS11vbz3f9ezw" elementId="org.eclipse.ui.ide.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
   <addons xmi:id="_hFeIs1NdEei9Xq1hKrX4Ug" elementId="org.eclipse.ui.ide.application.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.ide.application/org.eclipse.ui.internal.ide.application.addons.ModelCleanupAddon"/>
   <categories xmi:id="_hFeItFNdEei9Xq1hKrX4Ug" elementId="org.eclipse.ui.category.edit" name="Edit"/>
   <categories xmi:id="_hFeItVNdEei9Xq1hKrX4Ug" elementId="org.eclipse.mylyn.wikitext.ui.editor.category" name="WikiText Markup Editing Commands" description="commands for editing lightweight markup"/>
