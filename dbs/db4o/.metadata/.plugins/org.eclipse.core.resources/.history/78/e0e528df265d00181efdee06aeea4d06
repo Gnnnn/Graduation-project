@@ -20,7 +20,7 @@ public class DBNQQuery {
         Query query = db.query();
         query.constrain(InstantNoodles.class);
         Query idQuery = query.descend("id");
-        query.descend("name").constrain("Œ˜∫Ï ¡≈£ÎÓ").or(idQuery.constrain(2).greater().and(idQuery.constrain(4).smaller()));
+        query.descend("name").constrain("∂≈∏¶").or(idQuery.constrain(2).greater().and(idQuery.constrain(4).smaller()));
         ObjectSet<InstantNoodles> result = query.execute();
         DBQuery.listResult(result);
     }

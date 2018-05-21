@@ -9,17 +9,28 @@ $GLOBALS['dbname'] = 'Gra';
 
 
 if($request=="dbstore"){
-
+  $dbrags = $_POST["inst"];
+  $dbtag = implode(',',$dbrags);
+  if($dbtag == 'MySQL'){
+    $a = shell_exec("python ../python/test.py");
+    echo $a;
+  }
+  else if($dbtag == 'neo4j'){
+    return ;
+  }
 }
 
 
 if($request=="uploadfile"){
+  var $filetag;
+  var $fileName;
+  var $fileUrl;
   $filetag = $_POST["usertag"];
-  $fileName = $_FILES["file"]["name"];
-  $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
   // $allowedExts = array("gif", "jpeg", "jpg", "png","doc","txt","docx","elxs","els");
-  $temp = explode(".", $_FILES["file"]["name"]);
-  $extension = end($temp);     // 获取文件后缀名
+  echo $_FILES["file"]["name"];
+  echo $_FILES["file"]["type"];
+    $temp = explode(".", $_FILES["file"]["name"]);
+    $extension = end($temp);     // 获取文件后缀名
     // echo $_FILES["file"]["type"]."  ".$_FILES["file"]["size"];
     // if ((($_FILES["file"]["type"] == "image/gif")
     // || ($_FILES["file"]["type"] == "image/jpeg")
@@ -53,49 +64,34 @@ if($request=="uploadfile"){
     // }
 
   // fileFolder start
-  move_uploaded_file($_FILES["file"]["tmp_name"], "../uploadFileFolder/" . $_FILES["file"]["name"]);
+  if (file_exists("../uploadFileFolder/" . $_FILES["file"]["name"]))
+  {
+    $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
+  }
+  else
+  {
+    move_uploaded_file($_FILES["file"]["tmp_name"], "../uploadFileFolder/" . $_FILES["file"]["name"]);
+    $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
+  }
+  $fileName = $_FILES["file"]["name"];
   // fileFolder end
-  $dbtags = $_POST["inst"];
-  $dbtag = implode(',',$dbtags);
+
   $con = new mysqli($dbip,$usn,$psw,$dbname);
   mysqli_query($con,"SET NAMES 'UTF8'");
-  $uploadTime = date('Y-m-d H:i:s');
-  $sql = "INSERT INTO file set fileName = '{$fileName}',fileTag = '{$filetag}',filePath = '{$fileUrl}',uploadTime='{$uploadTime}',toDB='{$dbtag}';";
+  $sql = "INSERT INTO file VALUES ('{$filetag}','{$fileName}','{$fileUrl}'));";
   echo $sql;
   $result = mysqli_query($con,$sql);
-  $result = mysqli_query($con,"SELECT filePath from file where filePath = '{$fileUrl}';");
+  $result = mysqli_query($con,"SELECT fileUrl from file where fileUrl = '{$fileUrl}';");
   if(!mysqli_num_rows($result)){
-    echo "<script>alert('发布失败！'); </script>";
     echo json_encode(array("isUpdate"=>0));
+    return;
   } 
   else{
     echo "<script>alert('发布成功！'); </script>";
     echo json_encode(array("isUpdate"=>1));
+    // header("Location: ../myinfor.html"); 
     //确保重定向后，后续代码不会被执行 
-  }
-  $dbrags = $_POST["inst"];
-  $dbtag = implode(',',$dbrags);
-  echo $dbtag;
-  if($dbtag == 'MySQL'){
-    $sys = "python ../python/exceltomysql.py "+$fileUrl+''+'方便面属性';
-    echo $sys;
-    $a = shell_exec($sys);
-    echo $a;
-    echo "<script>alert('存储成功！'); history.go(-1);</script>";
-    return ;
-
-  }
-  else if($dbtag == 'neo4j'){
-    return ;
-  }
-  else if($dbtag == 'db4o'){
-    return ;
-  }
-  else if($dbtag == 'MongoDB'){
-    return ;
-  }
-  else if($dbtag == 'No'){
-    return ;
+    return;
   }
 }
 ?>

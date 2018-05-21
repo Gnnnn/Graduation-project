@@ -20,7 +20,7 @@ public class DBNQQuery {
         Query query = db.query();
         query.constrain(InstantNoodles.class);
         Query idQuery = query.descend("id");
-        query.descend("name").constrain("Œ˜∫Ï ¡≈£ÎÓ").or(idQuery.constrain(2).greater().and(idQuery.constrain(4).smaller()));
+        query.descend("name").constrain("∂≈∏¶").or(idQuery.constrain(2).greater().and(idQuery.constrain(4).smaller()));
         ObjectSet<InstantNoodles> result = query.execute();
         DBQuery.listResult(result);
     }
@@ -33,7 +33,7 @@ public class DBNQQuery {
     public static void testNQQuery(ObjectContainer db) {
         List<InstantNoodles> result = db.query(new Predicate<InstantNoodles>() {
             public boolean match(InstantNoodles istn) {
-                return istn.getId() > 1002 && istn.getId() < 1004 || istn.getName().equals("Œ˜∫Ï ¡≈£ÎÓ");
+                return istn.getId() > 2 && istn.getId() < 4 || istn.getName().equals("∂≈∏¶");
             }
         });
         DBQuery.listResult(result);
