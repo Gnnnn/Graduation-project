@@ -3188,3 +3188,23 @@ java.net.ConnectException: Connection timed out: connect
 	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
 	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.resources 4 273 2018-05-22 02:55:32.530
+!MESSAGE Problems cleaning up history store.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Could not read metadata for 'G:\GITHUB\Graduation-project\dbs\db4o\.metadata\.plugins\org.eclipse.core.resources\.projects\db4o_InstantNoodles\.indexes\e4\81\d0\b0\history.index'. Unexpected version: 0.
+	at org.eclipse.core.internal.localstore.Bucket.load(Bucket.java:304)
+	at org.eclipse.core.internal.localstore.Bucket.load(Bucket.java:275)
+	at org.eclipse.core.internal.localstore.BucketTree.internalAccept(BucketTree.java:98)
+	at org.eclipse.core.internal.localstore.BucketTree.internalAccept(BucketTree.java:109)
+	at org.eclipse.core.internal.localstore.BucketTree.internalAccept(BucketTree.java:109)
+	at org.eclipse.core.internal.localstore.BucketTree.internalAccept(BucketTree.java:109)
+	at org.eclipse.core.internal.localstore.BucketTree.internalAccept(BucketTree.java:109)
+	at org.eclipse.core.internal.localstore.BucketTree.accept(BucketTree.java:73)
+	at org.eclipse.core.internal.localstore.HistoryStore2.clean(HistoryStore2.java:165)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1213)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2283)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor$4.run(IDEWorkbenchAdvisor.java:456)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:119)
+!SUBENTRY 1 org.eclipse.core.resources 4 567 2018-05-22 02:55:32.537
+!MESSAGE Could not read metadata for 'G:\GITHUB\Graduation-project\dbs\db4o\.metadata\.plugins\org.eclipse.core.resources\.projects\db4o_InstantNoodles\.indexes\e4\81\d0\b0\history.index'. Unexpected version: 0.

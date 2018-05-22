@@ -8,27 +8,14 @@ $GLOBALS['psw'] = 'test';
 $GLOBALS['dbname'] = 'Gra';
 
 
-if($request=="dbstore"){
-  $dbrags = $_POST["inst"];
-  $dbtag = implode(',',$dbrags);
-  if($dbtag == 'MySQL'){
-    $a = shell_exec("python ../python/test.py");
-    echo $a;
-  }
-  else if($dbtag == 'neo4j'){
-    return ;
-  }
-}
-
-
 if($request=="uploadfile"){
-  var $filetag;
-  var $fileName;
-  var $fileUrl;
+  $filetag = "";
+  $fileName = "";
+  $fileUrl = "";
+  $dbtag = "";
   $filetag = $_POST["usertag"];
+  // echo var_dump($filetag);
   // $allowedExts = array("gif", "jpeg", "jpg", "png","doc","txt","docx","elxs","els");
-  echo $_FILES["file"]["name"];
-  echo $_FILES["file"]["type"];
     $temp = explode(".", $_FILES["file"]["name"]);
     $extension = end($temp);     // 获取文件后缀名
     // echo $_FILES["file"]["type"]."  ".$_FILES["file"]["size"];
@@ -63,7 +50,6 @@ if($request=="uploadfile"){
     //   $fileUrl = null;
     // }
 
-  // fileFolder start
   if (file_exists("../uploadFileFolder/" . $_FILES["file"]["name"]))
   {
     $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
@@ -74,24 +60,45 @@ if($request=="uploadfile"){
     $fileUrl = "uploadFileFolder/" . $_FILES["file"]["name"];
   }
   $fileName = $_FILES["file"]["name"];
-  // fileFolder end
-
+  
+  $dbtag = $_POST["inst"];
+  $uploadTime = date('Y-m-d H:i:s');
   $con = new mysqli($dbip,$usn,$psw,$dbname);
   mysqli_query($con,"SET NAMES 'UTF8'");
-  $sql = "INSERT INTO file VALUES ('{$filetag}','{$fileName}','{$fileUrl}'));";
+  $sql = "INSERT INTO file(fileTag,fileName,filePath,toDB,uploadTime) VALUES ('{$filetag}','{$fileName}','{$fileUrl}','{$dbtag}','{$uploadTime}');";
   echo $sql;
   $result = mysqli_query($con,$sql);
   $result = mysqli_query($con,"SELECT fileUrl from file where fileUrl = '{$fileUrl}';");
   if(!mysqli_num_rows($result)){
     echo json_encode(array("isUpdate"=>0));
-    return;
   } 
   else{
     echo "<script>alert('发布成功！'); </script>";
     echo json_encode(array("isUpdate"=>1));
     // header("Location: ../myinfor.html"); 
-    //确保重定向后，后续代码不会被执行 
-    return;
+  }
+  // echo var_dump($dbtag);
+  if($dbtag == 'MySQL'){
+    $shell = "python ../python/exceltomysql.py ../{$fileUrl}";
+    echo $shell;
+    $a = shell_exec($shell);
+    echo $a;
+    echo "<script>alert('存储成功！');history.go(-1); </script>";
+    return ;
+  }
+  else if($dbtag == 'neo4j'){
+    return ;
+  }
+  else if($dbtag == 'db4o'){
+    return ;
+  }
+  else if($dbtag == 'MongoDB'){
+    echo "<script>history.go(-1); </script>";
+    return ;
+  }
+  else if($dbtag == 'No'){
+    echo "<script>alert('暂不存储！');history.go(-1); </script>";
+    return ;
   }
 }
 ?>

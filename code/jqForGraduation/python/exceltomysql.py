@@ -2,6 +2,7 @@
 import  xdrlib ,sys
 import xlrd
 import pymysql.cursors
+import types,time
 def open_excel(file):
     try:
         data = xlrd.open_workbook(file)
@@ -59,6 +60,43 @@ def databasesql(conn,sql):
     #conn.close() 
     return 
 
+def DelLastChar(str):
+    str_list=list(str)
+    str_list.pop()
+    return "".join(str_list)
+
+def arraydictToMysql(tableName,data):
+    for row in data:
+        print(row)
+        Attrlen = len(row);
+        l = 0
+        sqlModel = "CREATE TABLE `{}` ( "
+        sqlAttrModel = "`{}` {} DEFAULT NULL"
+        sqlModelEnd = " ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+        while l < Attrlen-1: 
+            sqlModel = sqlModel + sqlAttrModel + ", "
+            l = l+ 1
+        sqlModel = sqlModel +sqlAttrModel + sqlModelEnd
+        print(sqlModel)
+
+        rowType = {}
+        sqlvalue = "'"+tableName+"';"
+        for key in row:
+            if isinstance(row[key],str):
+                rowType[key] = 'varchar(30)'
+            elif isinstance(row[key],(int,bool)):
+                rowType[key] = 'int(100)'
+            elif isinstance(row[key],float):
+                rowType[key] = 'float(10,4)'
+            sqlvalue = sqlvalue + key+";"+rowType[key]+";"
+        sqlvalue=DelLastChar(sqlvalue)
+        sqlvaluelist = sqlvalue.split(";")
+        print(sqlvaluelist)
+        sql = sqlModel.format(*sqlvaluelist)
+        print (sql)
+        return sql
+
+
 
 def main(file,sheet):
     # conn = pymysql.connect(host='18.218.245.165',user='root',passwd='test',db='Gra') 
@@ -70,24 +108,25 @@ def main(file,sheet):
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
     tables = excel_table_byname(file,sheet)
+    #create table
+    sql = arraydictToMysql(file,tables)
+    databasesql(conn,sql)
     for row in tables:
-        INid = str(row['id']).encode('utf-8')
-        sampleId = str(row['sampleId'])
-        name = row['name']
-        manufacturer = row['manufacturer']
-        specification = row['specification']
-        if_widen = row['if_widen']
-        if if_widen == "":
-            if_widen = ''
-        else:
-            if_widen = row['if_widen']
-        sql = "INSERT INTO InstantNoodles set id = '"+INid.decode('utf-8')+"',sampleId = '"+sampleId+"',name = '"+name+"',manufacturer='"+manufacturer+"',specification='"+specification+"',if_widen='"+if_widen+"';"
+        Attrlen = len(row);
+        sql = "INSERT INTO `'"+ file +"'` values ("
+        for key in row:
+            value = row[key]
+            sql = sql+"'"+str(value)+"',"
+        sql = DelLastChar(sql)
+        sql = sql +");"
+        print(sql)
         databasesql(conn,sql)
     conn.close()
+    print("finished!")
 
 if __name__=="__main__":
     # file = sys.argv[1]
-    # sheet = sys.argv[2]
-    file = 'testData.xlsx'
-    sheet = "方便面属性"
+    # sheet = "Sheet1"
+    file = 'InstantNoodlesAttr.xlsx'
+    sheet = "Sheet1"
     main(file,sheet)
