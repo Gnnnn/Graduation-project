@@ -4,8 +4,8 @@ import xlrd
 import pymysql.cursors
 import xml.dom.minidom
 
-#现在还存在的小问题包括：table名是根据文件名传的，所以也包括了路径和.xlsx后缀，要做一下处理。
-#每次插入都要重新开一个指针，所以插入太慢。这里可以优化。
+#这是第二版本，加了读取使用同名.xml配置文件自动获取字段并自动创建表的功能，可以处理行名+列名的excel
+
 def xmlExcel(xmlname):
     #打开xml文档
     dom = xml.dom.minidom.parse(xmlname)
@@ -42,52 +42,25 @@ def excel_table_byname(file,sheetname,Attr):
     colnameindex=0
     colnames =  table.row_values(colnameindex) #第一行数据
     # print(colnames)
-    Attrlist = []
-    for k,v in Attr.items():
-        Attrlist.append(v)
-    print(Attrlist)
-    #我们的config规定列名只有一列，有一个值是data，所以行名的数量为len-2
-    RowNameNum = len(Attrlist)-2
-    print(RowNameNum)
-    # columnName = Attr.get('column')
-    # rowName = Attr.get('row')
-    # dataName = Attr.get('data')
+    columnName = Attr.get('column')
+    rowName = Attr.get('row')
+    dataName = Attr.get('data')
     nrows = table.nrows
     ncols = table.ncols
-    print(nrows)
-    print(ncols)
     # cell_value = table.cell_value(2,2)
     # print (cell_value)
-    rowindex=0
-    columnName =  table.col_values(rowindex) #第一行数据
-    # columnName = columnName[RowNameNum:]
-    print(columnName)
-    i = 0
-    RowName = []
-    while i < RowNameNum:
-        # RowName.append(table.row_values(i)[1:])
-        RowName.append(table.row_values(i))
-        i = i +1
-    # print(RowName)
-    RowAttr = list(zip(*RowName))
-    print(RowAttr)
-    # print(RowAttr[0][1])
-
     data = []
-    for i in range(RowNameNum,nrows):
+    for i in range(1,nrows):
         row_data = table.row_values(i)
         for j in range(1,ncols):
             dataDict = {}
-            # print (i)
-            dataDict[Attrlist[0]] = columnName[i]
-            for k in range(0,RowNameNum) :
-                dataDict[Attrlist[k+1]] = RowAttr[j][k]
-            # print (i,j)
-            dataDict[Attrlist[-1]] = table.cell_value(i,j)
+            dataDict[columnName] = row_data[0]
+            dataDict[rowName] = colnames[j]
+            dataDict[dataName] = table.cell_value(i,j)
             # print (dataDict)
             data.append(dataDict)
     print(data)
-    #[{TesterId:1,InstantNoodleId:1001,InstantNoodleAttr:'色泽',attrRate:'8.5'},{}]
+    #[{InstantNoodleId:1001,UserId:1,UserRate:1},{}]
     return data
 
 def createTableSql(tableName,data):
@@ -170,11 +143,6 @@ def DelLastChar(str):
     str_list.pop()
     return "".join(str_list)
 
-def DelFirstChar(str):
-    str_listTemp=list(str)
-    str_list=str_listTemp[1]
-    return "".join(str_list)
-
 def arraydictToMysql(tableName,data):
     for row in data:
         print(row)
@@ -232,6 +200,14 @@ def main(xmlfile,file):
 if __name__=="__main__":
     # file = sys.argv[1]
     # sheet = "Sheet1"
-    file = 'testData/TesterRate.xlsx'
-    xmlname = "testData/TesterRate.xml"
+    file = 'intensityTime.xlsx'
+    xmlname = "intensityTime.xml"
     main(xmlname,file)
+
+#xml格式如：
+# <?xml version="1.0" encoding="utf-8"?>
+# <Sheet1>
+#     <row name='InstantNoodleId'>1001</row>
+#     <column name='UserId'>1</column>
+#     <data name='UserRate'>1</data>
+# </Sheet1>
