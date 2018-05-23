@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Sheet1>
     <row name='InstantNoodleId'>1001</row>
-    <column name='UserId'>1</column>
-    <data name='UserRate'>1</data>
+    <column name='attrDescribe'>1</column>
+    <data name='attrDescribeValue'>1</data>
 </Sheet1>

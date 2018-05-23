@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*- 
 import  xdrlib ,sys
-import xlrd
+import xlrd,re
 import pymysql.cursors
 import xml.dom.minidom
 
-#现在还存在的小问题包括：table名是根据文件名传的，所以也包括了路径和.xlsx后缀，要做一下处理。
-#每次插入都要重新开一个指针，所以插入太慢。这里可以优化。
+#现在还存在的小问题包括：table名是根据文件名传的，所以也包括了路径和.xlsx后缀，要做一下正则处理。
+#每次插入都要重新开一个指针，所以插入太慢。这里可以优化。完成
 def xmlExcel(xmlname):
     #打开xml文档
     dom = xml.dom.minidom.parse(xmlname)
@@ -104,6 +104,7 @@ def createTableSql(tableName,data):
         sqlModel = sqlModel +sqlAttrModel + sqlModelEnd
         # print(sqlModel)
         rowType = {}
+        # tableName = re.compile(tableName).match(r"/[].")
         sqlvalue = "'"+tableName+"';"
         for key in row:
             if isinstance(row[key],str):
@@ -131,6 +132,24 @@ def insertSql(row):
     print(sql)
     return sql
 
+def insert(data,conn):
+    cursor = conn.cursor() 
+    if not cursor: 
+        raise Exception('数据库连接失败！') 
+    for row in data:
+        Attrlen = len(row);
+        sql = "INSERT INTO `'"+ file +"'` values ("
+        for key in row:
+            value = row[key]
+            sql = sql+"'"+str(value)+"',"
+        sql = DelLastChar(sql)
+        sql = sql +");"
+        print(sql)
+        cursor.execute(sql) 
+    conn.commit() 
+    cursor.close() 
+    #conn.close() 
+    return 
 
 
 #连接数据库-查询
@@ -223,15 +242,14 @@ def main(xmlfile,file):
 
     createsql = createTableSql(file,data)
     databasesql(conn,createsql)
-    for row in data:
-        insertsql = insertSql(row)
-        databasesql(conn,insertsql)
+    insert(data,conn)
     conn.close()
     print("finished!")
 
 if __name__=="__main__":
     # file = sys.argv[1]
     # sheet = "Sheet1"
-    file = 'testData/TesterRate.xlsx'
-    xmlname = "testData/TesterRate.xml"
+    file = 'testData/MultipleAttr.xlsx'
+    xmlname = "testData/MultipleAttr.xml"
+    # print(tableName)
     main(xmlname,file)

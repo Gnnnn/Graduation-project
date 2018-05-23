@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Sheet1>
-    <row name='InstantNoodleAttr'></row>
+    <row name='InstantNoodleId'></row>
+    <column1 name='attrFrequency'></column1>
+    <column2 name='timeIndex'></column2>
+    <data name='attrTimeRate'></data>
 </Sheet1>
