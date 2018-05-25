@@ -1,0 +1,2 @@
+E:\mongodb\bin\mongod --dbpath E:\data\db
+E:\mongodb\bin\mongod

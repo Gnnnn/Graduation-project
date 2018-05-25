@@ -25,7 +25,7 @@ def excel(fileName,sheetName):
 
 def neo4jdbConnect():
     global g
-    g = Graph(host = "127.0.0.1",http_port = 7474,user = "neo4j",password = "test")
+    g = Graph(host = "18.218.245.165",http_port = 7474,user = "neo4j",password = "neo4j")
     return g
 
 def neo4jdb1(g,InstantNoodles):
@@ -142,7 +142,7 @@ def design2(db,dataList):
 
 
 def main():
-    file = 'testData.xlsx'
+    file = 'testData/testData.xlsx'
     sheet = '方便面属性'
     dataList = excel(file,sheet)
     db = neo4jdbConnect()

@@ -1,0 +1,6 @@
+end="$((SECONDS+60))"
+while true; do
+    nc -w 2 localhost 7687 && break
+    [[ "${SECONDS}" -ge "${end}" ]] && exit 1
+    sleep 1
+done
