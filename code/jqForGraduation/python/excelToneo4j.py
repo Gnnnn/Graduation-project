@@ -142,7 +142,7 @@ def design2(db,dataList):
 
 
 def main():
-    file = 'testData/testData.xlsx'
+    file = 'testDtestData.xlsx'
     sheet = '方便面属性'
     dataList = excel(file,sheet)
     db = neo4jdbConnect()
