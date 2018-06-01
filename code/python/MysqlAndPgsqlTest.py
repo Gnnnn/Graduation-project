@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-  
-import os,re,commands
+import os,re
+#,commands
 import numpy as np  
 import matplotlib.pyplot as plt 
 
 
-def mysqltest(msyqltestThreadNumList):
+def mysqltestWrite(msyqltestThreadNumList):
 	for threadNum in msyqltestThreadNumList:
 		osshell = "sysbench --threads=%s --events=10000  /root/sysbench-1.0/tests/include/oltp_legacy/oltp.lua --mysql-table-engine=innodb --mysql-host=18.218.125.105 --mysql-db=xiaoke --oltp-table-size=10000 --mysql-user=root --mysql-password=test prepare"%threadNum
 		os.system(osshell)
@@ -18,7 +19,9 @@ def mysqltest(msyqltestThreadNumList):
 		string1 = string1[1]
 		file_object.write(string1)
 		file_object.close( )
+		return 
 
+def mysqltestRead(msyqltestThreadNumList):
 	mysqlSysbenches = []
 	for threadNum in msyqltestThreadNumList:
 		mysqlSys = {}
@@ -32,13 +35,13 @@ def mysqltest(msyqltestThreadNumList):
 		searchObj = re.findall(r'\d+\.?\d*', string1[16])
 		mysqlSys["total"] = int(searchObj[0])
 		searchObj = re.findall(r'\d+\.?\d*', string1[19])
-		mysqlSys["errors"] = int(searchObj[0])
+		mysqlSys["sqlerrors"] = int(searchObj[0])
 		mysqlSysbenches.append(mysqlSys)
 		print ("testData : ", mysqlSysbenches)
 	return mysqlSysbenches
 
 
-def pgsqltest(pgsqltestThreadNumList):
+def pgsqltestWrite(pgsqltestThreadNumList):
 	for threadNum in pgsqltestThreadNumList:
 		osshell = "sysbench --threads=%s --events=10000  /root/sysbench-1.0/tests/include/oltp_legacy/oltp.lua --db-driver=pgsql --pgsql-host=18.218.125.105 --pgsql-port=5432 --pgsql-user=test  --pgsql-password=test --pgsql-db=XIAOKE --oltp-table-size=10000 prepare"%threadNum
 		os.system(osshell)
@@ -52,7 +55,10 @@ def pgsqltest(pgsqltestThreadNumList):
 		string1 = string1[1]
 		file_object.write(string1)
 		file_object.close( )
+		return 
 
+
+def pgsqltestRead(pgsqltestThreadNumList):
 	pgsqlSysbenches = []
 	for threadNum in pgsqltestThreadNumList:
 		pgsqlSys = {}
@@ -66,7 +72,7 @@ def pgsqltest(pgsqltestThreadNumList):
 		searchObj = re.findall(r'\d+\.?\d*', string1[16])
 		pgsqlSys["total"] = int(searchObj[0])
 		searchObj = re.findall(r'\d+\.?\d*', string1[19])
-		pgsqlSys["errors"] = int(searchObj[0])
+		pgsqlSys["sqlerrors"] = int(searchObj[0])
 		pgsqlSysbenches.append(pgsqlSys)
 		print ("testData : ", pgsqlSysbenches)
 	return pgsqlSysbenches
@@ -92,20 +98,28 @@ def pic(syslist,titleName):
 	plt.xlabel("Attr") #X轴标签  
 	plt.ylabel("Time(s)")  #Y轴标签 
 	plt.title(titleName) #图标题  
-	# plt.show()  #显示图 
+	plt.show()  #显示图 
 	picPath = "%s.jpg"%titleName
 	plt.savefig(picPath)  #显示图
 
 
 def main():
 	msyqltestThreadNumList = [1,5]
-	mysqlSysbenches = mysqltest(msyqltestThreadNumList)
+	#mysqlSysbenches = mysqltestWrite(msyqltestThreadNumList)
+	mysqlSysbenches = mysqltestRead(msyqltestThreadNumList)
 	pgsqltestThreadNumList = [1,5]
-	pgsqlSysbenches = pgsqltest(pgsqltestThreadNumList)
+	#pgsqlSysbenches = pgsqltestWrite(pgsqltestThreadNumList)
+	pgsqlSysbenches = pgsqltestRead(pgsqltestThreadNumList)
 	titleName = "mysql"
 	pic(mysqlSysbenches,titleName)
 	titleName = "pgsql"
 	pic(pgsqlSysbenches,titleName)
+	titleName = "mysql&pgsql"
+	mypg = []
+	mypg.append(mysqlSysbenches[0])
+	mypg.append(pgsqlSysbenches[0])
+	print(mypg)
+	pic(mypg,titleName)
 
 if __name__ == '__main__':
 	main()
