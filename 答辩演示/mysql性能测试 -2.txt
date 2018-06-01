@@ -1,0 +1,38 @@
+
+root@ip-172-31-33-65:~/sysbench-1.0# sysbench ./tests/include/oltp_legacy/oltp.lua --mysql-table-engine=innodb --mysql-host=18.218.125.105 --mysql-db=xiaoke --oltp-table-size=10000 --mysql-user=root --mysql-password=test run
+sysbench 1.0.14 (using bundled LuaJIT 2.1.0-beta2)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+SQL statistics:
+    queries performed:
+        read:                            12852
+        write:                           3672
+        other:                           1836
+        total:                           18360
+    transactions:                        918    (91.77 per sec.)
+    queries:                             18360  (1835.38 per sec.)
+    ignored errors:                      0      (0.00 per sec.)
+    reconnects:                          0      (0.00 per sec.)
+
+General statistics:
+    total time:                          10.0013s
+    total number of events:              918
+
+Latency (ms):
+         min:                                    9.55
+         avg:                                   10.89
+         max:                                   32.18
+         95th percentile:                       13.70
+         sum:                                 9997.38
+
+Threads fairness:
+    events (avg/stddev):           918.0000/0.00
+    execution time (avg/stddev):   9.9974/0.00

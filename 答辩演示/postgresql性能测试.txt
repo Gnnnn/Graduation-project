@@ -1,0 +1,38 @@
+root@ip-172-31-33-65:~/sysbench-1.0# sysbench ./tests/include/oltp_legacy/oltp.lua --db-driver=pgsql --pgsql-host=18.218.125.1                                                                     05 --pgsql-port=5432 --pgsql-user=test  --pgsql-password=test --pgsql-db=XIAOKE --oltp-table-size=10000 run
+sysbench 1.0.14 (using bundled LuaJIT 2.1.0-beta2)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+SQL statistics:
+    queries performed:
+        read:                            12054
+        write:                           3444
+        other:                           1722
+        total:                           17220
+    transactions:                        861    (86.06 per sec.)
+    queries:                             17220  (1721.30 per sec.)
+    ignored errors:                      0      (0.00 per sec.)
+    reconnects:                          0      (0.00 per sec.)
+
+General statistics:
+    total time:                          10.0020s
+    total number of events:              861
+
+Latency (ms):
+         min:                                    9.92
+         avg:                                   11.61
+         max:                                   23.82
+         95th percentile:                       13.22
+         sum:                                 9997.81
+
+Threads fairness:
+    events (avg/stddev):           861.0000/0.00
+    execution time (avg/stddev):   9.9978/0.00
+

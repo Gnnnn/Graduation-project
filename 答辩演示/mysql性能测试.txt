@@ -1,0 +1,40 @@
+root@ip-172-31-33-65:/usr/local# sysbench --test=oltp --mysql-table-engine=innod                                                                                                                   b --mysql-host=18.218.125.105 --mysql-db=xiaoke --oltp-table-size=10000 --mysql-                                                                                                                   user=root --mysql-password=test run
+sysbench 0.4.12:  multi-threaded system evaluation benchmark
+
+No DB drivers specified, using mysql
+Running the test with following options:
+Number of threads: 1
+
+Doing OLTP test.
+Running mixed OLTP test
+Using Special distribution (12 iterations,  1 pct of values are returned in 75 p                                                                                                                   ct cases)
+Using "BEGIN" for starting transactions
+Using auto_inc on the id column
+Maximum number of requests for OLTP test is limited to 10000
+Threads started!
+Done.
+
+OLTP test statistics:
+    queries performed:
+        read:                            140000
+        write:                           50000
+        other:                           20000
+        total:                           210000
+    transactions:                        10000  (96.89 per sec.)
+    deadlocks:                           0      (0.00 per sec.)
+    read/write requests:                 190000 (1840.95 per sec.)
+    other operations:                    20000  (193.78 per sec.)
+
+Test execution summary:
+    total time:                          103.2076s
+    total number of events:              10000
+    total time taken by event execution: 103.1560
+    per-request statistics:
+         min:                                  8.57ms
+         avg:                                 10.32ms
+         max:                                 40.84ms
+         approx.  95 percentile:              11.91ms
+
+Threads fairness:
+    events (avg/stddev):           10000.0000/0.00
+    execution time (avg/stddev):   103.1560/0.00
