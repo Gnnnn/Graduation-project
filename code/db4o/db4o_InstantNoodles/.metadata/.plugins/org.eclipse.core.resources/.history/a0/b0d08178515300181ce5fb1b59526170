@@ -1,0 +1,7 @@
+package com.lsw.bean;
+
+public class InstantNoodles {
+	
+	System.out.println("asdlfj");
+	
+}

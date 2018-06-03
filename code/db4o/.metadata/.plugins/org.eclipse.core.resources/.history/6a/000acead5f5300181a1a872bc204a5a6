@@ -1,0 +1,31 @@
+package com.lsw.tool;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.lsw.bean.InstantNoodles;
+import com.lsw.util.Constants;
+
+public class DBDelete {
+    public static void deletePart(ObjectContainer db,int n) {
+        System.out.println("É¾³ýÇ°£º");
+        DBQuery.queryAll(db);
+        ObjectSet<InstantNoodles> result = db.queryByExample(new InstantNoodles(n));
+        InstantNoodles p = result.next();
+        System.out.println(p);
+        if (p != null) { 
+            db.delete(p);
+        }
+        System.out.println("É¾³ýºó£º");
+        DBQuery.queryAll(db);
+    }
+
+    public static void main(String[] args) {
+        ObjectContainer db = Db4oEmbedded.openFile(Constants.DB4O_FILENAME);
+        int n = 1004;
+        deletePart(db,n);
+        deleteAll(db);
+        db.close();
+
+    }
+}

@@ -1,0 +1,60 @@
+package com.lsw.bean;
+
+public class InstantNoodles {
+    public InstantNoodles() {
+    }
+
+    public InstantNoodles(Integer id, String SampleId, String name, String specification) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.SampleId = SampleId;
+        this.specification = specification;
+    }
+
+    public InstantNoodles(Integer id) {
+        super();
+        this.id = id;
+    }
+
+    private java.lang.Integer id;
+    private java.lang.String name;
+    private java.lang.String SampleId;
+    private java.lang.String specification;
+
+    public java.lang.Integer getId() {
+        return id;
+    }
+
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
+
+    public java.lang.String getName() {
+        return name;
+    }
+
+    public void setName(java.lang.String name) {
+        this.name = name;
+    }
+
+    public java.lang.String getSampleId() {
+        return SampleId;
+    }
+
+    public void setSampleId(java.lang.String SampleId) {
+        this.SampleId = SampleId;
+    }
+    public java.lang.String getspecification() {
+        return specification;
+    }
+
+    public void setspecification(java.lang.String specification) {
+        this.specification = specification;
+    }
+    @Override
+    public String toString() {
+        return "[" + id + "/" + name + "/" + address + "]";
+    }
+
+}

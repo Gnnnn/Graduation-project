@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sheet1>
+    <row name='TesterId'></row>
+    <column1 name='InstantNoodleAttr'></column1>
+    <column2 name='InstantNoodleId'></column2>
+    <data name='attrRate'></data>
+</Sheet1>

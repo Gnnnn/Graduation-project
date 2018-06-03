@@ -1,0 +1,64 @@
+package com.lsw.tool;
+
+import java.util.List;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.lsw.bean.InstantNoodles;
+import com.lsw.util.Constants;
+
+public class DBDelete {
+    public static void deletePart(ObjectContainer db,int n) {
+        System.out.println("删除前：");
+        DBQuery.queryAll(db);
+        ObjectSet<InstantNoodles> result = db.queryByExample(new InstantNoodles(n));
+        int i = 0;
+        while(i < result.size()){
+        	i ++;
+        	InstantNoodles p = result.next();
+            System.out.println("删除的内容： " + p);
+            if (p != null) { 
+                db.delete(p);
+            }
+        }
+        System.out.println("删除后：");
+        DBQuery.queryAll(db);
+    }
+    
+    public static void delListResult(List<?> result) {
+        System.out.println("共检索结果数：" + result.size());
+        for (int i = 0; i < result.size(); i++) {
+            System.out.println((InstantNoodles) result.get(i));
+//            ObjectSet<InstantNoodles> r = result.get(i);
+            InstantNoodles p = r.next();
+            if (p != null) { 
+//                db.delete(p);
+            }
+        }
+
+    }
+    
+    public static void deleteAll(ObjectContainer db) {
+    	ObjectSet<InstantNoodles> setall = db.queryByExample(new InstantNoodles());
+//    	delListResult(db,setall);
+    	for (int i = 0; i < setall.size(); i++) {
+            System.out.println((InstantNoodles) setall.get(i));
+            ObjectSet<InstantNoodles> r =  (ObjectSet<InstantNoodles>) setall.get(i);
+            InstantNoodles p = r.next();
+            if (p != null) { 
+                db.delete(p);
+            }
+        }
+    }
+    
+    
+    public static void main(String[] args) {
+        ObjectContainer db = Db4oEmbedded.openFile(Constants.DB4O_FILENAME);
+        int n = 1003;
+        deletePart(db,n);
+//        deleteAll(db);
+        db.close();
+
+    }
+}

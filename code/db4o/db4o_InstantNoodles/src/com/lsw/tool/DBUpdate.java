@@ -1,0 +1,57 @@
+package com.lsw.tool;
+
+import java.util.List;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.lsw.bean.InstantNoodles;
+import com.lsw.util.Constants;
+import com.lsw.tool.DBQuery;
+
+public class DBUpdate {
+    /**
+     * 更新和检索必须都先把对象检索出来然后进行操作
+     * @param db
+     */
+    public static void update(ObjectContainer db, int id, String sampleId, String name, String specification , String manufacturer) {
+        List<InstantNoodles> result = db.queryByExample(new InstantNoodles(id));
+        InstantNoodles istn; // 这里根据ID检索，最多一条结果
+        if (result != null && result.size() > 0) {// 有检索结果
+        	istn = result.get(0);
+            System.out.println("更新前的值：" + istn);
+            // 更新这条记录
+            if(sampleId != null){
+            	istn.setSampleId(sampleId);
+            }
+            if(name != null){
+            	istn.setName(name);
+            }
+            if(specification != null){
+            	istn.setSpecification(specification);
+            }
+            if(manufacturer != null){
+            	istn.setManufacturer(manufacturer);
+            }
+            db.store(istn);
+//            DBQuery.queryAll(db);
+        } else {
+            System.out.println("没有检索到任何记录.");
+        }
+
+    }
+
+    public static void main(String[] args) {
+        ObjectContainer db = Db4oEmbedded.openFile(Constants.DB4O_FILENAME);
+        int n = 1008;
+        String sampleId = null;
+        String name = null;
+        String specification = null;
+        String manufacturer = "统一";
+        ObjectSet<InstantNoodles> set = db.queryByExample(new InstantNoodles(n));
+        DBQuery.listResult(set);
+        update(db,n,sampleId, name, specification , manufacturer);
+        DBQuery.listResult(set);
+        db.close();
+    }
+}
