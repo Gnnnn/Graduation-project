@@ -25,7 +25,7 @@ def excel(fileName,sheetName):
 
 def neo4jdbConnect():
     global g
-    g = Graph(host = "18.218.245.165",http_port = 7474,user = "neo4j",password = "neo4j")
+    g = Graph(host = "18.218.125.105",http_port = 7474,user = "neo4j",password = "test")
     return g
 
 def neo4jdb1(g,InstantNoodles):
@@ -142,8 +142,8 @@ def design2(db,dataList):
 
 
 def main():
-    file = 'testDtestData.xlsx'
-    sheet = '方便面属性'
+    file = '../testData/InstantNoodlesAttr.xlsx'
+    sheet = 'Sheet1'
     dataList = excel(file,sheet)
     db = neo4jdbConnect()
     #方案一：每种方便面一个节点，无联系

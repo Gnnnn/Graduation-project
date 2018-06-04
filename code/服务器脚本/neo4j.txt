@@ -1,0 +1,7 @@
+ubuntu 安装位置:/usr/local/neo4j-community-3.4.0/
+vi /usr/local/neo4j/neo4j-community-3.4.0/conf/neo4j.conf
+
+启动:
+cd /usr/local/neo4j/neo4j-community-3.4.0/bin/
+
+./neo4j console

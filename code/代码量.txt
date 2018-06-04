@@ -1,0 +1,6 @@
+700行python代码
+400行Java代码
+300行HTML代码
+100行php代码
+？行linux代码
+？C代码（sysbench脚本）

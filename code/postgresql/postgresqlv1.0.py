@@ -1,4 +1,3 @@
-__author__ = 'qiongmiaoer'
 import psycopg2
 # 数据库连接参数
 conn = psycopg2.connect(database="XIAOKE", user="test", password="test", host="18.218.125.105", port="5432")
