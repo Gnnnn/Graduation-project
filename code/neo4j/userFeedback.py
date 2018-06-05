@@ -24,7 +24,7 @@ def excel(fileName,sheetName):
 
 def neo4jdbConnect():
     global g
-    g = Graph(host = "127.0.0.1",http_port = 7474,user = "neo4j",password = "test")
+    g = Graph(host = "18.218.125.105",http_port = 7474,user = "neo4j",password = "test")
     return g
 
 
@@ -39,7 +39,7 @@ def neo4jdbnode(g,dataList):
     m = 0 
     UserDict = []
     while m < len(UserList):
-        d["name"] = UserList[m]
+        d["name"] = str(UserList[m])
         UserDict.append(d)
         d = {}
         m = m + 1
@@ -99,8 +99,8 @@ def neo4jdbrel(g,dataList,UserList,InstantNoodleList):
 
 
 def main():
-    file = '图数据库测试数据.xlsx'
-    sheet = '不同人对不同方便面的喜好'
+    file = '../testData/UserRate.xlsx'
+    sheet = 'Sheet1'
     dataList = excel(file,sheet)
     g = neo4jdbConnect()
     UserList,InstantNoodleList = neo4jdbnode(g,dataList)

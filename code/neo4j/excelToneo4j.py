@@ -139,7 +139,74 @@ def design2(db,dataList):
 
 
 
+def neo4jdbnode(g,dataList):
+    UserList = []
+    InstantNoodleList = []
+    i = 1
+    while i < len(dataList):
+        UserList.append(dataList[i][0])
+        i = i + 1
+    d = {}
+    m = 0 
+    UserDict = []
+    while m < len(UserList):
+        d["name"] = str(UserList[m])
+        UserDict.append(d)
+        d = {}
+        m = m + 1
+    print("UserDict: ")
+    print(UserDict)
 
+    i = 1
+    while i < len(dataList[0]):
+        InstantNoodleList.append(dataList[0][i])
+        i = i + 1
+    d = {}
+    m = 0 
+    InstantNoodleDict = []
+    while m < len(InstantNoodleList):
+        d["id"] = InstantNoodleList[m]
+        InstantNoodleDict.append(d)
+        d = {}
+        m = m + 1
+    print("InstantNoodleDict: ")
+    print(InstantNoodleDict)
+
+    g.delete_all()
+    tx = g.begin()
+    for User in UserDict:
+        node = Node("User",label = "User",**User)
+        tx.merge(node)
+    for InstantNoodle in InstantNoodleDict:
+        node = Node("InstantNoodle",label = "InstantNoodle",**InstantNoodle)
+        tx.merge(node)
+    tx.commit()
+    return UserList,InstantNoodleList
+
+    
+
+def neo4jdbrel(g,dataList,UserList,InstantNoodleList):
+    tx = g.begin()
+    i = 0
+    j = 0
+    num = 0
+    while i < len(UserList):
+        j = 0
+        while j <len(InstantNoodleList):
+            print(UserList[i])
+            print(InstantNoodleList[j])
+            node1 = g.find_one(label="User",property_key="name",  property_value=str(UserList[i]))
+            node2 = g.find_one(label="InstantNoodle",property_key="id",  property_value=InstantNoodleList[j])
+            print(node1)
+            print(node2)
+            rel = Relationship(node1,'rated',node2)
+            rel["rate"] = dataList[i+1][j+1]
+            tx.merge(rel)
+            print (num)
+            num = num + 1
+            j = j +1
+        i = i + 1
+    tx.commit()
 
 def main():
     file = '../testData/InstantNoodlesAttr.xlsx'
@@ -153,6 +220,13 @@ def main():
     #方案二：方便面和厂商各为一种类型，共两个节点，彼此是从属关系
     #match p= ()-[]-() return p
     design2(db,dataList)
+    
+    #UserFeedback
+    file = '../testData/UserRate.xlsx'
+    sheet = 'Sheet1'
+    dataList = excel(file,sheet)
+    UserList,InstantNoodleList = neo4jdbnode(g,dataList)
+    neo4jdbrel(g,dataList,UserList,InstantNoodleList)
     
     
 

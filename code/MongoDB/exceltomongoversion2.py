@@ -3,13 +3,13 @@ from pymongo import MongoClient
 import  xdrlib ,sys
 import xlrd
 
-
 settings = {  
-    'ip': '18.218.125.105',  # ip地址  
-     'port': 27017,  # 端口, mongodb默认端口27017  
-    'db_name': 'xiaoke',  # 数据库名字  
-     'set_name': 'intensity'  # 集合(相当于mysql的表)名字  
+'ip': '18.218.125.105',  # ip地址  
+'port': 27017,  # 端口, mongodb默认端口27017  
+'db_name': 'xiaoke',  # 数据库名字  
+'set_name': 'intensity'  
 }
+
 
 class MyMongoDB(object):  
     # 初始化函数  
@@ -100,6 +100,7 @@ def main(file,sheet):
 if __name__ == '__main__':
 	file = '../testData/intensityTime.xlsx'
 	sheet = "Sheet1"
+    # 集合(相当于mysql的表)名字  
 	main(file,sheet)
 # INId:1001,madutime:[{time:,intensity:},{},{},]
 # INId:1001,timeIndex:[],intensity:[]

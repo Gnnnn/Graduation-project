@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-  
-import os,re,commands
+import os,re
+# ,commands
 import numpy as np  
 import matplotlib.pyplot as plt 
 
@@ -98,9 +99,9 @@ def pic(syslist,titleName):
 
 
 def main():
-	msyqltestThreadNumList = [1,5]
+	msyqltestThreadNumList = [1,10,20]
 	mysqlSysbenches = mysqltest(msyqltestThreadNumList)
-	pgsqltestThreadNumList = [1,5]
+	pgsqltestThreadNumList = [1,10,20]
 	pgsqlSysbenches = pgsqltest(pgsqltestThreadNumList)
 	titleName = "mysql"
 	pic(mysqlSysbenches,titleName)

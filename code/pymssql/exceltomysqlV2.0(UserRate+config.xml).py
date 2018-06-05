@@ -42,24 +42,47 @@ def excel_table_byname(file,sheetname,Attr):
     colnameindex=0
     colnames =  table.row_values(colnameindex) #第一行数据
     # print(colnames)
-    columnName = Attr.get('column')
+    columnNameList = []
+    i = 0
+    while i <len(Attr)-2:
+        i = i + 1
+        columnName = 'column'+str(i)
+        columnNameList.append(Attr.get(columnName))
+    print("columnNameList:")
+    print(columnNameList)
     rowName = Attr.get('row')
     dataName = Attr.get('data')
     nrows = table.nrows
     ncols = table.ncols
-    # cell_value = table.cell_value(2,2)
+    # cell_value = table.cell_value(2,1)
     # print (cell_value)
     data = []
-    for i in range(1,nrows):
+    for i in range(0,nrows-len(Attr)+2):
         row_data = table.row_values(i)
+        # col_data = table.col_values(i)
+        # print(col_data)
         for j in range(1,ncols):
             dataDict = {}
-            dataDict[columnName] = row_data[0]
-            dataDict[rowName] = colnames[j]
-            dataDict[dataName] = table.cell_value(i,j)
+            for k in range(0,len(columnNameList)):
+                dataDict[columnNameList[k]] = table.row_values(k)[j]
+                # print(table.row_values(k+1)[j])
+                # dataDict[columnNameList[k+1]] = table.row_values(k+1)[j]
+                k = k +1
+                # print(dataDict)
+                #2,0
+            # print(i)
+            # print(i+len(Attr)-2)
+            dataDict[rowName] = table.cell_value(i+len(Attr)-2,0)
+            # 2,1
+            # print(j)
+            dataDict[dataName] = table.cell_value(i+len(Attr)-2,j)
+            # print ("dataDict")
             # print (dataDict)
             data.append(dataDict)
+    print("data:")
     print(data)
+    print(len(data))
+    # return;
     #[{InstantNoodleId:1001,UserId:1,UserRate:1},{}]
     return data
 
@@ -85,7 +108,7 @@ def createTableSql(tableName,data):
                 rowType[key] = 'int(100)'
             elif isinstance(row[key],float):
                 rowType[key] = 'float(10,4)'
-            sqlvalue = sqlvalue + key+";"+rowType[key]+";"
+            sqlvalue = sqlvalue + str(key)+";"+str(rowType[key])+";"
         sqlvalue=DelLastChar(sqlvalue)
         sqlvaluelist = sqlvalue.split(";")
         # print(sqlvaluelist)
@@ -202,7 +225,24 @@ if __name__=="__main__":
     # sheet = "Sheet1"
     file = '../testData/intensityTime.xlsx'
     xmlname = "../testData/intensityTime.xml"
+    # main(xmlname,file)
+    file = '../testData/UserRate.xlsx'
+    xmlname = "../testData/UserRate.xml"
+    # main(xmlname,file)
+    file = '../testData/TesterRate.xlsx'
+    xmlname = "../testData/TesterRate.xml"
+    # main(xmlname,file)
+    file = '../testData/MultipleAttr.xlsx'
+    xmlname = "../testData/MultipleAttr.xml"
+    # main(xmlname,file)
+    #这里的InstantNoodlesAttr没成功。
+    file = '../testData/InstantNoodlesAttr.xlsx'
+    xmlname = "../testData/InstantNoodlesAttr.xml"
+    # main(xmlname,file)
+    file = '../testData/attrFrequencyTime.xlsx'
+    xmlname = "../testData/attrFrequencyTime.xml"
     main(xmlname,file)
+
 
 #xml格式如：
 # <?xml version="1.0" encoding="utf-8"?>
